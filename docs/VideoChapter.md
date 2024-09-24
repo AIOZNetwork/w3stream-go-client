@@ -4,9 +4,9 @@ All URIs are relative to https://api.w3stream.xyz/api
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](VideoChapter.md#Create) | **Post** /videos/{id}/chapter/{lan} | Create a video chapter
+[**Create**](VideoChapter.md#Create) | **Post** /videos/{id}/chapters/{lan} | Create a video chapter
 [**Get**](VideoChapter.md#Get) | **Get** /videos/{id}/chapters | Get video chapters
-[**Delete**](VideoChapter.md#Delete) | **Delete** /videos/{id}/chapter/{lan} | Delete a video chapter
+[**Delete**](VideoChapter.md#Delete) | **Delete** /videos/{id}/chapters/{lan} | Delete a video chapter
 
 
 

@@ -8,13 +8,13 @@ Method | HTTP request | Description
 [**Update**](Video.md#Update) | **Patch** /videos/{id} | update video info
 [**Delete**](Video.md#Delete) | **Delete** /videos/{id} | Delete video
 [**UploadThumbnail**](Video.md#UploadThumbnail) | **Post** /videos/{id}/thumbnail | Upload video thumbnail
-[**CreateCaption**](Video.md#CreateCaption) | **Post** /videos/{id}/caption/{lan} | Create a new video caption
-[**DeleteCaption**](Video.md#DeleteCaption) | **Delete** /videos/{id}/caption/{lan} | Delete a video caption
+[**CreateCaption**](Video.md#CreateCaption) | **Post** /videos/{id}/captions/{lan} | Create a new video caption
+[**DeleteCaption**](Video.md#DeleteCaption) | **Delete** /videos/{id}/captions/{lan} | Delete a video caption
 [**GetCaptions**](Video.md#GetCaptions) | **Get** /videos/{id}/captions | Get video captions
 [**GetCost**](Video.md#GetCost) | **Get** /videos/cost | get video transcoding cost
 [**GetDetail**](Video.md#GetDetail) | **Get** /videos/{id} | get video detail
 [**GetVideoList**](Video.md#GetVideoList) | **Post** /videos | Get user videos list
-[**SetCaption**](Video.md#SetCaption) | **Patch** /videos/{id}/caption/{lan} | Set default video caption
+[**SetCaption**](Video.md#SetCaption) | **Patch** /videos/{id}/captions/{lan} | Set default video caption
 [**UploadPart**](Video.md#UploadPart) | **Post** /videos/{id}/part | Upload part of video
 [**UploadVideoComplete**](Video.md#UploadVideoComplete) | **Get** /videos/{id}/complete | Get upload video when complete
 

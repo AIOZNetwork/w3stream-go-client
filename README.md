@@ -26,7 +26,7 @@ import (
 	"fmt"
 	"os"
 
-	w3streamsdk "github.com/w3stream/w3stream-go-client"
+	w3streamSdk "github.com/AIOZNetwork/w3stream-go-client"
 )
 
 func main() {
@@ -100,20 +100,19 @@ func main() {
 }
 ```
 
-
 ## Documentation
 
-### API Endpoints
+### API endpoints
 
-All URIs are relative to https://api.w3stream.xyz/api
-
-
-#### ApiKey
+All urls are relative to https://api.w3stream.xyz/api
 
 
-##### Retrieve an instance of the ApiKey API:
+#### Api key
+
+
+##### Retrieve an instance of the Api key:
 ```go
-secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
 apiCreds := w3streamsdk.AuthCredentials{
 	PublicKey: publicKey,
@@ -128,7 +127,7 @@ apiKeyApi := client.ApiKey
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Create**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Create) | **Post** `/api_keys` | Create API key
-[**Update**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Update) | **Patch** `/api_keys/{id}` | Rename api key
+[**Update**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Update) | **Patch** `/api_keys/{id}` | Rename API key
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Delete) | **Delete** `/api_keys/{id}` | Delete API key
 [**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#List) | **Get** `/api_keys` | Get list API keys
 
@@ -136,9 +135,9 @@ Method | HTTP request | Description
 #### Players
 
 
-##### Retrieve an instance of the Players API:
+##### Retrieve an instance of the players API:
 ```go
-secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
 apiCreds := w3streamsdk.AuthCredentials{
 	PublicKey: publicKey,
@@ -166,9 +165,9 @@ Method | HTTP request | Description
 #### Video
 
 
-##### Retrieve an instance of the Video API:
+##### Retrieve an instance of the video API:
 ```go
-secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
 apiCreds := w3streamsdk.AuthCredentials{
 	PublicKey: publicKey,
@@ -186,23 +185,23 @@ Method | HTTP request | Description
 [**Update**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#Update) | **Patch** `/videos/{id}` | update video info
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#Delete) | **Delete** `/videos/{id}` | Delete video
 [**UploadThumbnail**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#UploadThumbnail) | **Post** `/videos/{id}/thumbnail` | Upload video thumbnail
-[**CreateCaption**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#CreateCaption) | **Post** `/videos/{id}/caption/{lan}` | Create a new video caption
-[**DeleteCaption**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#DeleteCaption) | **Delete** `/videos/{id}/caption/{lan}` | Delete a video caption
+[**CreateCaption**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#CreateCaption) | **Post** `/videos/{id}/captions/{lan}` | Create a new video caption
+[**DeleteCaption**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#DeleteCaption) | **Delete** `/videos/{id}/captions/{lan}` | Delete a video caption
 [**GetCaptions**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#GetCaptions) | **Get** `/videos/{id}/captions` | Get video captions
 [**GetCost**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#GetCost) | **Get** `/videos/cost` | get video transcoding cost
 [**GetDetail**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#GetDetail) | **Get** `/videos/{id}` | get video detail
 [**GetVideoList**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#GetVideoList) | **Post** `/videos` | Get user videos list
-[**SetCaption**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#SetCaption) | **Patch** `/videos/{id}/caption/{lan}` | Set default video caption
+[**SetCaption**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#SetCaption) | **Patch** `/videos/{id}/captions/{lan}` | Set default video caption
 [**UploadPart**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#UploadPart) | **Post** `/videos/{id}/part` | Upload part of video
 [**UploadVideoComplete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#UploadVideoComplete) | **Get** `/videos/{id}/complete` | Get upload video when complete
 
 
-#### VideoChapter
+#### Video chapter
 
 
-##### Retrieve an instance of the VideoChapter API:
+##### Retrieve an instance of the video chapter API:
 ```go
-secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
 apiCreds := w3streamsdk.AuthCredentials{
 	PublicKey: publicKey,
@@ -216,17 +215,17 @@ videoChapterApi := client.VideoChapter
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Create) | **Post** `/videos/{id}/chapter/{lan}` | Create a video chapter
+[**Create**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Create) | **Post** `/videos/{id}/chapters/{lan}` | Create a video chapter
 [**Get**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Get) | **Get** `/videos/{id}/chapters` | Get video chapters
-[**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Delete) | **Delete** `/videos/{id}/chapter/{lan}` | Delete a video chapter
+[**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Delete) | **Delete** `/videos/{id}/chapters/{lan}` | Delete a video chapter
 
 
 #### Watermark
 
 
-##### Retrieve an instance of the Watermark API:
+##### Retrieve an instance of the watermark API:
 ```go
-secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
 apiCreds := w3streamsdk.AuthCredentials{
 	PublicKey: publicKey,
@@ -248,9 +247,9 @@ Method | HTTP request | Description
 #### Webhook
 
 
-##### Retrieve an instance of the Webhook API:
+##### Retrieve an instance of the webhook API:
 ```go
-secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
 apiCreds := w3streamsdk.AuthCredentials{
 	PublicKey: publicKey,
@@ -340,6 +339,7 @@ Method | HTTP request | Description
  - [VideoWatermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoWatermark.md)
  - [Watermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md)
  - [Webhook](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Webhook.md)
+
 
 
 ## Have you gotten use from this API client?

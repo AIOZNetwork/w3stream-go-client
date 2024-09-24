@@ -518,7 +518,7 @@ func (s *VideoService) CreateCaption(id string, lan string, fileName string, fil
  * @return VideoApiCreateCaptionRequest
  */
 func (s *VideoService) CreateCaptionWithContext(ctx context.Context, id string, lan string, fileName string, fileReader io.Reader) (*CreateVideoCaptionResponse, error) {
-	localVarPath := "/videos/{id}/caption/{lan}"
+	localVarPath := "/videos/{id}/captions/{lan}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"lan"+"}", url.PathEscape(parameterToString(lan, "")), -1)
 
@@ -570,7 +570,7 @@ func (s *VideoService) DeleteCaption(id string, lan string) (*ResponseSuccess, e
 func (s *VideoService) DeleteCaptionWithContext(ctx context.Context, id string, lan string) (*ResponseSuccess, error) {
 	var localVarPostBody interface{}
 
-	localVarPath := "/videos/{id}/caption/{lan}"
+	localVarPath := "/videos/{id}/captions/{lan}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"lan"+"}", url.PathEscape(parameterToString(lan, "")), -1)
 
@@ -815,7 +815,7 @@ func (s *VideoService) SetCaption(id string, lan string, isDefault SetDefaultCap
 func (s *VideoService) SetCaptionWithContext(ctx context.Context, id string, lan string, isDefault SetDefaultCaptionRequest) (*ResponseSuccess, error) {
 	var localVarPostBody interface{}
 
-	localVarPath := "/videos/{id}/caption/{lan}"
+	localVarPath := "/videos/{id}/captions/{lan}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"lan"+"}", url.PathEscape(parameterToString(lan, "")), -1)
 

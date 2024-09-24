@@ -2794,7 +2794,186 @@ paths:
       - video
       x-client-action: update
       x-codegen-request-body-name: input
-  /videos/{id}/caption/{lan}:
+  /videos/{id}/captions:
+    get:
+      description: Retrieves a list of video captions for the specified video.
+      operationId: GET_videos-videoId-caption-language
+      parameters:
+      - description: Video ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: offset, allowed values greater than or equal to 0. Default(0)
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      - description: results per page. Allowed values 1-100, default is 25
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetVideoCaptionsResponse'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Get video captions
+      tags:
+      - video
+      x-client-action: getCaptions
+      x-client-paginated: true
+      x-group-parameters: true
+  /videos/{id}/captions/{lan}:
     delete:
       description: Delete a caption in a specific language by providing the video
         ID for the video you want to delete the caption from and the language the
@@ -3312,10 +3491,10 @@ paths:
       tags:
       - video
       x-client-action: createCaption
-  /videos/{id}/captions:
+  /videos/{id}/chapters:
     get:
-      description: Retrieves a list of video captions for the specified video.
-      operationId: GET_videos-videoId-caption-language
+      description: Get a chapter for by video id in a specific language.
+      operationId: GET_videos-videoId-chapters-language
       parameters:
       - description: Video ID
         explode: false
@@ -3351,7 +3530,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetVideoCaptionsResponse'
+                $ref: '#/components/schemas/GetVideoChaptersResponse'
           description: OK
           headers:
             X-RateLimit-Remaining:
@@ -3485,13 +3664,13 @@ paths:
       security:
       - BasicAuth: []
       - Bearer: []
-      summary: Get video captions
+      summary: Get video chapters
       tags:
-      - video
-      x-client-action: getCaptions
+      - Video chapter
+      x-client-action: get
       x-client-paginated: true
       x-group-parameters: true
-  /videos/{id}/chapter/{lan}:
+  /videos/{id}/chapters/{lan}:
     delete:
       description: Delete a chapter in a specific language by providing the video
         ID for the video you want to delete the chapter from and the language the
@@ -3835,185 +4014,6 @@ paths:
       tags:
       - Video chapter
       x-client-action: create
-  /videos/{id}/chapters:
-    get:
-      description: Get a chapter for by video id in a specific language.
-      operationId: GET_videos-videoId-chapters-language
-      parameters:
-      - description: Video ID
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: offset, allowed values greater than or equal to 0. Default(0)
-        explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          default: 0
-          minimum: 0
-          type: integer
-        style: form
-      - description: results per page. Allowed values 1-100, default is 25
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 25
-          maximum: 100
-          minimum: 1
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetVideoChaptersResponse'
-          description: OK
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-          description: Bad Request
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-          description: Forbidden
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-          description: Not Found
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-          description: Internal Server Error
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-      security:
-      - BasicAuth: []
-      - Bearer: []
-      summary: Get video chapters
-      tags:
-      - Video chapter
-      x-client-action: get
-      x-client-paginated: true
-      x-group-parameters: true
   /videos/{id}/complete:
     get:
       description: Get upload video when complete.

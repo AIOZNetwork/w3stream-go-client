@@ -146,7 +146,7 @@ func (s *VideoChapterService) Create(id string, lan string, fileName string, fil
  * @return VideoChapterApiCreateRequest
  */
 func (s *VideoChapterService) CreateWithContext(ctx context.Context, id string, lan string, fileName string, fileReader io.Reader) (*CreateVideoChapterResponse, error) {
-	localVarPath := "/videos/{id}/chapter/{lan}"
+	localVarPath := "/videos/{id}/chapters/{lan}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"lan"+"}", url.PathEscape(parameterToString(lan, "")), -1)
 
@@ -252,7 +252,7 @@ func (s *VideoChapterService) Delete(id string, lan string) (*ResponseSuccess, e
 func (s *VideoChapterService) DeleteWithContext(ctx context.Context, id string, lan string) (*ResponseSuccess, error) {
 	var localVarPostBody interface{}
 
-	localVarPath := "/videos/{id}/chapter/{lan}"
+	localVarPath := "/videos/{id}/chapters/{lan}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"lan"+"}", url.PathEscape(parameterToString(lan, "")), -1)
 
