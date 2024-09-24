@@ -100,12 +100,28 @@ func main() {
 }
 ```
 
+
 ## Documentation
 
 ### API Endpoints
 
 All URIs are relative to https://api.w3stream.xyz/api
 
+
+#### ApiKey
+
+
+##### Retrieve an instance of the ApiKey API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+apiKeyApi := client.ApiKey
+```
 
 ##### Endpoints
 
@@ -116,6 +132,21 @@ Method | HTTP request | Description
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Delete) | **Delete** `/api_keys/{id}` | Delete API key
 [**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#List) | **Get** `/api_keys` | Get list API keys
 
+
+#### Players
+
+
+##### Retrieve an instance of the Players API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+playersApi := client.Players
+```
 
 ##### Endpoints
 
@@ -131,6 +162,21 @@ Method | HTTP request | Description
 [**AddPlayer**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Players.md#AddPlayer) | **Post** `/players/add-player` | Add a player theme to a video
 [**RemovePlayer**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Players.md#RemovePlayer) | **Post** `/players/remove-player` | Remove a player theme from a video
 
+
+#### Video
+
+
+##### Retrieve an instance of the Video API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+videoApi := client.Video
+```
 
 ##### Endpoints
 
@@ -151,6 +197,21 @@ Method | HTTP request | Description
 [**UploadVideoComplete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#UploadVideoComplete) | **Get** `/videos/{id}/complete` | Get upload video when complete
 
 
+#### VideoChapter
+
+
+##### Retrieve an instance of the VideoChapter API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+videoChapterApi := client.VideoChapter
+```
+
 ##### Endpoints
 
 Method | HTTP request | Description
@@ -160,6 +221,21 @@ Method | HTTP request | Description
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Delete) | **Delete** `/videos/{id}/chapter/{lan}` | Delete a video chapter
 
 
+#### Watermark
+
+
+##### Retrieve an instance of the Watermark API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+watermarkApi := client.Watermark
+```
+
 ##### Endpoints
 
 Method | HTTP request | Description
@@ -168,6 +244,21 @@ Method | HTTP request | Description
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#Delete) | **Delete** `/watermarks/{id}` | Delete a watermark by ID
 [**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#List) | **Get** `/watermarks` | List all watermarks
 
+
+#### Webhook
+
+
+##### Retrieve an instance of the Webhook API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+webhookApi := client.Webhook
+```
 
 ##### Endpoints
 
@@ -249,7 +340,6 @@ Method | HTTP request | Description
  - [VideoWatermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoWatermark.md)
  - [Watermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md)
  - [Webhook](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Webhook.md)
-
 
 
 ## Have you gotten use from this API client?
