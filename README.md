@@ -50,7 +50,7 @@ func main() {
 		return
 	}
 
-    videoId := createResult.Data.VideoId // Get the video ID from the response
+    videoId := createResult.Data.Id // Get the video ID from the response
 
     // Open the video file
     videoFile, err := os.Open("/path/to/video.mp4")
