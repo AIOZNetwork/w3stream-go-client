@@ -15,31 +15,31 @@ import (
 //"encoding/json"
 )
 
-// GetVideoListData struct for GetVideoListData
-type GetVideoListData struct {
-	Total  *int32         `json:"total,omitempty"`
-	Videos *[]VideoObject `json:"videos,omitempty"`
+// LiveStreamVideosResponse struct for LiveStreamVideosResponse
+type LiveStreamVideosResponse struct {
+	Total  *int32                     `json:"total,omitempty"`
+	Videos *[]LiveStreamVideoResponse `json:"videos,omitempty"`
 }
 
-// NewGetVideoListData instantiates a new GetVideoListData object
+// NewLiveStreamVideosResponse instantiates a new LiveStreamVideosResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetVideoListData() *GetVideoListData {
-	this := GetVideoListData{}
+func NewLiveStreamVideosResponse() *LiveStreamVideosResponse {
+	this := LiveStreamVideosResponse{}
 	return &this
 }
 
-// NewGetVideoListDataWithDefaults instantiates a new GetVideoListData object
+// NewLiveStreamVideosResponseWithDefaults instantiates a new LiveStreamVideosResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGetVideoListDataWithDefaults() *GetVideoListData {
-	this := GetVideoListData{}
+func NewLiveStreamVideosResponseWithDefaults() *LiveStreamVideosResponse {
+	this := LiveStreamVideosResponse{}
 	return &this
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *GetVideoListData) GetTotal() int32 {
+func (o *LiveStreamVideosResponse) GetTotal() int32 {
 	if o == nil || o.Total == nil {
 		var ret int32
 		return ret
@@ -49,7 +49,7 @@ func (o *GetVideoListData) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetVideoListData) GetTotalOk() (*int32, bool) {
+func (o *LiveStreamVideosResponse) GetTotalOk() (*int32, bool) {
 	if o == nil || o.Total == nil {
 		return nil, false
 	}
@@ -57,7 +57,7 @@ func (o *GetVideoListData) GetTotalOk() (*int32, bool) {
 }
 
 // HasTotal returns a boolean if a field has been set.
-func (o *GetVideoListData) HasTotal() bool {
+func (o *LiveStreamVideosResponse) HasTotal() bool {
 	if o != nil && o.Total != nil {
 		return true
 	}
@@ -66,14 +66,14 @@ func (o *GetVideoListData) HasTotal() bool {
 }
 
 // SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *GetVideoListData) SetTotal(v int32) {
+func (o *LiveStreamVideosResponse) SetTotal(v int32) {
 	o.Total = &v
 }
 
 // GetVideos returns the Videos field value if set, zero value otherwise.
-func (o *GetVideoListData) GetVideos() []VideoObject {
+func (o *LiveStreamVideosResponse) GetVideos() []LiveStreamVideoResponse {
 	if o == nil || o.Videos == nil {
-		var ret []VideoObject
+		var ret []LiveStreamVideoResponse
 		return ret
 	}
 	return *o.Videos
@@ -81,7 +81,7 @@ func (o *GetVideoListData) GetVideos() []VideoObject {
 
 // GetVideosOk returns a tuple with the Videos field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetVideoListData) GetVideosOk() (*[]VideoObject, bool) {
+func (o *LiveStreamVideosResponse) GetVideosOk() (*[]LiveStreamVideoResponse, bool) {
 	if o == nil || o.Videos == nil {
 		return nil, false
 	}
@@ -89,7 +89,7 @@ func (o *GetVideoListData) GetVideosOk() (*[]VideoObject, bool) {
 }
 
 // HasVideos returns a boolean if a field has been set.
-func (o *GetVideoListData) HasVideos() bool {
+func (o *LiveStreamVideosResponse) HasVideos() bool {
 	if o != nil && o.Videos != nil {
 		return true
 	}
@@ -97,34 +97,34 @@ func (o *GetVideoListData) HasVideos() bool {
 	return false
 }
 
-// SetVideos gets a reference to the given []VideoObject and assigns it to the Videos field.
-func (o *GetVideoListData) SetVideos(v []VideoObject) {
+// SetVideos gets a reference to the given []LiveStreamVideoResponse and assigns it to the Videos field.
+func (o *LiveStreamVideosResponse) SetVideos(v []LiveStreamVideoResponse) {
 	o.Videos = &v
 }
 
-type NullableGetVideoListData struct {
-	value *GetVideoListData
+type NullableLiveStreamVideosResponse struct {
+	value *LiveStreamVideosResponse
 	isSet bool
 }
 
-func (v NullableGetVideoListData) Get() *GetVideoListData {
+func (v NullableLiveStreamVideosResponse) Get() *LiveStreamVideosResponse {
 	return v.value
 }
 
-func (v *NullableGetVideoListData) Set(val *GetVideoListData) {
+func (v *NullableLiveStreamVideosResponse) Set(val *LiveStreamVideosResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGetVideoListData) IsSet() bool {
+func (v NullableLiveStreamVideosResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGetVideoListData) Unset() {
+func (v *NullableLiveStreamVideosResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGetVideoListData(val *GetVideoListData) *NullableGetVideoListData {
-	return &NullableGetVideoListData{value: val, isSet: true}
+func NewNullableLiveStreamVideosResponse(val *LiveStreamVideosResponse) *NullableLiveStreamVideosResponse {
+	return &NullableLiveStreamVideosResponse{value: val, isSet: true}
 }

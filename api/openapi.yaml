@@ -703,6 +703,2093 @@ paths:
       - apiKey
       x-client-action: update
       x-codegen-request-body-name: request
+  /live_streams:
+    get:
+      description: Get live stream key list
+      parameters:
+      - description: only support search by name
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: sort by
+        explode: true
+        in: query
+        name: sort_by
+        required: false
+        schema:
+          default: created_at
+          enum:
+          - created_at
+          - name
+          type: string
+        style: form
+      - description: 'allowed: asc, desc. Default: asc'
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          default: asc
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: offset, allowed values greater than or equal to 0.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: results per page.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLiveStreamKeysListResponse'
+          description: GetLiveStreamKeysResponse
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Get live stream key list
+      tags:
+      - live_stream
+      x-client-action: getLiveStreamKeys
+      x-client-paginated: true
+      x-group-parameters: true
+      x-optional-object: true
+    post:
+      description: Create live stream key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLiveStreamKeyRequest'
+        description: CreateLiveStreamKeyRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateLiveStreamKeyResponse'
+          description: CreateLiveStreamKeyResponse
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Create live stream key
+      tags:
+      - live_stream
+      x-client-action: createLiveStreamKey
+      x-codegen-request-body-name: input
+  /live_streams/{id}:
+    delete:
+      description: Delete a live stream key by ID
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Delete live stream key
+      tags:
+      - live_stream
+      x-client-action: deleteLiveStreamKey
+    get:
+      description: Get live stream key
+      parameters:
+      - description: ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLiveStreamKeyResponse'
+          description: LiveStreamKey
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Get live stream key
+      tags:
+      - live_stream
+      x-client-action: getLiveStreamKey
+    put:
+      description: Update a live stream key by ID
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLiveStreamKeyRequest'
+        description: UpdateLiveStreamKeyRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLiveStreamKeyResponse'
+          description: Updated LiveStreamKey
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Update live stream key
+      tags:
+      - live_stream
+      x-client-action: updateLiveStreamKey
+      x-codegen-request-body-name: input
+  /live_streams/{id}/streamings:
+    get:
+      description: Get live stream video streamings for a specific live stream key
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStreamingsResponse'
+          description: LiveStreamVideosResponse
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Get live stream video streamings
+      tags:
+      - live_stream
+      x-client-action: getStreamings
+    post:
+      description: Creates a new live stream video with the provided details
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStreamingRequest'
+        description: CreateStreamingRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateStreamingResponse'
+          description: Created LiveStreamVideo
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Create a new live stream video
+      tags:
+      - live_stream
+      x-client-action: createStreaming
+      x-codegen-request-body-name: input
+    put:
+      description: Update live stream video. You can only update while live streaming.
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLiveStreamVideoRequest'
+        description: data
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: LiveStreamVideo
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Update live stream video
+      tags:
+      - live_stream
+      x-client-action: updateLiveStreamVideo
+      x-codegen-request-body-name: data
+  /live_streams/{id}/streamings/{stream_id}:
+    get:
+      description: Get live stream video streaming for a specific live stream key
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Stream ID
+        explode: false
+        in: path
+        name: stream_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStreamingResponse'
+          description: LiveStreamVideo
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Get live stream video streaming
+      tags:
+      - live_stream
+      x-client-action: getStreaming
+  /live_streams/{id}/videos:
+    delete:
+      description: Delete a live stream video by ID
+      parameters:
+      - description: Live stream video ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Delete live stream video
+      tags:
+      - live_stream
+      x-client-action: deleteLiveStreamVideo
+    get:
+      description: Get a specific live stream video by ID
+      parameters:
+      - description: Live stream video ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLiveStreamVideoResponse'
+          description: LiveStreamVideo
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Get live stream video
+      tags:
+      - live_stream
+      x-client-action: getLiveStreamVideo
+    post:
+      description: Get live stream videos for a specific live stream key
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetLiveStreamVideosRequest'
+        description: data
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLiveStreamVideosResponse'
+          description: ok
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Get live stream videos
+      tags:
+      - live_stream
+      x-client-action: getLiveStreamVideos
+      x-codegen-request-body-name: data
+  /live_streams/player/{id}/videos:
+    get:
+      description: Get live stream video public for a specific live stream key
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLiveStreamVideoPublicResponse'
+          description: LiveStreamVideo
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      summary: Get live stream video public
+      tags:
+      - live_stream
+      x-client-action: getLiveStreamVideoPublic
   /players:
     get:
       description: Retrieve a list of all the player themes you created, as well as
@@ -6538,6 +8625,34 @@ components:
         status:
           type: string
       type: object
+    CreateLiveStreamKeyRequest:
+      example:
+        name: name
+        save: true
+      properties:
+        name:
+          type: string
+        save:
+          type: boolean
+      type: object
+    CreateLiveStreamKeyResponse:
+      example:
+        data:
+          updated_at: updated_at
+          rtmp_url: rtmp_url
+          user_id: user_id
+          name: name
+          save: true
+          created_at: created_at
+          id: id
+          stream_key: stream_key
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStreamKeyData'
+        status:
+          type: string
+      type: object
     CreatePlayerThemeRequest:
       example:
         controls:
@@ -6633,6 +8748,126 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/CreatePlayerThemesData'
+        status:
+          type: string
+      type: object
+    CreateStreamingRequest:
+      example:
+        save: true
+        qualities:
+        - qualities
+        - qualities
+        title: title
+      properties:
+        qualities:
+          description: 'Qualities of the video (default: 1080p, 720p,  360p, allow:2160p,
+            1440p, 1080p, 720p,  360p, 240p, 144p)'
+          items:
+            type: string
+          type: array
+        save:
+          type: boolean
+        title:
+          type: string
+      type: object
+    CreateStreamingResponse:
+      example:
+        data:
+          duration: 0
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          user_id: user_id
+          save: true
+          created_at: created_at
+          qualities:
+          - qualities
+          - qualities
+          id: id
+          video:
+            metadata:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            chapters:
+            - language: language
+              url: url
+            - language: language
+              url: url
+            player_theme:
+              controls:
+                force_autoplay: true
+                enable_controls: true
+                enable_api: true
+                hide_title: true
+                force_loop: true
+              user_id: user_id
+              name: name
+              created_at: created_at
+              theme:
+                text_track_background: text_track_background
+                main_color: main_color
+                progress_bar_height: progress_bar_height
+                progress_bar_circle_size: progress_bar_circle_size
+                control_bar_background_color: control_bar_background_color
+                text_color: text_color
+                menu_item_background_hover: menu_item_background_hover
+                text_track_color: text_track_color
+                control_bar_height: control_bar_height
+                menu_background_color: menu_background_color
+              id: id
+              asset:
+                logo_link: logo_link
+                logo_image_link: logo_image_link
+                logo: logo
+              is_default: true
+            created_at: created_at
+            description: description
+            title: title
+            captions:
+            - language: language
+              is_default: true
+              url: url
+            - language: language
+              is_default: true
+              url: url
+            tags:
+            - tags
+            - tags
+            duration: 1.4658129805029452
+            is_mp4: true
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+              mp4_url: mp4_url
+              source_url: source_url
+            size: 5
+            updated_at: updated_at
+            user_id: user_id
+            player_theme_id: player_theme_id
+            is_public: true
+            qualities:
+            - name: name
+              type: type
+              status: status
+            - name: name
+              type: type
+              status: status
+            id: id
+            status: status
+          title: title
+          live_stream_key_id: live_stream_key_id
+          status: status
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStreamVideoData'
         status:
           type: string
       type: object
@@ -6788,7 +9023,7 @@ components:
           tags:
           - tags
           - tags
-          duration: 6.027456183070403
+          duration: 1.4658129805029452
           is_mp4: true
           assets:
             player_url: player_url
@@ -6797,7 +9032,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 1
+          size: 5
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -6814,7 +9049,7 @@ components:
         status: status
       properties:
         data:
-          $ref: '#/components/schemas/Video'
+          $ref: '#/components/schemas/VideoObject'
         status:
           type: string
       type: object
@@ -7017,6 +9252,526 @@ components:
         status:
           type: string
       type: object
+    GetLiveStreamKeyData:
+      example:
+        updated_at: updated_at
+        rtmp_url: rtmp_url
+        user_id: user_id
+        name: name
+        save: true
+        created_at: created_at
+        id: id
+        stream_key: stream_key
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        rtmp_url:
+          type: string
+        save:
+          type: boolean
+        stream_key:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+      type: object
+    GetLiveStreamKeyResponse:
+      example:
+        data:
+          updated_at: updated_at
+          rtmp_url: rtmp_url
+          user_id: user_id
+          name: name
+          save: true
+          created_at: created_at
+          id: id
+          stream_key: stream_key
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/GetLiveStreamKeyData'
+        status:
+          type: string
+      type: object
+    GetLiveStreamKeysListData:
+      example:
+        total: 0
+        live_stream_keys:
+        - updated_at: updated_at
+          rtmp_url: rtmp_url
+          user_id: user_id
+          name: name
+          save: true
+          created_at: created_at
+          id: id
+          stream_key: stream_key
+        - updated_at: updated_at
+          rtmp_url: rtmp_url
+          user_id: user_id
+          name: name
+          save: true
+          created_at: created_at
+          id: id
+          stream_key: stream_key
+      properties:
+        live_stream_keys:
+          items:
+            $ref: '#/components/schemas/GetLiveStreamKeyData'
+          type: array
+        total:
+          type: integer
+      type: object
+    GetLiveStreamKeysListResponse:
+      example:
+        data:
+          total: 0
+          live_stream_keys:
+          - updated_at: updated_at
+            rtmp_url: rtmp_url
+            user_id: user_id
+            name: name
+            save: true
+            created_at: created_at
+            id: id
+            stream_key: stream_key
+          - updated_at: updated_at
+            rtmp_url: rtmp_url
+            user_id: user_id
+            name: name
+            save: true
+            created_at: created_at
+            id: id
+            stream_key: stream_key
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/GetLiveStreamKeysListData'
+        status:
+          type: string
+      type: object
+    GetLiveStreamVideoPublicResponse:
+      example:
+        data:
+          duration: 6
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          user_id: user_id
+          save: true
+          created_at: created_at
+          qualities:
+          - qualities
+          - qualities
+          id: id
+          video:
+            metadata:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            chapters:
+            - language: language
+              url: url
+            - language: language
+              url: url
+            player_theme:
+              controls:
+                force_autoplay: true
+                enable_controls: true
+                enable_api: true
+                hide_title: true
+                force_loop: true
+              user_id: user_id
+              name: name
+              created_at: created_at
+              theme:
+                text_track_background: text_track_background
+                main_color: main_color
+                progress_bar_height: progress_bar_height
+                progress_bar_circle_size: progress_bar_circle_size
+                control_bar_background_color: control_bar_background_color
+                text_color: text_color
+                menu_item_background_hover: menu_item_background_hover
+                text_track_color: text_track_color
+                control_bar_height: control_bar_height
+                menu_background_color: menu_background_color
+              id: id
+              asset:
+                logo_link: logo_link
+                logo_image_link: logo_image_link
+                logo: logo
+              is_default: true
+            created_at: created_at
+            description: description
+            title: title
+            captions:
+            - language: language
+              is_default: true
+              url: url
+            - language: language
+              is_default: true
+              url: url
+            tags:
+            - tags
+            - tags
+            duration: 1.4658129805029452
+            is_mp4: true
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+              mp4_url: mp4_url
+              source_url: source_url
+            size: 5
+            updated_at: updated_at
+            user_id: user_id
+            player_theme_id: player_theme_id
+            is_public: true
+            qualities:
+            - name: name
+              type: type
+              status: status
+            - name: name
+              type: type
+              status: status
+            id: id
+            status: status
+          title: title
+          live_stream_key_id: live_stream_key_id
+          status: status
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStreamVideoResponse'
+        status:
+          type: string
+      type: object
+    GetLiveStreamVideoResponse:
+      example:
+        data:
+          duration: 6
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          user_id: user_id
+          save: true
+          created_at: created_at
+          qualities:
+          - qualities
+          - qualities
+          id: id
+          video:
+            metadata:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            chapters:
+            - language: language
+              url: url
+            - language: language
+              url: url
+            player_theme:
+              controls:
+                force_autoplay: true
+                enable_controls: true
+                enable_api: true
+                hide_title: true
+                force_loop: true
+              user_id: user_id
+              name: name
+              created_at: created_at
+              theme:
+                text_track_background: text_track_background
+                main_color: main_color
+                progress_bar_height: progress_bar_height
+                progress_bar_circle_size: progress_bar_circle_size
+                control_bar_background_color: control_bar_background_color
+                text_color: text_color
+                menu_item_background_hover: menu_item_background_hover
+                text_track_color: text_track_color
+                control_bar_height: control_bar_height
+                menu_background_color: menu_background_color
+              id: id
+              asset:
+                logo_link: logo_link
+                logo_image_link: logo_image_link
+                logo: logo
+              is_default: true
+            created_at: created_at
+            description: description
+            title: title
+            captions:
+            - language: language
+              is_default: true
+              url: url
+            - language: language
+              is_default: true
+              url: url
+            tags:
+            - tags
+            - tags
+            duration: 1.4658129805029452
+            is_mp4: true
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+              mp4_url: mp4_url
+              source_url: source_url
+            size: 5
+            updated_at: updated_at
+            user_id: user_id
+            player_theme_id: player_theme_id
+            is_public: true
+            qualities:
+            - name: name
+              type: type
+              status: status
+            - name: name
+              type: type
+              status: status
+            id: id
+            status: status
+          title: title
+          live_stream_key_id: live_stream_key_id
+          status: status
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStreamVideoResponse'
+        status:
+          type: string
+      type: object
+    GetLiveStreamVideosRequest:
+      example:
+        search: search
+        offset: 6
+        limit: 0
+        order_by: order_by
+        sort_by: sort_by
+        live_stream_key_id: live_stream_key_id
+      properties:
+        limit:
+          type: integer
+        live_stream_key_id:
+          type: string
+        offset:
+          type: integer
+        order_by:
+          type: string
+        search:
+          type: string
+        sort_by:
+          type: string
+      type: object
+    GetLiveStreamVideosResponse:
+      example:
+        data:
+          total: 0
+          videos:
+          - duration: 6
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+            updated_at: updated_at
+            user_id: user_id
+            save: true
+            created_at: created_at
+            qualities:
+            - qualities
+            - qualities
+            id: id
+            video:
+              metadata:
+              - value: value
+                key: key
+              - value: value
+                key: key
+              chapters:
+              - language: language
+                url: url
+              - language: language
+                url: url
+              player_theme:
+                controls:
+                  force_autoplay: true
+                  enable_controls: true
+                  enable_api: true
+                  hide_title: true
+                  force_loop: true
+                user_id: user_id
+                name: name
+                created_at: created_at
+                theme:
+                  text_track_background: text_track_background
+                  main_color: main_color
+                  progress_bar_height: progress_bar_height
+                  progress_bar_circle_size: progress_bar_circle_size
+                  control_bar_background_color: control_bar_background_color
+                  text_color: text_color
+                  menu_item_background_hover: menu_item_background_hover
+                  text_track_color: text_track_color
+                  control_bar_height: control_bar_height
+                  menu_background_color: menu_background_color
+                id: id
+                asset:
+                  logo_link: logo_link
+                  logo_image_link: logo_image_link
+                  logo: logo
+                is_default: true
+              created_at: created_at
+              description: description
+              title: title
+              captions:
+              - language: language
+                is_default: true
+                url: url
+              - language: language
+                is_default: true
+                url: url
+              tags:
+              - tags
+              - tags
+              duration: 1.4658129805029452
+              is_mp4: true
+              assets:
+                player_url: player_url
+                hls_url: hls_url
+                iframe: iframe
+                thumbnail_url: thumbnail_url
+                mp4_url: mp4_url
+                source_url: source_url
+              size: 5
+              updated_at: updated_at
+              user_id: user_id
+              player_theme_id: player_theme_id
+              is_public: true
+              qualities:
+              - name: name
+                type: type
+                status: status
+              - name: name
+                type: type
+                status: status
+              id: id
+              status: status
+            title: title
+            live_stream_key_id: live_stream_key_id
+            status: status
+          - duration: 6
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+            updated_at: updated_at
+            user_id: user_id
+            save: true
+            created_at: created_at
+            qualities:
+            - qualities
+            - qualities
+            id: id
+            video:
+              metadata:
+              - value: value
+                key: key
+              - value: value
+                key: key
+              chapters:
+              - language: language
+                url: url
+              - language: language
+                url: url
+              player_theme:
+                controls:
+                  force_autoplay: true
+                  enable_controls: true
+                  enable_api: true
+                  hide_title: true
+                  force_loop: true
+                user_id: user_id
+                name: name
+                created_at: created_at
+                theme:
+                  text_track_background: text_track_background
+                  main_color: main_color
+                  progress_bar_height: progress_bar_height
+                  progress_bar_circle_size: progress_bar_circle_size
+                  control_bar_background_color: control_bar_background_color
+                  text_color: text_color
+                  menu_item_background_hover: menu_item_background_hover
+                  text_track_color: text_track_color
+                  control_bar_height: control_bar_height
+                  menu_background_color: menu_background_color
+                id: id
+                asset:
+                  logo_link: logo_link
+                  logo_image_link: logo_image_link
+                  logo: logo
+                is_default: true
+              created_at: created_at
+              description: description
+              title: title
+              captions:
+              - language: language
+                is_default: true
+                url: url
+              - language: language
+                is_default: true
+                url: url
+              tags:
+              - tags
+              - tags
+              duration: 1.4658129805029452
+              is_mp4: true
+              assets:
+                player_url: player_url
+                hls_url: hls_url
+                iframe: iframe
+                thumbnail_url: thumbnail_url
+                mp4_url: mp4_url
+                source_url: source_url
+              size: 5
+              updated_at: updated_at
+              user_id: user_id
+              player_theme_id: player_theme_id
+              is_public: true
+              qualities:
+              - name: name
+                type: type
+                status: status
+              - name: name
+                type: type
+                status: status
+              id: id
+              status: status
+            title: title
+            live_stream_key_id: live_stream_key_id
+            status: status
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStreamVideosResponse'
+        status:
+          type: string
+      type: object
     GetPlayerThemeByIdData:
       example:
         player_theme:
@@ -7215,6 +9970,301 @@ components:
         status:
           type: string
       type: object
+    GetStreamingResponse:
+      example:
+        data:
+          duration: 6
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          user_id: user_id
+          save: true
+          created_at: created_at
+          qualities:
+          - qualities
+          - qualities
+          id: id
+          video:
+            metadata:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            chapters:
+            - language: language
+              url: url
+            - language: language
+              url: url
+            player_theme:
+              controls:
+                force_autoplay: true
+                enable_controls: true
+                enable_api: true
+                hide_title: true
+                force_loop: true
+              user_id: user_id
+              name: name
+              created_at: created_at
+              theme:
+                text_track_background: text_track_background
+                main_color: main_color
+                progress_bar_height: progress_bar_height
+                progress_bar_circle_size: progress_bar_circle_size
+                control_bar_background_color: control_bar_background_color
+                text_color: text_color
+                menu_item_background_hover: menu_item_background_hover
+                text_track_color: text_track_color
+                control_bar_height: control_bar_height
+                menu_background_color: menu_background_color
+              id: id
+              asset:
+                logo_link: logo_link
+                logo_image_link: logo_image_link
+                logo: logo
+              is_default: true
+            created_at: created_at
+            description: description
+            title: title
+            captions:
+            - language: language
+              is_default: true
+              url: url
+            - language: language
+              is_default: true
+              url: url
+            tags:
+            - tags
+            - tags
+            duration: 1.4658129805029452
+            is_mp4: true
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+              mp4_url: mp4_url
+              source_url: source_url
+            size: 5
+            updated_at: updated_at
+            user_id: user_id
+            player_theme_id: player_theme_id
+            is_public: true
+            qualities:
+            - name: name
+              type: type
+              status: status
+            - name: name
+              type: type
+              status: status
+            id: id
+            status: status
+          title: title
+          live_stream_key_id: live_stream_key_id
+          status: status
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStreamVideoResponse'
+        status:
+          type: string
+      type: object
+    GetStreamingsResponse:
+      example:
+        data:
+          total: 0
+          videos:
+          - duration: 6
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+            updated_at: updated_at
+            user_id: user_id
+            save: true
+            created_at: created_at
+            qualities:
+            - qualities
+            - qualities
+            id: id
+            video:
+              metadata:
+              - value: value
+                key: key
+              - value: value
+                key: key
+              chapters:
+              - language: language
+                url: url
+              - language: language
+                url: url
+              player_theme:
+                controls:
+                  force_autoplay: true
+                  enable_controls: true
+                  enable_api: true
+                  hide_title: true
+                  force_loop: true
+                user_id: user_id
+                name: name
+                created_at: created_at
+                theme:
+                  text_track_background: text_track_background
+                  main_color: main_color
+                  progress_bar_height: progress_bar_height
+                  progress_bar_circle_size: progress_bar_circle_size
+                  control_bar_background_color: control_bar_background_color
+                  text_color: text_color
+                  menu_item_background_hover: menu_item_background_hover
+                  text_track_color: text_track_color
+                  control_bar_height: control_bar_height
+                  menu_background_color: menu_background_color
+                id: id
+                asset:
+                  logo_link: logo_link
+                  logo_image_link: logo_image_link
+                  logo: logo
+                is_default: true
+              created_at: created_at
+              description: description
+              title: title
+              captions:
+              - language: language
+                is_default: true
+                url: url
+              - language: language
+                is_default: true
+                url: url
+              tags:
+              - tags
+              - tags
+              duration: 1.4658129805029452
+              is_mp4: true
+              assets:
+                player_url: player_url
+                hls_url: hls_url
+                iframe: iframe
+                thumbnail_url: thumbnail_url
+                mp4_url: mp4_url
+                source_url: source_url
+              size: 5
+              updated_at: updated_at
+              user_id: user_id
+              player_theme_id: player_theme_id
+              is_public: true
+              qualities:
+              - name: name
+                type: type
+                status: status
+              - name: name
+                type: type
+                status: status
+              id: id
+              status: status
+            title: title
+            live_stream_key_id: live_stream_key_id
+            status: status
+          - duration: 6
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+            updated_at: updated_at
+            user_id: user_id
+            save: true
+            created_at: created_at
+            qualities:
+            - qualities
+            - qualities
+            id: id
+            video:
+              metadata:
+              - value: value
+                key: key
+              - value: value
+                key: key
+              chapters:
+              - language: language
+                url: url
+              - language: language
+                url: url
+              player_theme:
+                controls:
+                  force_autoplay: true
+                  enable_controls: true
+                  enable_api: true
+                  hide_title: true
+                  force_loop: true
+                user_id: user_id
+                name: name
+                created_at: created_at
+                theme:
+                  text_track_background: text_track_background
+                  main_color: main_color
+                  progress_bar_height: progress_bar_height
+                  progress_bar_circle_size: progress_bar_circle_size
+                  control_bar_background_color: control_bar_background_color
+                  text_color: text_color
+                  menu_item_background_hover: menu_item_background_hover
+                  text_track_color: text_track_color
+                  control_bar_height: control_bar_height
+                  menu_background_color: menu_background_color
+                id: id
+                asset:
+                  logo_link: logo_link
+                  logo_image_link: logo_image_link
+                  logo: logo
+                is_default: true
+              created_at: created_at
+              description: description
+              title: title
+              captions:
+              - language: language
+                is_default: true
+                url: url
+              - language: language
+                is_default: true
+                url: url
+              tags:
+              - tags
+              - tags
+              duration: 1.4658129805029452
+              is_mp4: true
+              assets:
+                player_url: player_url
+                hls_url: hls_url
+                iframe: iframe
+                thumbnail_url: thumbnail_url
+                mp4_url: mp4_url
+                source_url: source_url
+              size: 5
+              updated_at: updated_at
+              user_id: user_id
+              player_theme_id: player_theme_id
+              is_public: true
+              qualities:
+              - name: name
+                type: type
+                status: status
+              - name: name
+                type: type
+                status: status
+              id: id
+              status: status
+            title: title
+            live_stream_key_id: live_stream_key_id
+            status: status
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStreamVideosResponse'
+        status:
+          type: string
+      type: object
     GetTranscodeCostData:
       example:
         is_enough: true
@@ -7396,7 +10446,7 @@ components:
           tags:
           - tags
           - tags
-          duration: 6.027456183070403
+          duration: 1.4658129805029452
           is_mp4: true
           assets:
             player_url: player_url
@@ -7405,7 +10455,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 1
+          size: 5
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -7422,7 +10472,7 @@ components:
         status: status
       properties:
         data:
-          $ref: '#/components/schemas/Video'
+          $ref: '#/components/schemas/VideoObject'
         status:
           type: string
       type: object
@@ -7480,7 +10530,7 @@ components:
           tags:
           - tags
           - tags
-          duration: 6.027456183070403
+          duration: 1.4658129805029452
           is_mp4: true
           assets:
             player_url: player_url
@@ -7489,7 +10539,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 1
+          size: 5
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -7553,7 +10603,7 @@ components:
           tags:
           - tags
           - tags
-          duration: 6.027456183070403
+          duration: 1.4658129805029452
           is_mp4: true
           assets:
             player_url: player_url
@@ -7562,7 +10612,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 1
+          size: 5
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -7581,7 +10631,7 @@ components:
           type: integer
         videos:
           items:
-            $ref: '#/components/schemas/Video'
+            $ref: '#/components/schemas/VideoObject'
           type: array
       type: object
     GetVideoListRequest:
@@ -7677,7 +10727,7 @@ components:
             tags:
             - tags
             - tags
-            duration: 6.027456183070403
+            duration: 1.4658129805029452
             is_mp4: true
             assets:
               player_url: player_url
@@ -7686,7 +10736,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 1
+            size: 5
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -7750,7 +10800,7 @@ components:
             tags:
             - tags
             - tags
-            duration: 6.027456183070403
+            duration: 1.4658129805029452
             is_mp4: true
             assets:
               player_url: player_url
@@ -7759,7 +10809,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 1
+            size: 5
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -7843,6 +10893,486 @@ components:
           $ref: '#/components/schemas/GetWebhooksListData'
         status:
           type: string
+      type: object
+    LiveStreamAssets:
+      example:
+        player_url: player_url
+        hls_url: hls_url
+        iframe: iframe
+        thumbnail_url: thumbnail_url
+      properties:
+        hls_url:
+          type: string
+        iframe:
+          type: string
+        player_url:
+          type: string
+        thumbnail_url:
+          type: string
+      type: object
+    LiveStreamKeyData:
+      example:
+        updated_at: updated_at
+        rtmp_url: rtmp_url
+        user_id: user_id
+        name: name
+        save: true
+        created_at: created_at
+        id: id
+        stream_key: stream_key
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        rtmp_url:
+          type: string
+        save:
+          type: boolean
+        stream_key:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+      type: object
+    LiveStreamVideoData:
+      example:
+        duration: 0
+        assets:
+          player_url: player_url
+          hls_url: hls_url
+          iframe: iframe
+          thumbnail_url: thumbnail_url
+        updated_at: updated_at
+        user_id: user_id
+        save: true
+        created_at: created_at
+        qualities:
+        - qualities
+        - qualities
+        id: id
+        video:
+          metadata:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          chapters:
+          - language: language
+            url: url
+          - language: language
+            url: url
+          player_theme:
+            controls:
+              force_autoplay: true
+              enable_controls: true
+              enable_api: true
+              hide_title: true
+              force_loop: true
+            user_id: user_id
+            name: name
+            created_at: created_at
+            theme:
+              text_track_background: text_track_background
+              main_color: main_color
+              progress_bar_height: progress_bar_height
+              progress_bar_circle_size: progress_bar_circle_size
+              control_bar_background_color: control_bar_background_color
+              text_color: text_color
+              menu_item_background_hover: menu_item_background_hover
+              text_track_color: text_track_color
+              control_bar_height: control_bar_height
+              menu_background_color: menu_background_color
+            id: id
+            asset:
+              logo_link: logo_link
+              logo_image_link: logo_image_link
+              logo: logo
+            is_default: true
+          created_at: created_at
+          description: description
+          title: title
+          captions:
+          - language: language
+            is_default: true
+            url: url
+          - language: language
+            is_default: true
+            url: url
+          tags:
+          - tags
+          - tags
+          duration: 1.4658129805029452
+          is_mp4: true
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+            mp4_url: mp4_url
+            source_url: source_url
+          size: 5
+          updated_at: updated_at
+          user_id: user_id
+          player_theme_id: player_theme_id
+          is_public: true
+          qualities:
+          - name: name
+            type: type
+            status: status
+          - name: name
+            type: type
+            status: status
+          id: id
+          status: status
+        title: title
+        live_stream_key_id: live_stream_key_id
+        status: status
+      properties:
+        assets:
+          $ref: '#/components/schemas/LiveStreamAssets'
+        created_at:
+          type: string
+        duration:
+          type: integer
+        id:
+          type: string
+        live_stream_key_id:
+          type: string
+        qualities:
+          items:
+            type: string
+          type: array
+        save:
+          type: boolean
+        status:
+          type: string
+        title:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+        video:
+          $ref: '#/components/schemas/VideoObject'
+      type: object
+    LiveStreamVideoResponse:
+      example:
+        duration: 6
+        assets:
+          player_url: player_url
+          hls_url: hls_url
+          iframe: iframe
+          thumbnail_url: thumbnail_url
+        updated_at: updated_at
+        user_id: user_id
+        save: true
+        created_at: created_at
+        qualities:
+        - qualities
+        - qualities
+        id: id
+        video:
+          metadata:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          chapters:
+          - language: language
+            url: url
+          - language: language
+            url: url
+          player_theme:
+            controls:
+              force_autoplay: true
+              enable_controls: true
+              enable_api: true
+              hide_title: true
+              force_loop: true
+            user_id: user_id
+            name: name
+            created_at: created_at
+            theme:
+              text_track_background: text_track_background
+              main_color: main_color
+              progress_bar_height: progress_bar_height
+              progress_bar_circle_size: progress_bar_circle_size
+              control_bar_background_color: control_bar_background_color
+              text_color: text_color
+              menu_item_background_hover: menu_item_background_hover
+              text_track_color: text_track_color
+              control_bar_height: control_bar_height
+              menu_background_color: menu_background_color
+            id: id
+            asset:
+              logo_link: logo_link
+              logo_image_link: logo_image_link
+              logo: logo
+            is_default: true
+          created_at: created_at
+          description: description
+          title: title
+          captions:
+          - language: language
+            is_default: true
+            url: url
+          - language: language
+            is_default: true
+            url: url
+          tags:
+          - tags
+          - tags
+          duration: 1.4658129805029452
+          is_mp4: true
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+            mp4_url: mp4_url
+            source_url: source_url
+          size: 5
+          updated_at: updated_at
+          user_id: user_id
+          player_theme_id: player_theme_id
+          is_public: true
+          qualities:
+          - name: name
+            type: type
+            status: status
+          - name: name
+            type: type
+            status: status
+          id: id
+          status: status
+        title: title
+        live_stream_key_id: live_stream_key_id
+        status: status
+      properties:
+        assets:
+          $ref: '#/components/schemas/LiveStreamAssets'
+        created_at:
+          type: string
+        duration:
+          type: integer
+        id:
+          type: string
+        live_stream_key_id:
+          type: string
+        qualities:
+          items:
+            type: string
+          type: array
+        save:
+          type: boolean
+        status:
+          type: string
+        title:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+        video:
+          $ref: '#/components/schemas/VideoObject'
+      type: object
+    LiveStreamVideosResponse:
+      example:
+        total: 0
+        videos:
+        - duration: 6
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          user_id: user_id
+          save: true
+          created_at: created_at
+          qualities:
+          - qualities
+          - qualities
+          id: id
+          video:
+            metadata:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            chapters:
+            - language: language
+              url: url
+            - language: language
+              url: url
+            player_theme:
+              controls:
+                force_autoplay: true
+                enable_controls: true
+                enable_api: true
+                hide_title: true
+                force_loop: true
+              user_id: user_id
+              name: name
+              created_at: created_at
+              theme:
+                text_track_background: text_track_background
+                main_color: main_color
+                progress_bar_height: progress_bar_height
+                progress_bar_circle_size: progress_bar_circle_size
+                control_bar_background_color: control_bar_background_color
+                text_color: text_color
+                menu_item_background_hover: menu_item_background_hover
+                text_track_color: text_track_color
+                control_bar_height: control_bar_height
+                menu_background_color: menu_background_color
+              id: id
+              asset:
+                logo_link: logo_link
+                logo_image_link: logo_image_link
+                logo: logo
+              is_default: true
+            created_at: created_at
+            description: description
+            title: title
+            captions:
+            - language: language
+              is_default: true
+              url: url
+            - language: language
+              is_default: true
+              url: url
+            tags:
+            - tags
+            - tags
+            duration: 1.4658129805029452
+            is_mp4: true
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+              mp4_url: mp4_url
+              source_url: source_url
+            size: 5
+            updated_at: updated_at
+            user_id: user_id
+            player_theme_id: player_theme_id
+            is_public: true
+            qualities:
+            - name: name
+              type: type
+              status: status
+            - name: name
+              type: type
+              status: status
+            id: id
+            status: status
+          title: title
+          live_stream_key_id: live_stream_key_id
+          status: status
+        - duration: 6
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          user_id: user_id
+          save: true
+          created_at: created_at
+          qualities:
+          - qualities
+          - qualities
+          id: id
+          video:
+            metadata:
+            - value: value
+              key: key
+            - value: value
+              key: key
+            chapters:
+            - language: language
+              url: url
+            - language: language
+              url: url
+            player_theme:
+              controls:
+                force_autoplay: true
+                enable_controls: true
+                enable_api: true
+                hide_title: true
+                force_loop: true
+              user_id: user_id
+              name: name
+              created_at: created_at
+              theme:
+                text_track_background: text_track_background
+                main_color: main_color
+                progress_bar_height: progress_bar_height
+                progress_bar_circle_size: progress_bar_circle_size
+                control_bar_background_color: control_bar_background_color
+                text_color: text_color
+                menu_item_background_hover: menu_item_background_hover
+                text_track_color: text_track_color
+                control_bar_height: control_bar_height
+                menu_background_color: menu_background_color
+              id: id
+              asset:
+                logo_link: logo_link
+                logo_image_link: logo_image_link
+                logo: logo
+              is_default: true
+            created_at: created_at
+            description: description
+            title: title
+            captions:
+            - language: language
+              is_default: true
+              url: url
+            - language: language
+              is_default: true
+              url: url
+            tags:
+            - tags
+            - tags
+            duration: 1.4658129805029452
+            is_mp4: true
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+              mp4_url: mp4_url
+              source_url: source_url
+            size: 5
+            updated_at: updated_at
+            user_id: user_id
+            player_theme_id: player_theme_id
+            is_public: true
+            qualities:
+            - name: name
+              type: type
+              status: status
+            - name: name
+              type: type
+              status: status
+            id: id
+            status: status
+          title: title
+          live_stream_key_id: live_stream_key_id
+          status: status
+      properties:
+        total:
+          type: integer
+        videos:
+          items:
+            $ref: '#/components/schemas/LiveStreamVideoResponse'
+          type: array
       type: object
     Metadata:
       example:
@@ -7986,6 +11516,72 @@ components:
         text_track_background:
           type: string
         text_track_color:
+          type: string
+      type: object
+    UpdateLiveStreamKeyData:
+      example:
+        updated_at: updated_at
+        rtmp_url: rtmp_url
+        user_id: user_id
+        name: name
+        save: true
+        created_at: created_at
+        id: id
+        stream_key: stream_key
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        rtmp_url:
+          type: string
+        save:
+          type: boolean
+        stream_key:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+      type: object
+    UpdateLiveStreamKeyRequest:
+      example:
+        name: name
+        save: true
+      properties:
+        name:
+          type: string
+        save:
+          type: boolean
+      type: object
+    UpdateLiveStreamKeyResponse:
+      example:
+        data:
+          updated_at: updated_at
+          rtmp_url: rtmp_url
+          user_id: user_id
+          name: name
+          save: true
+          created_at: created_at
+          id: id
+          stream_key: stream_key
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/UpdateLiveStreamKeyData'
+        status:
+          type: string
+      type: object
+    UpdateLiveStreamVideoRequest:
+      example:
+        save: true
+        title: title
+      properties:
+        save:
+          type: boolean
+        title:
           type: string
       type: object
     UpdatePlayerThemeRequest:
@@ -8180,7 +11776,52 @@ components:
       required:
       - file
       type: object
-    Video:
+    VideoAssets:
+      example:
+        player_url: player_url
+        hls_url: hls_url
+        iframe: iframe
+        thumbnail_url: thumbnail_url
+        mp4_url: mp4_url
+        source_url: source_url
+      properties:
+        hls_url:
+          type: string
+        iframe:
+          type: string
+        mp4_url:
+          type: string
+        player_url:
+          type: string
+        source_url:
+          type: string
+        thumbnail_url:
+          type: string
+      type: object
+    VideoCaption:
+      example:
+        language: language
+        is_default: true
+        url: url
+      properties:
+        is_default:
+          type: boolean
+        language:
+          type: string
+        url:
+          type: string
+      type: object
+    VideoChapter:
+      example:
+        language: language
+        url: url
+      properties:
+        language:
+          type: string
+        url:
+          type: string
+      type: object
+    VideoObject:
       example:
         metadata:
         - value: value
@@ -8232,7 +11873,7 @@ components:
         tags:
         - tags
         - tags
-        duration: 6.027456183070403
+        duration: 1.4658129805029452
         is_mp4: true
         assets:
           player_url: player_url
@@ -8241,7 +11882,7 @@ components:
           thumbnail_url: thumbnail_url
           mp4_url: mp4_url
           source_url: source_url
-        size: 1
+        size: 5
         updated_at: updated_at
         user_id: user_id
         player_theme_id: player_theme_id
@@ -8303,51 +11944,6 @@ components:
         updated_at:
           type: string
         user_id:
-          type: string
-      type: object
-    VideoAssets:
-      example:
-        player_url: player_url
-        hls_url: hls_url
-        iframe: iframe
-        thumbnail_url: thumbnail_url
-        mp4_url: mp4_url
-        source_url: source_url
-      properties:
-        hls_url:
-          type: string
-        iframe:
-          type: string
-        mp4_url:
-          type: string
-        player_url:
-          type: string
-        source_url:
-          type: string
-        thumbnail_url:
-          type: string
-      type: object
-    VideoCaption:
-      example:
-        language: language
-        is_default: true
-        url: url
-      properties:
-        is_default:
-          type: boolean
-        language:
-          type: string
-        url:
-          type: string
-      type: object
-    VideoChapter:
-      example:
-        language: language
-        url: url
-      properties:
-        language:
-          type: string
-        url:
           type: string
       type: object
     VideoWatermark:

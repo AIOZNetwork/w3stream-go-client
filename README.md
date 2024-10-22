@@ -25,20 +25,20 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-
-	w3streamSdk "github.com/AIOZNetwork/w3stream-go-client"
+ 
+	w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
 )
-
+ 
 func main() {
     // Connect to production environment
-    secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
     publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+    secretKey := "YOUR_SECRET_KEY" // Replace with your actual API secret key
 	apiCreds := w3streamsdk.AuthCredentials{
 		PublicKey: publicKey,
 		SecretKey: secretKey,
 	}
     client := w3streamsdk.ClientBuilder(apiCreds).Build()
-
+ 
     // Create a video object
 	title := "Sample Video Title"
 	videoData := w3streamsdk.CreateVideoRequest{
@@ -49,33 +49,33 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error creating video: %v\n", err)
 		return
 	}
-
+ 
     videoId := createResult.Data.Id // Get the video ID from the response
-
+ 
     // Open the video file
-    videoFile, err := os.Open("/path/to/video.mp4")
+    videoFile, err := os.Open("./path/to/video.mp4")
     if err != nil {
         fmt.Println("Error opening video file:", err)
         return
     }
     defer videoFile.Close() // Close the file after use
-
+ 
     fileInfo, err := videoFile.Stat()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error getting file info: %v\n", err)
         return
     }
-
+ 
     fileSize := fileInfo.Size()
     fileName := fileInfo.Name()
-
+ 
     // Option 1: Use client upload with videoId
 	err = client.UploadVideo(context.Background(), *videoId, fileName, videoFile, fileSize)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error uploading video with client: %v\n", err)
 		return
 	}
-
+ 
     // Option 2: Upload parts yourself
     // This example is commented out as you already used option 1
 	//_, err = client.Video.UploadPart(*videoId, nil, nil, "./path/to/video.mp4", videoFile, fileInfo.Size())
@@ -130,6 +130,40 @@ Method | HTTP request | Description
 [**Update**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Update) | **Patch** `/api_keys/{id}` | Rename API key
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Delete) | **Delete** `/api_keys/{id}` | Delete API key
 [**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#List) | **Get** `/api_keys` | Get list API keys
+
+
+#### Live stream
+
+
+##### Retrieve an instance of the Live stream API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+liveStreamApi := client.LiveStream
+```
+
+##### Endpoints
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**CreateLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#CreateLiveStreamKey) | **Post** `/live_streams` | Create live stream key
+[**CreateStreaming**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#CreateStreaming) | **Post** `/live_streams/{id}/streamings` | Create a new live stream video
+[**DeleteLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#DeleteLiveStreamKey) | **Delete** `/live_streams/{id}` | Delete live stream key
+[**DeleteLiveStreamVideo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#DeleteLiveStreamVideo) | **Delete** `/live_streams/{id}/videos` | Delete live stream video
+[**GetLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetLiveStreamKey) | **Get** `/live_streams/{id}` | Get live stream key
+[**GetLiveStreamKeys**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetLiveStreamKeys) | **Get** `/live_streams` | Get live stream key list
+[**GetLiveStreamVideo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetLiveStreamVideo) | **Get** `/live_streams/{id}/videos` | Get live stream video
+[**GetLiveStreamVideoPublic**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetLiveStreamVideoPublic) | **Get** `/live_streams/player/{id}/videos` | Get live stream video public
+[**GetLiveStreamVideos**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetLiveStreamVideos) | **Post** `/live_streams/{id}/videos` | Get live stream videos
+[**GetStreaming**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetStreaming) | **Get** `/live_streams/{id}/streamings/{stream_id}` | Get live stream video streaming
+[**GetStreamings**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetStreamings) | **Get** `/live_streams/{id}/streamings` | Get live stream video streamings
+[**UpdateLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#UpdateLiveStreamKey) | **Put** `/live_streams/{id}` | Update live stream key
+[**UpdateLiveStreamVideo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#UpdateLiveStreamVideo) | **Put** `/live_streams/{id}/streamings` | Update live stream video
 
 
 #### Players
@@ -282,9 +316,13 @@ Method | HTTP request | Description
  - [CreateApiKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateApiKeyData.md)
  - [CreateApiKeyRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateApiKeyRequest.md)
  - [CreateApiKeyResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateApiKeyResponse.md)
+ - [CreateLiveStreamKeyRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateLiveStreamKeyRequest.md)
+ - [CreateLiveStreamKeyResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateLiveStreamKeyResponse.md)
  - [CreatePlayerThemeRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlayerThemeRequest.md)
  - [CreatePlayerThemesData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlayerThemesData.md)
  - [CreatePlayerThemesResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlayerThemesResponse.md)
+ - [CreateStreamingRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateStreamingRequest.md)
+ - [CreateStreamingResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateStreamingResponse.md)
  - [CreateVideoCaptionData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoCaptionData.md)
  - [CreateVideoCaptionResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoCaptionResponse.md)
  - [CreateVideoChapterData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoChapterData.md)
@@ -300,10 +338,20 @@ Method | HTTP request | Description
  - [GetAllWatermarkResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetAllWatermarkResponse.md)
  - [GetApiKeysData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetApiKeysData.md)
  - [GetApiKeysResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetApiKeysResponse.md)
+ - [GetLiveStreamKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamKeyData.md)
+ - [GetLiveStreamKeyResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamKeyResponse.md)
+ - [GetLiveStreamKeysListData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamKeysListData.md)
+ - [GetLiveStreamKeysListResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamKeysListResponse.md)
+ - [GetLiveStreamVideoPublicResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamVideoPublicResponse.md)
+ - [GetLiveStreamVideoResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamVideoResponse.md)
+ - [GetLiveStreamVideosRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamVideosRequest.md)
+ - [GetLiveStreamVideosResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamVideosResponse.md)
  - [GetPlayerThemeByIdData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlayerThemeByIdData.md)
  - [GetPlayerThemeByIdResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlayerThemeByIdResponse.md)
  - [GetPlayerThemeData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlayerThemeData.md)
  - [GetPlayerThemeResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlayerThemeResponse.md)
+ - [GetStreamingResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetStreamingResponse.md)
+ - [GetStreamingsResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetStreamingsResponse.md)
  - [GetTranscodeCostData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetTranscodeCostData.md)
  - [GetTranscodeCostResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetTranscodeCostResponse.md)
  - [GetUserWebhookData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetUserWebhookData.md)
@@ -318,6 +366,11 @@ Method | HTTP request | Description
  - [GetVideoListResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetVideoListResponse.md)
  - [GetWebhooksListData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetWebhooksListData.md)
  - [GetWebhooksListResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetWebhooksListResponse.md)
+ - [LiveStreamAssets](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStreamAssets.md)
+ - [LiveStreamKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStreamKeyData.md)
+ - [LiveStreamVideoData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStreamVideoData.md)
+ - [LiveStreamVideoResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStreamVideoResponse.md)
+ - [LiveStreamVideosResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStreamVideosResponse.md)
  - [Metadata](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Metadata.md)
  - [PlayerTheme](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/PlayerTheme.md)
  - [QualityObject](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/QualityObject.md)
@@ -327,15 +380,19 @@ Method | HTTP request | Description
  - [ResponseSuccess](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ResponseSuccess.md)
  - [SetDefaultCaptionRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/SetDefaultCaptionRequest.md)
  - [Theme](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Theme.md)
+ - [UpdateLiveStreamKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyData.md)
+ - [UpdateLiveStreamKeyRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyRequest.md)
+ - [UpdateLiveStreamKeyResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyResponse.md)
+ - [UpdateLiveStreamVideoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamVideoRequest.md)
  - [UpdatePlayerThemeRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdatePlayerThemeRequest.md)
  - [UpdatePlayerThemeResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdatePlayerThemeResponse.md)
  - [UpdateVideoInfoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateVideoInfoRequest.md)
  - [UpdateWebhookRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateWebhookRequest.md)
  - [UploadLogoByIdResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UploadLogoByIdResponse.md)
- - [Video](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md)
  - [VideoAssets](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoAssets.md)
  - [VideoCaption](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoCaption.md)
  - [VideoChapter](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md)
+ - [VideoObject](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoObject.md)
  - [VideoWatermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoWatermark.md)
  - [Watermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md)
  - [Webhook](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Webhook.md)

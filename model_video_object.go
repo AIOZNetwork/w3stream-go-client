@@ -12,11 +12,11 @@
 package w3streamsdk
 
 import (
-// "encoding/json"
+//"encoding/json"
 )
 
-// Video struct for Video
-type Video struct {
+// VideoObject struct for VideoObject
+type VideoObject struct {
 	Assets        *VideoAssets     `json:"assets,omitempty"`
 	Captions      *[]VideoCaption  `json:"captions,omitempty"`
 	Chapters      *[]VideoChapter  `json:"chapters,omitempty"`
@@ -38,25 +38,25 @@ type Video struct {
 	UserId        *string          `json:"user_id,omitempty"`
 }
 
-// NewVideo instantiates a new Video object
+// NewVideoObject instantiates a new VideoObject object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVideo() *Video {
-	this := Video{}
+func NewVideoObject() *VideoObject {
+	this := VideoObject{}
 	return &this
 }
 
-// NewVideoWithDefaults instantiates a new Video object
+// NewVideoObjectWithDefaults instantiates a new VideoObject object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewVideoWithDefaults() *Video {
-	this := Video{}
+func NewVideoObjectWithDefaults() *VideoObject {
+	this := VideoObject{}
 	return &this
 }
 
 // GetAssets returns the Assets field value if set, zero value otherwise.
-func (o *Video) GetAssets() VideoAssets {
+func (o *VideoObject) GetAssets() VideoAssets {
 	if o == nil || o.Assets == nil {
 		var ret VideoAssets
 		return ret
@@ -66,7 +66,7 @@ func (o *Video) GetAssets() VideoAssets {
 
 // GetAssetsOk returns a tuple with the Assets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetAssetsOk() (*VideoAssets, bool) {
+func (o *VideoObject) GetAssetsOk() (*VideoAssets, bool) {
 	if o == nil || o.Assets == nil {
 		return nil, false
 	}
@@ -74,7 +74,7 @@ func (o *Video) GetAssetsOk() (*VideoAssets, bool) {
 }
 
 // HasAssets returns a boolean if a field has been set.
-func (o *Video) HasAssets() bool {
+func (o *VideoObject) HasAssets() bool {
 	if o != nil && o.Assets != nil {
 		return true
 	}
@@ -83,12 +83,12 @@ func (o *Video) HasAssets() bool {
 }
 
 // SetAssets gets a reference to the given VideoAssets and assigns it to the Assets field.
-func (o *Video) SetAssets(v VideoAssets) {
+func (o *VideoObject) SetAssets(v VideoAssets) {
 	o.Assets = &v
 }
 
 // GetCaptions returns the Captions field value if set, zero value otherwise.
-func (o *Video) GetCaptions() []VideoCaption {
+func (o *VideoObject) GetCaptions() []VideoCaption {
 	if o == nil || o.Captions == nil {
 		var ret []VideoCaption
 		return ret
@@ -98,7 +98,7 @@ func (o *Video) GetCaptions() []VideoCaption {
 
 // GetCaptionsOk returns a tuple with the Captions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetCaptionsOk() (*[]VideoCaption, bool) {
+func (o *VideoObject) GetCaptionsOk() (*[]VideoCaption, bool) {
 	if o == nil || o.Captions == nil {
 		return nil, false
 	}
@@ -106,7 +106,7 @@ func (o *Video) GetCaptionsOk() (*[]VideoCaption, bool) {
 }
 
 // HasCaptions returns a boolean if a field has been set.
-func (o *Video) HasCaptions() bool {
+func (o *VideoObject) HasCaptions() bool {
 	if o != nil && o.Captions != nil {
 		return true
 	}
@@ -115,12 +115,12 @@ func (o *Video) HasCaptions() bool {
 }
 
 // SetCaptions gets a reference to the given []VideoCaption and assigns it to the Captions field.
-func (o *Video) SetCaptions(v []VideoCaption) {
+func (o *VideoObject) SetCaptions(v []VideoCaption) {
 	o.Captions = &v
 }
 
 // GetChapters returns the Chapters field value if set, zero value otherwise.
-func (o *Video) GetChapters() []VideoChapter {
+func (o *VideoObject) GetChapters() []VideoChapter {
 	if o == nil || o.Chapters == nil {
 		var ret []VideoChapter
 		return ret
@@ -130,7 +130,7 @@ func (o *Video) GetChapters() []VideoChapter {
 
 // GetChaptersOk returns a tuple with the Chapters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetChaptersOk() (*[]VideoChapter, bool) {
+func (o *VideoObject) GetChaptersOk() (*[]VideoChapter, bool) {
 	if o == nil || o.Chapters == nil {
 		return nil, false
 	}
@@ -138,7 +138,7 @@ func (o *Video) GetChaptersOk() (*[]VideoChapter, bool) {
 }
 
 // HasChapters returns a boolean if a field has been set.
-func (o *Video) HasChapters() bool {
+func (o *VideoObject) HasChapters() bool {
 	if o != nil && o.Chapters != nil {
 		return true
 	}
@@ -147,12 +147,12 @@ func (o *Video) HasChapters() bool {
 }
 
 // SetChapters gets a reference to the given []VideoChapter and assigns it to the Chapters field.
-func (o *Video) SetChapters(v []VideoChapter) {
+func (o *VideoObject) SetChapters(v []VideoChapter) {
 	o.Chapters = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Video) GetCreatedAt() string {
+func (o *VideoObject) GetCreatedAt() string {
 	if o == nil || o.CreatedAt == nil {
 		var ret string
 		return ret
@@ -162,7 +162,7 @@ func (o *Video) GetCreatedAt() string {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetCreatedAtOk() (*string, bool) {
+func (o *VideoObject) GetCreatedAtOk() (*string, bool) {
 	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
@@ -170,7 +170,7 @@ func (o *Video) GetCreatedAtOk() (*string, bool) {
 }
 
 // HasCreatedAt returns a boolean if a field has been set.
-func (o *Video) HasCreatedAt() bool {
+func (o *VideoObject) HasCreatedAt() bool {
 	if o != nil && o.CreatedAt != nil {
 		return true
 	}
@@ -179,12 +179,12 @@ func (o *Video) HasCreatedAt() bool {
 }
 
 // SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
-func (o *Video) SetCreatedAt(v string) {
+func (o *VideoObject) SetCreatedAt(v string) {
 	o.CreatedAt = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *Video) GetDescription() string {
+func (o *VideoObject) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
 		return ret
@@ -194,7 +194,7 @@ func (o *Video) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetDescriptionOk() (*string, bool) {
+func (o *VideoObject) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
@@ -202,7 +202,7 @@ func (o *Video) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *Video) HasDescription() bool {
+func (o *VideoObject) HasDescription() bool {
 	if o != nil && o.Description != nil {
 		return true
 	}
@@ -211,12 +211,12 @@ func (o *Video) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Video) SetDescription(v string) {
+func (o *VideoObject) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetDuration returns the Duration field value if set, zero value otherwise.
-func (o *Video) GetDuration() float32 {
+func (o *VideoObject) GetDuration() float32 {
 	if o == nil || o.Duration == nil {
 		var ret float32
 		return ret
@@ -226,7 +226,7 @@ func (o *Video) GetDuration() float32 {
 
 // GetDurationOk returns a tuple with the Duration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetDurationOk() (*float32, bool) {
+func (o *VideoObject) GetDurationOk() (*float32, bool) {
 	if o == nil || o.Duration == nil {
 		return nil, false
 	}
@@ -234,7 +234,7 @@ func (o *Video) GetDurationOk() (*float32, bool) {
 }
 
 // HasDuration returns a boolean if a field has been set.
-func (o *Video) HasDuration() bool {
+func (o *VideoObject) HasDuration() bool {
 	if o != nil && o.Duration != nil {
 		return true
 	}
@@ -243,12 +243,12 @@ func (o *Video) HasDuration() bool {
 }
 
 // SetDuration gets a reference to the given float32 and assigns it to the Duration field.
-func (o *Video) SetDuration(v float32) {
+func (o *VideoObject) SetDuration(v float32) {
 	o.Duration = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *Video) GetId() string {
+func (o *VideoObject) GetId() string {
 	if o == nil || o.Id == nil {
 		var ret string
 		return ret
@@ -258,7 +258,7 @@ func (o *Video) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetIdOk() (*string, bool) {
+func (o *VideoObject) GetIdOk() (*string, bool) {
 	if o == nil || o.Id == nil {
 		return nil, false
 	}
@@ -266,7 +266,7 @@ func (o *Video) GetIdOk() (*string, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *Video) HasId() bool {
+func (o *VideoObject) HasId() bool {
 	if o != nil && o.Id != nil {
 		return true
 	}
@@ -275,12 +275,12 @@ func (o *Video) HasId() bool {
 }
 
 // SetId gets a reference to the given string and assigns it to the Id field.
-func (o *Video) SetId(v string) {
+func (o *VideoObject) SetId(v string) {
 	o.Id = &v
 }
 
 // GetIsMp4 returns the IsMp4 field value if set, zero value otherwise.
-func (o *Video) GetIsMp4() bool {
+func (o *VideoObject) GetIsMp4() bool {
 	if o == nil || o.IsMp4 == nil {
 		var ret bool
 		return ret
@@ -290,7 +290,7 @@ func (o *Video) GetIsMp4() bool {
 
 // GetIsMp4Ok returns a tuple with the IsMp4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetIsMp4Ok() (*bool, bool) {
+func (o *VideoObject) GetIsMp4Ok() (*bool, bool) {
 	if o == nil || o.IsMp4 == nil {
 		return nil, false
 	}
@@ -298,7 +298,7 @@ func (o *Video) GetIsMp4Ok() (*bool, bool) {
 }
 
 // HasIsMp4 returns a boolean if a field has been set.
-func (o *Video) HasIsMp4() bool {
+func (o *VideoObject) HasIsMp4() bool {
 	if o != nil && o.IsMp4 != nil {
 		return true
 	}
@@ -307,12 +307,12 @@ func (o *Video) HasIsMp4() bool {
 }
 
 // SetIsMp4 gets a reference to the given bool and assigns it to the IsMp4 field.
-func (o *Video) SetIsMp4(v bool) {
+func (o *VideoObject) SetIsMp4(v bool) {
 	o.IsMp4 = &v
 }
 
 // GetIsPublic returns the IsPublic field value if set, zero value otherwise.
-func (o *Video) GetIsPublic() bool {
+func (o *VideoObject) GetIsPublic() bool {
 	if o == nil || o.IsPublic == nil {
 		var ret bool
 		return ret
@@ -322,7 +322,7 @@ func (o *Video) GetIsPublic() bool {
 
 // GetIsPublicOk returns a tuple with the IsPublic field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetIsPublicOk() (*bool, bool) {
+func (o *VideoObject) GetIsPublicOk() (*bool, bool) {
 	if o == nil || o.IsPublic == nil {
 		return nil, false
 	}
@@ -330,7 +330,7 @@ func (o *Video) GetIsPublicOk() (*bool, bool) {
 }
 
 // HasIsPublic returns a boolean if a field has been set.
-func (o *Video) HasIsPublic() bool {
+func (o *VideoObject) HasIsPublic() bool {
 	if o != nil && o.IsPublic != nil {
 		return true
 	}
@@ -339,12 +339,12 @@ func (o *Video) HasIsPublic() bool {
 }
 
 // SetIsPublic gets a reference to the given bool and assigns it to the IsPublic field.
-func (o *Video) SetIsPublic(v bool) {
+func (o *VideoObject) SetIsPublic(v bool) {
 	o.IsPublic = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *Video) GetMetadata() []Metadata {
+func (o *VideoObject) GetMetadata() []Metadata {
 	if o == nil || o.Metadata == nil {
 		var ret []Metadata
 		return ret
@@ -354,7 +354,7 @@ func (o *Video) GetMetadata() []Metadata {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetMetadataOk() (*[]Metadata, bool) {
+func (o *VideoObject) GetMetadataOk() (*[]Metadata, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -362,7 +362,7 @@ func (o *Video) GetMetadataOk() (*[]Metadata, bool) {
 }
 
 // HasMetadata returns a boolean if a field has been set.
-func (o *Video) HasMetadata() bool {
+func (o *VideoObject) HasMetadata() bool {
 	if o != nil && o.Metadata != nil {
 		return true
 	}
@@ -371,12 +371,12 @@ func (o *Video) HasMetadata() bool {
 }
 
 // SetMetadata gets a reference to the given []Metadata and assigns it to the Metadata field.
-func (o *Video) SetMetadata(v []Metadata) {
+func (o *VideoObject) SetMetadata(v []Metadata) {
 	o.Metadata = &v
 }
 
 // GetPlayerTheme returns the PlayerTheme field value if set, zero value otherwise.
-func (o *Video) GetPlayerTheme() PlayerTheme {
+func (o *VideoObject) GetPlayerTheme() PlayerTheme {
 	if o == nil || o.PlayerTheme == nil {
 		var ret PlayerTheme
 		return ret
@@ -386,7 +386,7 @@ func (o *Video) GetPlayerTheme() PlayerTheme {
 
 // GetPlayerThemeOk returns a tuple with the PlayerTheme field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetPlayerThemeOk() (*PlayerTheme, bool) {
+func (o *VideoObject) GetPlayerThemeOk() (*PlayerTheme, bool) {
 	if o == nil || o.PlayerTheme == nil {
 		return nil, false
 	}
@@ -394,7 +394,7 @@ func (o *Video) GetPlayerThemeOk() (*PlayerTheme, bool) {
 }
 
 // HasPlayerTheme returns a boolean if a field has been set.
-func (o *Video) HasPlayerTheme() bool {
+func (o *VideoObject) HasPlayerTheme() bool {
 	if o != nil && o.PlayerTheme != nil {
 		return true
 	}
@@ -403,12 +403,12 @@ func (o *Video) HasPlayerTheme() bool {
 }
 
 // SetPlayerTheme gets a reference to the given PlayerTheme and assigns it to the PlayerTheme field.
-func (o *Video) SetPlayerTheme(v PlayerTheme) {
+func (o *VideoObject) SetPlayerTheme(v PlayerTheme) {
 	o.PlayerTheme = &v
 }
 
 // GetPlayerThemeId returns the PlayerThemeId field value if set, zero value otherwise.
-func (o *Video) GetPlayerThemeId() string {
+func (o *VideoObject) GetPlayerThemeId() string {
 	if o == nil || o.PlayerThemeId == nil {
 		var ret string
 		return ret
@@ -418,7 +418,7 @@ func (o *Video) GetPlayerThemeId() string {
 
 // GetPlayerThemeIdOk returns a tuple with the PlayerThemeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetPlayerThemeIdOk() (*string, bool) {
+func (o *VideoObject) GetPlayerThemeIdOk() (*string, bool) {
 	if o == nil || o.PlayerThemeId == nil {
 		return nil, false
 	}
@@ -426,7 +426,7 @@ func (o *Video) GetPlayerThemeIdOk() (*string, bool) {
 }
 
 // HasPlayerThemeId returns a boolean if a field has been set.
-func (o *Video) HasPlayerThemeId() bool {
+func (o *VideoObject) HasPlayerThemeId() bool {
 	if o != nil && o.PlayerThemeId != nil {
 		return true
 	}
@@ -435,12 +435,12 @@ func (o *Video) HasPlayerThemeId() bool {
 }
 
 // SetPlayerThemeId gets a reference to the given string and assigns it to the PlayerThemeId field.
-func (o *Video) SetPlayerThemeId(v string) {
+func (o *VideoObject) SetPlayerThemeId(v string) {
 	o.PlayerThemeId = &v
 }
 
 // GetQualities returns the Qualities field value if set, zero value otherwise.
-func (o *Video) GetQualities() []QualityObject {
+func (o *VideoObject) GetQualities() []QualityObject {
 	if o == nil || o.Qualities == nil {
 		var ret []QualityObject
 		return ret
@@ -450,7 +450,7 @@ func (o *Video) GetQualities() []QualityObject {
 
 // GetQualitiesOk returns a tuple with the Qualities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetQualitiesOk() (*[]QualityObject, bool) {
+func (o *VideoObject) GetQualitiesOk() (*[]QualityObject, bool) {
 	if o == nil || o.Qualities == nil {
 		return nil, false
 	}
@@ -458,7 +458,7 @@ func (o *Video) GetQualitiesOk() (*[]QualityObject, bool) {
 }
 
 // HasQualities returns a boolean if a field has been set.
-func (o *Video) HasQualities() bool {
+func (o *VideoObject) HasQualities() bool {
 	if o != nil && o.Qualities != nil {
 		return true
 	}
@@ -467,12 +467,12 @@ func (o *Video) HasQualities() bool {
 }
 
 // SetQualities gets a reference to the given []QualityObject and assigns it to the Qualities field.
-func (o *Video) SetQualities(v []QualityObject) {
+func (o *VideoObject) SetQualities(v []QualityObject) {
 	o.Qualities = &v
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *Video) GetSize() int32 {
+func (o *VideoObject) GetSize() int32 {
 	if o == nil || o.Size == nil {
 		var ret int32
 		return ret
@@ -482,7 +482,7 @@ func (o *Video) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetSizeOk() (*int32, bool) {
+func (o *VideoObject) GetSizeOk() (*int32, bool) {
 	if o == nil || o.Size == nil {
 		return nil, false
 	}
@@ -490,7 +490,7 @@ func (o *Video) GetSizeOk() (*int32, bool) {
 }
 
 // HasSize returns a boolean if a field has been set.
-func (o *Video) HasSize() bool {
+func (o *VideoObject) HasSize() bool {
 	if o != nil && o.Size != nil {
 		return true
 	}
@@ -499,12 +499,12 @@ func (o *Video) HasSize() bool {
 }
 
 // SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *Video) SetSize(v int32) {
+func (o *VideoObject) SetSize(v int32) {
 	o.Size = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *Video) GetStatus() string {
+func (o *VideoObject) GetStatus() string {
 	if o == nil || o.Status == nil {
 		var ret string
 		return ret
@@ -514,7 +514,7 @@ func (o *Video) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetStatusOk() (*string, bool) {
+func (o *VideoObject) GetStatusOk() (*string, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
@@ -522,7 +522,7 @@ func (o *Video) GetStatusOk() (*string, bool) {
 }
 
 // HasStatus returns a boolean if a field has been set.
-func (o *Video) HasStatus() bool {
+func (o *VideoObject) HasStatus() bool {
 	if o != nil && o.Status != nil {
 		return true
 	}
@@ -531,12 +531,12 @@ func (o *Video) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *Video) SetStatus(v string) {
+func (o *VideoObject) SetStatus(v string) {
 	o.Status = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Video) GetTags() []string {
+func (o *VideoObject) GetTags() []string {
 	if o == nil || o.Tags == nil {
 		var ret []string
 		return ret
@@ -546,7 +546,7 @@ func (o *Video) GetTags() []string {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetTagsOk() (*[]string, bool) {
+func (o *VideoObject) GetTagsOk() (*[]string, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -554,7 +554,7 @@ func (o *Video) GetTagsOk() (*[]string, bool) {
 }
 
 // HasTags returns a boolean if a field has been set.
-func (o *Video) HasTags() bool {
+func (o *VideoObject) HasTags() bool {
 	if o != nil && o.Tags != nil {
 		return true
 	}
@@ -563,12 +563,12 @@ func (o *Video) HasTags() bool {
 }
 
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *Video) SetTags(v []string) {
+func (o *VideoObject) SetTags(v []string) {
 	o.Tags = &v
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise.
-func (o *Video) GetTitle() string {
+func (o *VideoObject) GetTitle() string {
 	if o == nil || o.Title == nil {
 		var ret string
 		return ret
@@ -578,7 +578,7 @@ func (o *Video) GetTitle() string {
 
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetTitleOk() (*string, bool) {
+func (o *VideoObject) GetTitleOk() (*string, bool) {
 	if o == nil || o.Title == nil {
 		return nil, false
 	}
@@ -586,7 +586,7 @@ func (o *Video) GetTitleOk() (*string, bool) {
 }
 
 // HasTitle returns a boolean if a field has been set.
-func (o *Video) HasTitle() bool {
+func (o *VideoObject) HasTitle() bool {
 	if o != nil && o.Title != nil {
 		return true
 	}
@@ -595,12 +595,12 @@ func (o *Video) HasTitle() bool {
 }
 
 // SetTitle gets a reference to the given string and assigns it to the Title field.
-func (o *Video) SetTitle(v string) {
+func (o *VideoObject) SetTitle(v string) {
 	o.Title = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Video) GetUpdatedAt() string {
+func (o *VideoObject) GetUpdatedAt() string {
 	if o == nil || o.UpdatedAt == nil {
 		var ret string
 		return ret
@@ -610,7 +610,7 @@ func (o *Video) GetUpdatedAt() string {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetUpdatedAtOk() (*string, bool) {
+func (o *VideoObject) GetUpdatedAtOk() (*string, bool) {
 	if o == nil || o.UpdatedAt == nil {
 		return nil, false
 	}
@@ -618,7 +618,7 @@ func (o *Video) GetUpdatedAtOk() (*string, bool) {
 }
 
 // HasUpdatedAt returns a boolean if a field has been set.
-func (o *Video) HasUpdatedAt() bool {
+func (o *VideoObject) HasUpdatedAt() bool {
 	if o != nil && o.UpdatedAt != nil {
 		return true
 	}
@@ -627,12 +627,12 @@ func (o *Video) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *Video) SetUpdatedAt(v string) {
+func (o *VideoObject) SetUpdatedAt(v string) {
 	o.UpdatedAt = &v
 }
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *Video) GetUserId() string {
+func (o *VideoObject) GetUserId() string {
 	if o == nil || o.UserId == nil {
 		var ret string
 		return ret
@@ -642,7 +642,7 @@ func (o *Video) GetUserId() string {
 
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Video) GetUserIdOk() (*string, bool) {
+func (o *VideoObject) GetUserIdOk() (*string, bool) {
 	if o == nil || o.UserId == nil {
 		return nil, false
 	}
@@ -650,7 +650,7 @@ func (o *Video) GetUserIdOk() (*string, bool) {
 }
 
 // HasUserId returns a boolean if a field has been set.
-func (o *Video) HasUserId() bool {
+func (o *VideoObject) HasUserId() bool {
 	if o != nil && o.UserId != nil {
 		return true
 	}
@@ -659,33 +659,33 @@ func (o *Video) HasUserId() bool {
 }
 
 // SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *Video) SetUserId(v string) {
+func (o *VideoObject) SetUserId(v string) {
 	o.UserId = &v
 }
 
-type NullableVideo struct {
-	value *Video
+type NullableVideoObject struct {
+	value *VideoObject
 	isSet bool
 }
 
-func (v NullableVideo) Get() *Video {
+func (v NullableVideoObject) Get() *VideoObject {
 	return v.value
 }
 
-func (v *NullableVideo) Set(val *Video) {
+func (v *NullableVideoObject) Set(val *VideoObject) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableVideo) IsSet() bool {
+func (v NullableVideoObject) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableVideo) Unset() {
+func (v *NullableVideoObject) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableVideo(val *Video) *NullableVideo {
-	return &NullableVideo{value: val, isSet: true}
+func NewNullableVideoObject(val *VideoObject) *NullableVideoObject {
+	return &NullableVideoObject{value: val, isSet: true}
 }

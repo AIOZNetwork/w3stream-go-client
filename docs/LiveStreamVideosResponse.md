@@ -1,78 +1,78 @@
-# GetVideoListData
+# LiveStreamVideosResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Total** | Pointer to **int32** |  | [optional] 
-**Videos** | Pointer to [**[]VideoObject**](VideoObject.md) |  | [optional] 
+**Videos** | Pointer to [**[]LiveStreamVideoResponse**](LiveStreamVideoResponse.md) |  | [optional] 
 
 ## Methods
 
-### NewGetVideoListData
+### NewLiveStreamVideosResponse
 
-`func NewGetVideoListData() *GetVideoListData`
+`func NewLiveStreamVideosResponse() *LiveStreamVideosResponse`
 
-NewGetVideoListData instantiates a new GetVideoListData object
+NewLiveStreamVideosResponse instantiates a new LiveStreamVideosResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewGetVideoListDataWithDefaults
+### NewLiveStreamVideosResponseWithDefaults
 
-`func NewGetVideoListDataWithDefaults() *GetVideoListData`
+`func NewLiveStreamVideosResponseWithDefaults() *LiveStreamVideosResponse`
 
-NewGetVideoListDataWithDefaults instantiates a new GetVideoListData object
+NewLiveStreamVideosResponseWithDefaults instantiates a new LiveStreamVideosResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetTotal
 
-`func (o *GetVideoListData) GetTotal() int32`
+`func (o *LiveStreamVideosResponse) GetTotal() int32`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *GetVideoListData) GetTotalOk() (*int32, bool)`
+`func (o *LiveStreamVideosResponse) GetTotalOk() (*int32, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *GetVideoListData) SetTotal(v int32)`
+`func (o *LiveStreamVideosResponse) SetTotal(v int32)`
 
 SetTotal sets Total field to given value.
 
 ### HasTotal
 
-`func (o *GetVideoListData) HasTotal() bool`
+`func (o *LiveStreamVideosResponse) HasTotal() bool`
 
 HasTotal returns a boolean if a field has been set.
 
 ### GetVideos
 
-`func (o *GetVideoListData) GetVideos() []VideoObject`
+`func (o *LiveStreamVideosResponse) GetVideos() []LiveStreamVideoResponse`
 
 GetVideos returns the Videos field if non-nil, zero value otherwise.
 
 ### GetVideosOk
 
-`func (o *GetVideoListData) GetVideosOk() (*[]VideoObject, bool)`
+`func (o *LiveStreamVideosResponse) GetVideosOk() (*[]LiveStreamVideoResponse, bool)`
 
 GetVideosOk returns a tuple with the Videos field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVideos
 
-`func (o *GetVideoListData) SetVideos(v []VideoObject)`
+`func (o *LiveStreamVideosResponse) SetVideos(v []LiveStreamVideoResponse)`
 
 SetVideos sets Videos field to given value.
 
 ### HasVideos
 
-`func (o *GetVideoListData) HasVideos() bool`
+`func (o *LiveStreamVideosResponse) HasVideos() bool`
 
 HasVideos returns a boolean if a field has been set.
 

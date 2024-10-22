@@ -15,33 +15,33 @@ import (
 //"encoding/json"
 )
 
-// CreateVideoResponse struct for CreateVideoResponse
-type CreateVideoResponse struct {
-	Data   *VideoObject `json:"data,omitempty"`
-	Status *string      `json:"status,omitempty"`
+// GetLiveStreamVideoResponse struct for GetLiveStreamVideoResponse
+type GetLiveStreamVideoResponse struct {
+	Data   *LiveStreamVideoResponse `json:"data,omitempty"`
+	Status *string                  `json:"status,omitempty"`
 }
 
-// NewCreateVideoResponse instantiates a new CreateVideoResponse object
+// NewGetLiveStreamVideoResponse instantiates a new GetLiveStreamVideoResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateVideoResponse() *CreateVideoResponse {
-	this := CreateVideoResponse{}
+func NewGetLiveStreamVideoResponse() *GetLiveStreamVideoResponse {
+	this := GetLiveStreamVideoResponse{}
 	return &this
 }
 
-// NewCreateVideoResponseWithDefaults instantiates a new CreateVideoResponse object
+// NewGetLiveStreamVideoResponseWithDefaults instantiates a new GetLiveStreamVideoResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCreateVideoResponseWithDefaults() *CreateVideoResponse {
-	this := CreateVideoResponse{}
+func NewGetLiveStreamVideoResponseWithDefaults() *GetLiveStreamVideoResponse {
+	this := GetLiveStreamVideoResponse{}
 	return &this
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *CreateVideoResponse) GetData() VideoObject {
+func (o *GetLiveStreamVideoResponse) GetData() LiveStreamVideoResponse {
 	if o == nil || o.Data == nil {
-		var ret VideoObject
+		var ret LiveStreamVideoResponse
 		return ret
 	}
 	return *o.Data
@@ -49,7 +49,7 @@ func (o *CreateVideoResponse) GetData() VideoObject {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateVideoResponse) GetDataOk() (*VideoObject, bool) {
+func (o *GetLiveStreamVideoResponse) GetDataOk() (*LiveStreamVideoResponse, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -57,7 +57,7 @@ func (o *CreateVideoResponse) GetDataOk() (*VideoObject, bool) {
 }
 
 // HasData returns a boolean if a field has been set.
-func (o *CreateVideoResponse) HasData() bool {
+func (o *GetLiveStreamVideoResponse) HasData() bool {
 	if o != nil && o.Data != nil {
 		return true
 	}
@@ -65,13 +65,13 @@ func (o *CreateVideoResponse) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given VideoObject and assigns it to the Data field.
-func (o *CreateVideoResponse) SetData(v VideoObject) {
+// SetData gets a reference to the given LiveStreamVideoResponse and assigns it to the Data field.
+func (o *GetLiveStreamVideoResponse) SetData(v LiveStreamVideoResponse) {
 	o.Data = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *CreateVideoResponse) GetStatus() string {
+func (o *GetLiveStreamVideoResponse) GetStatus() string {
 	if o == nil || o.Status == nil {
 		var ret string
 		return ret
@@ -81,7 +81,7 @@ func (o *CreateVideoResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateVideoResponse) GetStatusOk() (*string, bool) {
+func (o *GetLiveStreamVideoResponse) GetStatusOk() (*string, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
@@ -89,7 +89,7 @@ func (o *CreateVideoResponse) GetStatusOk() (*string, bool) {
 }
 
 // HasStatus returns a boolean if a field has been set.
-func (o *CreateVideoResponse) HasStatus() bool {
+func (o *GetLiveStreamVideoResponse) HasStatus() bool {
 	if o != nil && o.Status != nil {
 		return true
 	}
@@ -98,33 +98,33 @@ func (o *CreateVideoResponse) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *CreateVideoResponse) SetStatus(v string) {
+func (o *GetLiveStreamVideoResponse) SetStatus(v string) {
 	o.Status = &v
 }
 
-type NullableCreateVideoResponse struct {
-	value *CreateVideoResponse
+type NullableGetLiveStreamVideoResponse struct {
+	value *GetLiveStreamVideoResponse
 	isSet bool
 }
 
-func (v NullableCreateVideoResponse) Get() *CreateVideoResponse {
+func (v NullableGetLiveStreamVideoResponse) Get() *GetLiveStreamVideoResponse {
 	return v.value
 }
 
-func (v *NullableCreateVideoResponse) Set(val *CreateVideoResponse) {
+func (v *NullableGetLiveStreamVideoResponse) Set(val *GetLiveStreamVideoResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateVideoResponse) IsSet() bool {
+func (v NullableGetLiveStreamVideoResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateVideoResponse) Unset() {
+func (v *NullableGetLiveStreamVideoResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateVideoResponse(val *CreateVideoResponse) *NullableCreateVideoResponse {
-	return &NullableCreateVideoResponse{value: val, isSet: true}
+func NewNullableGetLiveStreamVideoResponse(val *GetLiveStreamVideoResponse) *NullableGetLiveStreamVideoResponse {
+	return &NullableGetLiveStreamVideoResponse{value: val, isSet: true}
 }

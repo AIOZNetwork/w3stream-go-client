@@ -1,78 +1,78 @@
-# GetVideoDetailResponse
+# GetLiveStreamVideoResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**VideoObject**](VideoObject.md) |  | [optional] 
+**Data** | Pointer to [**LiveStreamVideoResponse**](LiveStreamVideoResponse.md) |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
-### NewGetVideoDetailResponse
+### NewGetLiveStreamVideoResponse
 
-`func NewGetVideoDetailResponse() *GetVideoDetailResponse`
+`func NewGetLiveStreamVideoResponse() *GetLiveStreamVideoResponse`
 
-NewGetVideoDetailResponse instantiates a new GetVideoDetailResponse object
+NewGetLiveStreamVideoResponse instantiates a new GetLiveStreamVideoResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewGetVideoDetailResponseWithDefaults
+### NewGetLiveStreamVideoResponseWithDefaults
 
-`func NewGetVideoDetailResponseWithDefaults() *GetVideoDetailResponse`
+`func NewGetLiveStreamVideoResponseWithDefaults() *GetLiveStreamVideoResponse`
 
-NewGetVideoDetailResponseWithDefaults instantiates a new GetVideoDetailResponse object
+NewGetLiveStreamVideoResponseWithDefaults instantiates a new GetLiveStreamVideoResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetData
 
-`func (o *GetVideoDetailResponse) GetData() VideoObject`
+`func (o *GetLiveStreamVideoResponse) GetData() LiveStreamVideoResponse`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *GetVideoDetailResponse) GetDataOk() (*VideoObject, bool)`
+`func (o *GetLiveStreamVideoResponse) GetDataOk() (*LiveStreamVideoResponse, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *GetVideoDetailResponse) SetData(v VideoObject)`
+`func (o *GetLiveStreamVideoResponse) SetData(v LiveStreamVideoResponse)`
 
 SetData sets Data field to given value.
 
 ### HasData
 
-`func (o *GetVideoDetailResponse) HasData() bool`
+`func (o *GetLiveStreamVideoResponse) HasData() bool`
 
 HasData returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *GetVideoDetailResponse) GetStatus() string`
+`func (o *GetLiveStreamVideoResponse) GetStatus() string`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *GetVideoDetailResponse) GetStatusOk() (*string, bool)`
+`func (o *GetLiveStreamVideoResponse) GetStatusOk() (*string, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *GetVideoDetailResponse) SetStatus(v string)`
+`func (o *GetLiveStreamVideoResponse) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
 
 ### HasStatus
 
-`func (o *GetVideoDetailResponse) HasStatus() bool`
+`func (o *GetLiveStreamVideoResponse) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
 

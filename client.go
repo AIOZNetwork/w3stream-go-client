@@ -35,6 +35,7 @@ type Client struct {
 	BearerToken        string
 
 	ApiKey       ApiKeyServiceI
+	LiveStream   LiveStreamServiceI
 	Players      PlayersServiceI
 	Video        VideoServiceI
 	VideoChapter VideoChapterServiceI
@@ -200,6 +201,7 @@ func (cb *Builder) Build() *Client {
 	}
 
 	c.ApiKey = &ApiKeyService{client: c}
+	c.LiveStream = &LiveStreamService{client: c}
 	c.Players = &PlayersService{client: c}
 	c.Video = &VideoService{client: c}
 	c.VideoChapter = &VideoChapterService{client: c}
