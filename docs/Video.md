@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**GetCost**](Video.md#GetCost) | **Get** /videos/cost | get video transcoding cost
 [**GetDetail**](Video.md#GetDetail) | **Get** /videos/{id} | get video detail
 [**GetVideoList**](Video.md#GetVideoList) | **Post** /videos | Get user videos list
+[**GetVideoPlayerInfo**](Video.md#GetVideoPlayerInfo) | **Get** /videos/{id}/player.json | Get video player info
 [**SetCaption**](Video.md#SetCaption) | **Patch** /videos/{id}/captions/{lan} | Set default video caption
 [**UploadPart**](Video.md#UploadPart) | **Post** /videos/{id}/part | Upload part of video
 [**UploadVideoComplete**](Video.md#UploadVideoComplete) | **Get** /videos/{id}/complete | Get upload video when complete
@@ -751,6 +752,83 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GetVideoListResponse**](GetVideoListResponse.md)
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetVideoPlayerInfo
+
+> GetVideoPlayerInfo(id string, r VideoApiGetVideoPlayerInfoRequest) (*GetVideoPlayerInfoResponse, error)
+
+
+> GetVideoPlayerInfoWithContext(ctx context.Context, id string, r VideoApiGetVideoPlayerInfoRequest) (*GetVideoPlayerInfoResponse, error)
+
+
+
+Get video player info
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "encoding/json"
+    "os"
+    w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
+)
+
+func main() {
+    // create a new client
+    apiCreds := w3streamsdk.AuthCredentials{
+		SecretKey: "YOUR_SECRET_KEY",
+		PublicKey: "YOUR_PUBLIC_KEY",
+    }
+    client := w3streamsdk.ClientBuilder(apiCreds).Build()
+    req := w3streamsdk.VideoApiGetVideoPlayerInfoRequest{}
+    
+    req.Id("id_example") // string | Video ID
+    req.Token("token_example") // string | Token
+
+    res, err := client.Video.GetVideoPlayerInfo(id string, req)
+    
+
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `Video.GetVideoPlayerInfo``: %v\n", err)
+    }
+    // response from `GetVideoPlayerInfo`: GetVideoPlayerInfoResponse
+    newJsonString, err := json.MarshalIndent(res, "", "  ")
+    if err != nil {
+    fmt.Println(err)
+    }
+    fmt.Println("Response from `Video.GetVideoPlayerInfo`")
+    fmt.Println(string(newJsonString))
+}
+```
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**id** | **string** | Video ID | 
+
+### Other Parameters
+
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**token** | **string** | Token | 
+
+### Return type
+
+[**GetVideoPlayerInfoResponse**](GetVideoPlayerInfoResponse.md)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**VideoObject**](VideoObject.md) |  | [optional] 
+**Data** | Pointer to [**Video**](Video.md) |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetData
 
-`func (o *CreateVideoResponse) GetData() VideoObject`
+`func (o *CreateVideoResponse) GetData() Video`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *CreateVideoResponse) GetDataOk() (*VideoObject, bool)`
+`func (o *CreateVideoResponse) GetDataOk() (*Video, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *CreateVideoResponse) SetData(v VideoObject)`
+`func (o *CreateVideoResponse) SetData(v Video)`
 
 SetData sets Data field to given value.
 

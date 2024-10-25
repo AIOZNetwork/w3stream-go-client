@@ -10,8 +10,8 @@ Method | HTTP request | Description
 [**DeleteLiveStreamVideo**](LiveStream.md#DeleteLiveStreamVideo) | **Delete** /live_streams/{id}/videos | Delete live stream video
 [**GetLiveStreamKey**](LiveStream.md#GetLiveStreamKey) | **Get** /live_streams/{id} | Get live stream key
 [**GetLiveStreamKeys**](LiveStream.md#GetLiveStreamKeys) | **Get** /live_streams | Get live stream key list
+[**GetLiveStreamPlayerInfo**](LiveStream.md#GetLiveStreamPlayerInfo) | **Get** /live_streams/player/{id}/videos | Get live stream video public
 [**GetLiveStreamVideo**](LiveStream.md#GetLiveStreamVideo) | **Get** /live_streams/{id}/videos | Get live stream video
-[**GetLiveStreamVideoPublic**](LiveStream.md#GetLiveStreamVideoPublic) | **Get** /live_streams/player/{id}/videos | Get live stream video public
 [**GetLiveStreamVideos**](LiveStream.md#GetLiveStreamVideos) | **Post** /live_streams/{id}/videos | Get live stream videos
 [**GetStreaming**](LiveStream.md#GetStreaming) | **Get** /live_streams/{id}/streamings/{stream_id} | Get live stream video streaming
 [**GetStreamings**](LiveStream.md#GetStreamings) | **Get** /live_streams/{id}/streamings | Get live stream video streamings
@@ -461,6 +461,78 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetLiveStreamPlayerInfo
+
+> GetLiveStreamPlayerInfo(id string) (*GetLiveStreamVideoPublicResponse, error)
+
+> GetLiveStreamPlayerInfoWithContext(ctx context.Context, id string) (*GetLiveStreamVideoPublicResponse, error)
+
+
+Get live stream video public
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "encoding/json"
+    "os"
+    w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
+)
+
+func main() {
+    // create a new client
+    apiCreds := w3streamsdk.AuthCredentials{
+		SecretKey: "YOUR_SECRET_KEY",
+		PublicKey: "YOUR_PUBLIC_KEY",
+    }
+    client := w3streamsdk.ClientBuilder(apiCreds).Build()
+        
+    id := "id_example" // string | Live stream key ID
+
+    
+    res, err := client.LiveStream.GetLiveStreamPlayerInfo(id)
+
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStream.GetLiveStreamPlayerInfo``: %v\n", err)
+    }
+    // response from `GetLiveStreamPlayerInfo`: GetLiveStreamVideoPublicResponse
+    newJsonString, err := json.MarshalIndent(res, "", "  ")
+    if err != nil {
+    fmt.Println(err)
+    }
+    fmt.Println("Response from `LiveStream.GetLiveStreamPlayerInfo`")
+    fmt.Println(string(newJsonString))
+}
+```
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**id** | **string** | Live stream key ID | 
+
+### Other Parameters
+
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Return type
+
+[**GetLiveStreamVideoPublicResponse**](GetLiveStreamVideoPublicResponse.md)
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetLiveStreamVideo
 
 > GetLiveStreamVideo(id string) (*GetLiveStreamVideoResponse, error)
@@ -527,78 +599,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GetLiveStreamVideoResponse**](GetLiveStreamVideoResponse.md)
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetLiveStreamVideoPublic
-
-> GetLiveStreamVideoPublic(id string) (*GetLiveStreamVideoPublicResponse, error)
-
-> GetLiveStreamVideoPublicWithContext(ctx context.Context, id string) (*GetLiveStreamVideoPublicResponse, error)
-
-
-Get live stream video public
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "encoding/json"
-    "os"
-    w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
-)
-
-func main() {
-    // create a new client
-    apiCreds := w3streamsdk.AuthCredentials{
-		SecretKey: "YOUR_SECRET_KEY",
-		PublicKey: "YOUR_PUBLIC_KEY",
-    }
-    client := w3streamsdk.ClientBuilder(apiCreds).Build()
-        
-    id := "id_example" // string | Live stream key ID
-
-    
-    res, err := client.LiveStream.GetLiveStreamVideoPublic(id)
-
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LiveStream.GetLiveStreamVideoPublic``: %v\n", err)
-    }
-    // response from `GetLiveStreamVideoPublic`: GetLiveStreamVideoPublicResponse
-    newJsonString, err := json.MarshalIndent(res, "", "  ")
-    if err != nil {
-    fmt.Println(err)
-    }
-    fmt.Println("Response from `LiveStream.GetLiveStreamVideoPublic`")
-    fmt.Println(string(newJsonString))
-}
-```
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**id** | **string** | Live stream key ID | 
-
-### Other Parameters
-
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-### Return type
-
-[**GetLiveStreamVideoPublicResponse**](GetLiveStreamVideoPublicResponse.md)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

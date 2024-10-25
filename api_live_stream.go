@@ -152,6 +152,23 @@ type LiveStreamServiceI interface {
 	GetLiveStreamKeysWithContext(ctx context.Context, r LiveStreamApiGetLiveStreamKeysRequest) (*GetLiveStreamKeysListResponse, error)
 
 	/*
+	 * GetLiveStreamPlayerInfo Get live stream video public
+	 * @param id Live stream key ID
+	 * @return LiveStreamApiGetLiveStreamPlayerInfoRequest
+	 */
+
+	GetLiveStreamPlayerInfo(id string) (*GetLiveStreamVideoPublicResponse, error)
+
+	/*
+	 * GetLiveStreamPlayerInfo Get live stream video public
+	 * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 * @param id Live stream key ID
+	 * @return LiveStreamApiGetLiveStreamPlayerInfoRequest
+	 */
+
+	GetLiveStreamPlayerInfoWithContext(ctx context.Context, id string) (*GetLiveStreamVideoPublicResponse, error)
+
+	/*
 	 * GetLiveStreamVideo Get live stream video
 	 * @param id Live stream video ID
 	 * @return LiveStreamApiGetLiveStreamVideoRequest
@@ -167,23 +184,6 @@ type LiveStreamServiceI interface {
 	 */
 
 	GetLiveStreamVideoWithContext(ctx context.Context, id string) (*GetLiveStreamVideoResponse, error)
-
-	/*
-	 * GetLiveStreamVideoPublic Get live stream video public
-	 * @param id Live stream key ID
-	 * @return LiveStreamApiGetLiveStreamVideoPublicRequest
-	 */
-
-	GetLiveStreamVideoPublic(id string) (*GetLiveStreamVideoPublicResponse, error)
-
-	/*
-	 * GetLiveStreamVideoPublic Get live stream video public
-	 * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param id Live stream key ID
-	 * @return LiveStreamApiGetLiveStreamVideoPublicRequest
-	 */
-
-	GetLiveStreamVideoPublicWithContext(ctx context.Context, id string) (*GetLiveStreamVideoPublicResponse, error)
 
 	/*
 	 * GetLiveStreamVideos Get live stream videos
@@ -578,6 +578,53 @@ func (s *LiveStreamService) GetLiveStreamKeysWithContext(ctx context.Context, r 
 }
 
 /*
+ * GetLiveStreamPlayerInfo Get live stream video public
+ * Get live stream video public for a specific live stream key
+
+ * @param id Live stream key ID
+ * @return LiveStreamApiGetLiveStreamPlayerInfoRequest
+ */
+
+func (s *LiveStreamService) GetLiveStreamPlayerInfo(id string) (*GetLiveStreamVideoPublicResponse, error) {
+
+	return s.GetLiveStreamPlayerInfoWithContext(context.Background(), id)
+
+}
+
+/*
+ * GetLiveStreamPlayerInfo Get live stream video public
+ * Get live stream video public for a specific live stream key
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param id Live stream key ID
+ * @return LiveStreamApiGetLiveStreamPlayerInfoRequest
+ */
+
+func (s *LiveStreamService) GetLiveStreamPlayerInfoWithContext(ctx context.Context, id string) (*GetLiveStreamVideoPublicResponse, error) {
+	var localVarPostBody interface{}
+
+	localVarPath := "/live_streams/player/{id}/videos"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+
+	req, err := s.client.prepareRequest(ctx, http.MethodGet, localVarPath, localVarPostBody, localVarHeaderParams, localVarQueryParams)
+	if err != nil {
+		return nil, err
+	}
+
+	res := new(GetLiveStreamVideoPublicResponse)
+	_, err = s.client.do(req, res)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+
+}
+
+/*
  * GetLiveStreamVideo Get live stream video
  * Get a specific live stream video by ID
 
@@ -614,53 +661,6 @@ func (s *LiveStreamService) GetLiveStreamVideoWithContext(ctx context.Context, i
 	}
 
 	res := new(GetLiveStreamVideoResponse)
-	_, err = s.client.do(req, res)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return res, nil
-
-}
-
-/*
- * GetLiveStreamVideoPublic Get live stream video public
- * Get live stream video public for a specific live stream key
-
- * @param id Live stream key ID
- * @return LiveStreamApiGetLiveStreamVideoPublicRequest
- */
-
-func (s *LiveStreamService) GetLiveStreamVideoPublic(id string) (*GetLiveStreamVideoPublicResponse, error) {
-
-	return s.GetLiveStreamVideoPublicWithContext(context.Background(), id)
-
-}
-
-/*
- * GetLiveStreamVideoPublic Get live stream video public
- * Get live stream video public for a specific live stream key
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id Live stream key ID
- * @return LiveStreamApiGetLiveStreamVideoPublicRequest
- */
-
-func (s *LiveStreamService) GetLiveStreamVideoPublicWithContext(ctx context.Context, id string) (*GetLiveStreamVideoPublicResponse, error) {
-	var localVarPostBody interface{}
-
-	localVarPath := "/live_streams/player/{id}/videos"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-
-	req, err := s.client.prepareRequest(ctx, http.MethodGet, localVarPath, localVarPostBody, localVarHeaderParams, localVarQueryParams)
-	if err != nil {
-		return nil, err
-	}
-
-	res := new(GetLiveStreamVideoPublicResponse)
 	_, err = s.client.do(req, res)
 
 	if err != nil {

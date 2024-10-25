@@ -2789,7 +2789,7 @@ paths:
       summary: Get live stream video public
       tags:
       - live_stream
-      x-client-action: getLiveStreamVideoPublic
+      x-client-action: getLiveStreamPlayerInfo
   /players:
     get:
       description: Retrieve a list of all the player themes you created, as well as
@@ -6432,6 +6432,167 @@ paths:
       x-client-action: uploadPart
       x-client-chunk-upload: true
       x-codegen-request-body-name: request
+  /videos/{id}/player.json:
+    get:
+      description: Get video player info
+      parameters:
+      - description: Video ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Token
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetVideoPlayerInfoResponse'
+          description: VideoObject
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      summary: Get video player info
+      tags:
+      - video
+      x-client-action: getVideoPlayerInfo
+      x-group-parameters: true
   /videos/{id}/thumbnail:
     post:
       operationId: POST-video-thumbnail
@@ -9049,7 +9210,7 @@ components:
         status: status
       properties:
         data:
-          $ref: '#/components/schemas/VideoObject'
+          $ref: '#/components/schemas/Video'
         status:
           type: string
       type: object
@@ -10472,7 +10633,7 @@ components:
         status: status
       properties:
         data:
-          $ref: '#/components/schemas/VideoObject'
+          $ref: '#/components/schemas/Video'
         status:
           type: string
       type: object
@@ -10631,7 +10792,7 @@ components:
           type: integer
         videos:
           items:
-            $ref: '#/components/schemas/VideoObject'
+            $ref: '#/components/schemas/Video'
           type: array
       type: object
     GetVideoListRequest:
@@ -10828,6 +10989,131 @@ components:
         data:
           $ref: '#/components/schemas/GetVideoListData'
         status:
+          type: string
+      type: object
+    GetVideoPlayerInfoResponse:
+      example:
+        metadata:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        chapters:
+        - language: language
+          url: url
+        - language: language
+          url: url
+        player_theme:
+          controls:
+            force_autoplay: true
+            enable_controls: true
+            enable_api: true
+            hide_title: true
+            force_loop: true
+          user_id: user_id
+          name: name
+          created_at: created_at
+          theme:
+            text_track_background: text_track_background
+            main_color: main_color
+            progress_bar_height: progress_bar_height
+            progress_bar_circle_size: progress_bar_circle_size
+            control_bar_background_color: control_bar_background_color
+            text_color: text_color
+            menu_item_background_hover: menu_item_background_hover
+            text_track_color: text_track_color
+            control_bar_height: control_bar_height
+            menu_background_color: menu_background_color
+          id: id
+          asset:
+            logo_link: logo_link
+            logo_image_link: logo_image_link
+            logo: logo
+          is_default: true
+        created_at: created_at
+        description: description
+        title: title
+        captions:
+        - language: language
+          is_default: true
+          url: url
+        - language: language
+          is_default: true
+          url: url
+        tags:
+        - tags
+        - tags
+        duration: 0.8008281904610115
+        is_mp4: true
+        assets:
+          player_url: player_url
+          hls_url: hls_url
+          iframe: iframe
+          thumbnail_url: thumbnail_url
+          mp4_url: mp4_url
+          source_url: source_url
+        size: 6
+        updated_at: updated_at
+        user_id: user_id
+        player_theme_id: player_theme_id
+        is_public: true
+        qualities:
+        - name: name
+          type: type
+          status: status
+        - name: name
+          type: type
+          status: status
+        id: id
+        status: status
+      properties:
+        assets:
+          $ref: '#/components/schemas/VideoAssets'
+        captions:
+          items:
+            $ref: '#/components/schemas/VideoCaption'
+          type: array
+        chapters:
+          items:
+            $ref: '#/components/schemas/VideoChapter'
+          type: array
+        created_at:
+          type: string
+        description:
+          type: string
+        duration:
+          type: number
+        id:
+          type: string
+        is_mp4:
+          type: boolean
+        is_public:
+          type: boolean
+        metadata:
+          items:
+            $ref: '#/components/schemas/Metadata'
+          type: array
+        player_theme:
+          $ref: '#/components/schemas/PlayerTheme'
+        player_theme_id:
+          type: string
+        qualities:
+          items:
+            $ref: '#/components/schemas/QualityObject'
+          type: array
+        size:
+          type: integer
+        status:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+        title:
+          type: string
+        updated_at:
+          type: string
+        user_id:
           type: string
       type: object
     GetWebhooksListData:
@@ -11057,7 +11343,7 @@ components:
         user_id:
           type: string
         video:
-          $ref: '#/components/schemas/VideoObject'
+          $ref: '#/components/schemas/Video'
       type: object
     LiveStreamVideoResponse:
       example:
@@ -11178,7 +11464,7 @@ components:
         user_id:
           type: string
         video:
-          $ref: '#/components/schemas/VideoObject'
+          $ref: '#/components/schemas/Video'
       type: object
     LiveStreamVideosResponse:
       example:
@@ -11776,52 +12062,7 @@ components:
       required:
       - file
       type: object
-    VideoAssets:
-      example:
-        player_url: player_url
-        hls_url: hls_url
-        iframe: iframe
-        thumbnail_url: thumbnail_url
-        mp4_url: mp4_url
-        source_url: source_url
-      properties:
-        hls_url:
-          type: string
-        iframe:
-          type: string
-        mp4_url:
-          type: string
-        player_url:
-          type: string
-        source_url:
-          type: string
-        thumbnail_url:
-          type: string
-      type: object
-    VideoCaption:
-      example:
-        language: language
-        is_default: true
-        url: url
-      properties:
-        is_default:
-          type: boolean
-        language:
-          type: string
-        url:
-          type: string
-      type: object
-    VideoChapter:
-      example:
-        language: language
-        url: url
-      properties:
-        language:
-          type: string
-        url:
-          type: string
-      type: object
-    VideoObject:
+    Video:
       example:
         metadata:
         - value: value
@@ -11944,6 +12185,51 @@ components:
         updated_at:
           type: string
         user_id:
+          type: string
+      type: object
+    VideoAssets:
+      example:
+        player_url: player_url
+        hls_url: hls_url
+        iframe: iframe
+        thumbnail_url: thumbnail_url
+        mp4_url: mp4_url
+        source_url: source_url
+      properties:
+        hls_url:
+          type: string
+        iframe:
+          type: string
+        mp4_url:
+          type: string
+        player_url:
+          type: string
+        source_url:
+          type: string
+        thumbnail_url:
+          type: string
+      type: object
+    VideoCaption:
+      example:
+        language: language
+        is_default: true
+        url: url
+      properties:
+        is_default:
+          type: boolean
+        language:
+          type: string
+        url:
+          type: string
+      type: object
+    VideoChapter:
+      example:
+        language: language
+        url: url
+      properties:
+        language:
+          type: string
+        url:
           type: string
       type: object
     VideoWatermark:

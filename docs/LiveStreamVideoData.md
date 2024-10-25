@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **string** |  | [optional] 
 **UserId** | Pointer to **string** |  | [optional] 
-**Video** | Pointer to [**VideoObject**](VideoObject.md) |  | [optional] 
+**Video** | Pointer to [**Video**](Video.md) |  | [optional] 
 
 ## Methods
 
@@ -313,20 +313,20 @@ HasUserId returns a boolean if a field has been set.
 
 ### GetVideo
 
-`func (o *LiveStreamVideoData) GetVideo() VideoObject`
+`func (o *LiveStreamVideoData) GetVideo() Video`
 
 GetVideo returns the Video field if non-nil, zero value otherwise.
 
 ### GetVideoOk
 
-`func (o *LiveStreamVideoData) GetVideoOk() (*VideoObject, bool)`
+`func (o *LiveStreamVideoData) GetVideoOk() (*Video, bool)`
 
 GetVideoOk returns a tuple with the Video field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVideo
 
-`func (o *LiveStreamVideoData) SetVideo(v VideoObject)`
+`func (o *LiveStreamVideoData) SetVideo(v Video)`
 
 SetVideo sets Video field to given value.
 

@@ -28,7 +28,7 @@ type LiveStreamVideoData struct {
 	Title           *string           `json:"title,omitempty"`
 	UpdatedAt       *string           `json:"updated_at,omitempty"`
 	UserId          *string           `json:"user_id,omitempty"`
-	Video           *VideoObject      `json:"video,omitempty"`
+	Video           *Video            `json:"video,omitempty"`
 }
 
 // NewLiveStreamVideoData instantiates a new LiveStreamVideoData object
@@ -401,9 +401,9 @@ func (o *LiveStreamVideoData) SetUserId(v string) {
 }
 
 // GetVideo returns the Video field value if set, zero value otherwise.
-func (o *LiveStreamVideoData) GetVideo() VideoObject {
+func (o *LiveStreamVideoData) GetVideo() Video {
 	if o == nil || o.Video == nil {
-		var ret VideoObject
+		var ret Video
 		return ret
 	}
 	return *o.Video
@@ -411,7 +411,7 @@ func (o *LiveStreamVideoData) GetVideo() VideoObject {
 
 // GetVideoOk returns a tuple with the Video field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LiveStreamVideoData) GetVideoOk() (*VideoObject, bool) {
+func (o *LiveStreamVideoData) GetVideoOk() (*Video, bool) {
 	if o == nil || o.Video == nil {
 		return nil, false
 	}
@@ -427,8 +427,8 @@ func (o *LiveStreamVideoData) HasVideo() bool {
 	return false
 }
 
-// SetVideo gets a reference to the given VideoObject and assigns it to the Video field.
-func (o *LiveStreamVideoData) SetVideo(v VideoObject) {
+// SetVideo gets a reference to the given Video and assigns it to the Video field.
+func (o *LiveStreamVideoData) SetVideo(v Video) {
 	o.Video = &v
 }
 

@@ -46,6 +46,15 @@ func (r VideoApiGetCaptionsRequest) Limit(limit int32) VideoApiGetCaptionsReques
 	return r
 }
 
+type VideoApiGetVideoPlayerInfoRequest struct {
+	token *string
+}
+
+func (r VideoApiGetVideoPlayerInfoRequest) Token(token string) VideoApiGetVideoPlayerInfoRequest {
+	r.token = &token
+	return r
+}
+
 type VideoServiceI interface {
 	/*
 	 * Create Create video object
@@ -208,6 +217,23 @@ type VideoServiceI interface {
 	 */
 
 	GetVideoListWithContext(ctx context.Context, request GetVideoListRequest) (*GetVideoListResponse, error)
+
+	/*
+	 * GetVideoPlayerInfo Get video player info
+	 * @param id Video ID
+	 * @return VideoApiGetVideoPlayerInfoRequest
+	 */
+
+	GetVideoPlayerInfo(id string, r VideoApiGetVideoPlayerInfoRequest) (*GetVideoPlayerInfoResponse, error)
+
+	/*
+	 * GetVideoPlayerInfo Get video player info
+	 * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 * @param id Video ID
+	 * @return VideoApiGetVideoPlayerInfoRequest
+	 */
+
+	GetVideoPlayerInfoWithContext(ctx context.Context, id string, r VideoApiGetVideoPlayerInfoRequest) (*GetVideoPlayerInfoResponse, error)
 
 	/*
 	 * SetCaption Set default video caption
@@ -778,6 +804,57 @@ func (s *VideoService) GetVideoListWithContext(ctx context.Context, request GetV
 	}
 
 	res := new(GetVideoListResponse)
+	_, err = s.client.do(req, res)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+
+}
+
+/*
+ * GetVideoPlayerInfo Get video player info
+ * Get video player info
+
+ * @param id Video ID
+ * @return VideoApiGetVideoPlayerInfoRequest
+ */
+
+func (s *VideoService) GetVideoPlayerInfo(id string, r VideoApiGetVideoPlayerInfoRequest) (*GetVideoPlayerInfoResponse, error) {
+
+	return s.GetVideoPlayerInfoWithContext(context.Background(), id, r)
+
+}
+
+/*
+ * GetVideoPlayerInfo Get video player info
+ * Get video player info
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param id Video ID
+ * @return VideoApiGetVideoPlayerInfoRequest
+ */
+
+func (s *VideoService) GetVideoPlayerInfoWithContext(ctx context.Context, id string, r VideoApiGetVideoPlayerInfoRequest) (*GetVideoPlayerInfoResponse, error) {
+	var localVarPostBody interface{}
+
+	localVarPath := "/videos/{id}/player.json"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+
+	if r.token != nil {
+		localVarQueryParams.Add("token", parameterToString(*r.token, ""))
+	}
+
+	req, err := s.client.prepareRequest(ctx, http.MethodGet, localVarPath, localVarPostBody, localVarHeaderParams, localVarQueryParams)
+	if err != nil {
+		return nil, err
+	}
+
+	res := new(GetVideoPlayerInfoResponse)
 	_, err = s.client.do(req, res)
 
 	if err != nil {

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Total** | Pointer to **int32** |  | [optional] 
-**Videos** | Pointer to [**[]VideoObject**](VideoObject.md) |  | [optional] 
+**Videos** | Pointer to [**[]Video**](Video.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasTotal returns a boolean if a field has been set.
 
 ### GetVideos
 
-`func (o *GetVideoListData) GetVideos() []VideoObject`
+`func (o *GetVideoListData) GetVideos() []Video`
 
 GetVideos returns the Videos field if non-nil, zero value otherwise.
 
 ### GetVideosOk
 
-`func (o *GetVideoListData) GetVideosOk() (*[]VideoObject, bool)`
+`func (o *GetVideoListData) GetVideosOk() (*[]Video, bool)`
 
 GetVideosOk returns a tuple with the Videos field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVideos
 
-`func (o *GetVideoListData) SetVideos(v []VideoObject)`
+`func (o *GetVideoListData) SetVideos(v []Video)`
 
 SetVideos sets Videos field to given value.
 

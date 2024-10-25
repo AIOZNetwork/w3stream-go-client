@@ -17,8 +17,8 @@ import (
 
 // CreateVideoResponse struct for CreateVideoResponse
 type CreateVideoResponse struct {
-	Data   *VideoObject `json:"data,omitempty"`
-	Status *string      `json:"status,omitempty"`
+	Data   *Video  `json:"data,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // NewCreateVideoResponse instantiates a new CreateVideoResponse object
@@ -39,9 +39,9 @@ func NewCreateVideoResponseWithDefaults() *CreateVideoResponse {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *CreateVideoResponse) GetData() VideoObject {
+func (o *CreateVideoResponse) GetData() Video {
 	if o == nil || o.Data == nil {
-		var ret VideoObject
+		var ret Video
 		return ret
 	}
 	return *o.Data
@@ -49,7 +49,7 @@ func (o *CreateVideoResponse) GetData() VideoObject {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateVideoResponse) GetDataOk() (*VideoObject, bool) {
+func (o *CreateVideoResponse) GetDataOk() (*Video, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -65,8 +65,8 @@ func (o *CreateVideoResponse) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given VideoObject and assigns it to the Data field.
-func (o *CreateVideoResponse) SetData(v VideoObject) {
+// SetData gets a reference to the given Video and assigns it to the Data field.
+func (o *CreateVideoResponse) SetData(v Video) {
 	o.Data = &v
 }
 
