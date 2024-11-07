@@ -17,9 +17,10 @@ import (
 
 // CreatePlayerThemeRequest struct for CreatePlayerThemeRequest
 type CreatePlayerThemeRequest struct {
-	Controls *Controls `json:"controls,omitempty"`
-	Name     *string   `json:"name,omitempty"`
-	Theme    *Theme    `json:"theme,omitempty"`
+	Controls  *Controls `json:"controls,omitempty"`
+	IsDefault *bool     `json:"is_default,omitempty"`
+	Name      *string   `json:"name,omitempty"`
+	Theme     *Theme    `json:"theme,omitempty"`
 }
 
 // NewCreatePlayerThemeRequest instantiates a new CreatePlayerThemeRequest object
@@ -69,6 +70,38 @@ func (o *CreatePlayerThemeRequest) HasControls() bool {
 // SetControls gets a reference to the given Controls and assigns it to the Controls field.
 func (o *CreatePlayerThemeRequest) SetControls(v Controls) {
 	o.Controls = &v
+}
+
+// GetIsDefault returns the IsDefault field value if set, zero value otherwise.
+func (o *CreatePlayerThemeRequest) GetIsDefault() bool {
+	if o == nil || o.IsDefault == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsDefault
+}
+
+// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePlayerThemeRequest) GetIsDefaultOk() (*bool, bool) {
+	if o == nil || o.IsDefault == nil {
+		return nil, false
+	}
+	return o.IsDefault, true
+}
+
+// HasIsDefault returns a boolean if a field has been set.
+func (o *CreatePlayerThemeRequest) HasIsDefault() bool {
+	if o != nil && o.IsDefault != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefault gets a reference to the given bool and assigns it to the IsDefault field.
+func (o *CreatePlayerThemeRequest) SetIsDefault(v bool) {
+	o.IsDefault = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.

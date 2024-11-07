@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Asset** | Pointer to [**Asset**](Asset.md) |  | [optional] 
 **Controls** | Pointer to [**Controls**](Controls.md) |  | [optional] 
 **IsDefault** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
@@ -28,31 +27,6 @@ will change when the set of required properties is changed
 NewUpdatePlayerThemeRequestWithDefaults instantiates a new UpdatePlayerThemeRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetAsset
-
-`func (o *UpdatePlayerThemeRequest) GetAsset() Asset`
-
-GetAsset returns the Asset field if non-nil, zero value otherwise.
-
-### GetAssetOk
-
-`func (o *UpdatePlayerThemeRequest) GetAssetOk() (*Asset, bool)`
-
-GetAssetOk returns a tuple with the Asset field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAsset
-
-`func (o *UpdatePlayerThemeRequest) SetAsset(v Asset)`
-
-SetAsset sets Asset field to given value.
-
-### HasAsset
-
-`func (o *UpdatePlayerThemeRequest) HasAsset() bool`
-
-HasAsset returns a boolean if a field has been set.
 
 ### GetControls
 

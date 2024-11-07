@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Controls** | Pointer to [**Controls**](Controls.md) |  | [optional] 
+**IsDefault** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Theme** | Pointer to [**Theme**](Theme.md) |  | [optional] 
 
@@ -51,6 +52,31 @@ SetControls sets Controls field to given value.
 `func (o *CreatePlayerThemeRequest) HasControls() bool`
 
 HasControls returns a boolean if a field has been set.
+
+### GetIsDefault
+
+`func (o *CreatePlayerThemeRequest) GetIsDefault() bool`
+
+GetIsDefault returns the IsDefault field if non-nil, zero value otherwise.
+
+### GetIsDefaultOk
+
+`func (o *CreatePlayerThemeRequest) GetIsDefaultOk() (*bool, bool)`
+
+GetIsDefaultOk returns a tuple with the IsDefault field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsDefault
+
+`func (o *CreatePlayerThemeRequest) SetIsDefault(v bool)`
+
+SetIsDefault sets IsDefault field to given value.
+
+### HasIsDefault
+
+`func (o *CreatePlayerThemeRequest) HasIsDefault() bool`
+
+HasIsDefault returns a boolean if a field has been set.
 
 ### GetName
 

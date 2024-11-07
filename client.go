@@ -37,6 +37,7 @@ type Client struct {
 	ApiKey       ApiKeyServiceI
 	LiveStream   LiveStreamServiceI
 	Players      PlayersServiceI
+	Playlist     PlaylistServiceI
 	Video        VideoServiceI
 	VideoChapter VideoChapterServiceI
 	Watermark    WatermarkServiceI
@@ -203,6 +204,7 @@ func (cb *Builder) Build() *Client {
 	c.ApiKey = &ApiKeyService{client: c}
 	c.LiveStream = &LiveStreamService{client: c}
 	c.Players = &PlayersService{client: c}
+	c.Playlist = &PlaylistService{client: c}
 	c.Video = &VideoService{client: c}
 	c.VideoChapter = &VideoChapterService{client: c}
 	c.Watermark = &WatermarkService{client: c}

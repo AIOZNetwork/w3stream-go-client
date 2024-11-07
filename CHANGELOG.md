@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.0.4] - 2024-10-25
+- Update get api live stream player and add api playlist
+
 ## [1.0.3] - 2024-10-25
 - Update get api live stream player info name and add api get video player info 
 

@@ -196,6 +196,37 @@ Method | HTTP request | Description
 [**RemovePlayer**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Players.md#RemovePlayer) | **Post** `/players/remove-player` | Remove a player theme from a video
 
 
+#### Playlist
+
+
+##### Retrieve an instance of the playlist API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+playlistApi := client.Playlist
+```
+
+##### Endpoints
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**DeleteThumbnail**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#DeleteThumbnail) | **Delete** `/playlists/{id}/thumbnail` | Delete a playlist thumbnail
+[**AddItem**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#AddItem) | **Post** `/playlists/{id}/items` | Add a video to a playlist
+[**CreatePlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#CreatePlaylist) | **Post** `/playlists/create` | Create a new playlist
+[**DeleteItem**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#DeleteItem) | **Delete** `/playlists/{id}/items/{item_id}` | Remove a video from a playlist
+[**DeletePlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#DeletePlaylist) | **Delete** `/playlists/{id}` | Delete a playlist by ID
+[**GetPlaylistById**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#GetPlaylistById) | **Get** `/playlists/{id}` | Get playlist by ID
+[**GetPlaylistInfo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#GetPlaylistInfo) | **Get** `/playlists/{id}/player.json` | Get a playlist public
+[**GetPlaylists**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#GetPlaylists) | **Post** `/playlists` | Get user&#39;s playlists
+[**MoveItems**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#MoveItems) | **Put** `/playlists/{id}/items` | Move a video within a playlist
+[**UpdatePlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#UpdatePlaylist) | **Patch** `/playlists/{id}` | Update a playlist
+
+
 #### Video
 
 
@@ -311,6 +342,7 @@ Method | HTTP request | Description
 ### Models
 
  - [AddPlayerThemesToVideoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/AddPlayerThemesToVideoRequest.md)
+ - [AddVideoToPlaylistRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/AddVideoToPlaylistRequest.md)
  - [ApiKey](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md)
  - [Asset](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Asset.md)
  - [Controls](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Controls.md)
@@ -322,6 +354,9 @@ Method | HTTP request | Description
  - [CreatePlayerThemeRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlayerThemeRequest.md)
  - [CreatePlayerThemesData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlayerThemesData.md)
  - [CreatePlayerThemesResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlayerThemesResponse.md)
+ - [CreatePlaylistData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlaylistData.md)
+ - [CreatePlaylistRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlaylistRequest.md)
+ - [CreatePlaylistResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreatePlaylistResponse.md)
  - [CreateStreamingRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateStreamingRequest.md)
  - [CreateStreamingResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateStreamingResponse.md)
  - [CreateVideoCaptionData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoCaptionData.md)
@@ -351,6 +386,11 @@ Method | HTTP request | Description
  - [GetPlayerThemeByIdResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlayerThemeByIdResponse.md)
  - [GetPlayerThemeData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlayerThemeData.md)
  - [GetPlayerThemeResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlayerThemeResponse.md)
+ - [GetPlaylistByIdData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlaylistByIdData.md)
+ - [GetPlaylistByIdResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlaylistByIdResponse.md)
+ - [GetPlaylistListData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlaylistListData.md)
+ - [GetPlaylistListRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlaylistListRequest.md)
+ - [GetPlaylistListResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetPlaylistListResponse.md)
  - [GetStreamingResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetStreamingResponse.md)
  - [GetStreamingsResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetStreamingsResponse.md)
  - [GetTranscodeCostData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetTranscodeCostData.md)
@@ -374,7 +414,12 @@ Method | HTTP request | Description
  - [LiveStreamVideoResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStreamVideoResponse.md)
  - [LiveStreamVideosResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStreamVideosResponse.md)
  - [Metadata](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Metadata.md)
+ - [MoveVideoInPlaylistRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/MoveVideoInPlaylistRequest.md)
  - [PlayerTheme](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/PlayerTheme.md)
+ - [Playlist](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md)
+ - [PlaylistItem](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/PlaylistItem.md)
+ - [PlaylistItemVideo](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/PlaylistItemVideo.md)
+ - [PublicPlaylistObject](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/PublicPlaylistObject.md)
  - [QualityObject](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/QualityObject.md)
  - [RemovePlayerThemesFromVideoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/RemovePlayerThemesFromVideoRequest.md)
  - [RenameAPIKeyRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/RenameAPIKeyRequest.md)

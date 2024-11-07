@@ -17,14 +17,19 @@ import (
 
 // VideoWatermark struct for VideoWatermark
 type VideoWatermark struct {
-	Bottom  *string `json:"bottom,omitempty"`
-	Height  *string `json:"height,omitempty"`
-	Id      *string `json:"id,omitempty"`
-	Left    *string `json:"left,omitempty"`
-	Opacity *string `json:"opacity,omitempty"`
-	Right   *string `json:"right,omitempty"`
-	Top     *string `json:"top,omitempty"`
-	Width   *string `json:"width,omitempty"`
+	Bottom      *string    `json:"bottom,omitempty"`
+	CreatedAt   *string    `json:"created_at,omitempty"`
+	Height      *string    `json:"height,omitempty"`
+	Id          *string    `json:"id,omitempty"`
+	Left        *string    `json:"left,omitempty"`
+	Opacity     *string    `json:"opacity,omitempty"`
+	Right       *string    `json:"right,omitempty"`
+	Top         *string    `json:"top,omitempty"`
+	UpdatedAt   *string    `json:"updated_at,omitempty"`
+	VideoId     *string    `json:"video_id,omitempty"`
+	Watermark   *Watermark `json:"watermark,omitempty"`
+	WatermarkId *string    `json:"watermark_id,omitempty"`
+	Width       *string    `json:"width,omitempty"`
 }
 
 // NewVideoWatermark instantiates a new VideoWatermark object
@@ -74,6 +79,38 @@ func (o *VideoWatermark) HasBottom() bool {
 // SetBottom gets a reference to the given string and assigns it to the Bottom field.
 func (o *VideoWatermark) SetBottom(v string) {
 	o.Bottom = &v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *VideoWatermark) GetCreatedAt() string {
+	if o == nil || o.CreatedAt == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VideoWatermark) GetCreatedAtOk() (*string, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *VideoWatermark) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
+func (o *VideoWatermark) SetCreatedAt(v string) {
+	o.CreatedAt = &v
 }
 
 // GetHeight returns the Height field value if set, zero value otherwise.
@@ -266,6 +303,134 @@ func (o *VideoWatermark) HasTop() bool {
 // SetTop gets a reference to the given string and assigns it to the Top field.
 func (o *VideoWatermark) SetTop(v string) {
 	o.Top = &v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *VideoWatermark) GetUpdatedAt() string {
+	if o == nil || o.UpdatedAt == nil {
+		var ret string
+		return ret
+	}
+	return *o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VideoWatermark) GetUpdatedAtOk() (*string, bool) {
+	if o == nil || o.UpdatedAt == nil {
+		return nil, false
+	}
+	return o.UpdatedAt, true
+}
+
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *VideoWatermark) HasUpdatedAt() bool {
+	if o != nil && o.UpdatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
+func (o *VideoWatermark) SetUpdatedAt(v string) {
+	o.UpdatedAt = &v
+}
+
+// GetVideoId returns the VideoId field value if set, zero value otherwise.
+func (o *VideoWatermark) GetVideoId() string {
+	if o == nil || o.VideoId == nil {
+		var ret string
+		return ret
+	}
+	return *o.VideoId
+}
+
+// GetVideoIdOk returns a tuple with the VideoId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VideoWatermark) GetVideoIdOk() (*string, bool) {
+	if o == nil || o.VideoId == nil {
+		return nil, false
+	}
+	return o.VideoId, true
+}
+
+// HasVideoId returns a boolean if a field has been set.
+func (o *VideoWatermark) HasVideoId() bool {
+	if o != nil && o.VideoId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVideoId gets a reference to the given string and assigns it to the VideoId field.
+func (o *VideoWatermark) SetVideoId(v string) {
+	o.VideoId = &v
+}
+
+// GetWatermark returns the Watermark field value if set, zero value otherwise.
+func (o *VideoWatermark) GetWatermark() Watermark {
+	if o == nil || o.Watermark == nil {
+		var ret Watermark
+		return ret
+	}
+	return *o.Watermark
+}
+
+// GetWatermarkOk returns a tuple with the Watermark field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VideoWatermark) GetWatermarkOk() (*Watermark, bool) {
+	if o == nil || o.Watermark == nil {
+		return nil, false
+	}
+	return o.Watermark, true
+}
+
+// HasWatermark returns a boolean if a field has been set.
+func (o *VideoWatermark) HasWatermark() bool {
+	if o != nil && o.Watermark != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWatermark gets a reference to the given Watermark and assigns it to the Watermark field.
+func (o *VideoWatermark) SetWatermark(v Watermark) {
+	o.Watermark = &v
+}
+
+// GetWatermarkId returns the WatermarkId field value if set, zero value otherwise.
+func (o *VideoWatermark) GetWatermarkId() string {
+	if o == nil || o.WatermarkId == nil {
+		var ret string
+		return ret
+	}
+	return *o.WatermarkId
+}
+
+// GetWatermarkIdOk returns a tuple with the WatermarkId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VideoWatermark) GetWatermarkIdOk() (*string, bool) {
+	if o == nil || o.WatermarkId == nil {
+		return nil, false
+	}
+	return o.WatermarkId, true
+}
+
+// HasWatermarkId returns a boolean if a field has been set.
+func (o *VideoWatermark) HasWatermarkId() bool {
+	if o != nil && o.WatermarkId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWatermarkId gets a reference to the given string and assigns it to the WatermarkId field.
+func (o *VideoWatermark) SetWatermarkId(v string) {
+	o.WatermarkId = &v
 }
 
 // GetWidth returns the Width field value if set, zero value otherwise.

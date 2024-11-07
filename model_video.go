@@ -36,6 +36,7 @@ type Video struct {
 	Title         *string          `json:"title,omitempty"`
 	UpdatedAt     *string          `json:"updated_at,omitempty"`
 	UserId        *string          `json:"user_id,omitempty"`
+	View          *int32           `json:"view,omitempty"`
 }
 
 // NewVideo instantiates a new Video object
@@ -661,6 +662,38 @@ func (o *Video) HasUserId() bool {
 // SetUserId gets a reference to the given string and assigns it to the UserId field.
 func (o *Video) SetUserId(v string) {
 	o.UserId = &v
+}
+
+// GetView returns the View field value if set, zero value otherwise.
+func (o *Video) GetView() int32 {
+	if o == nil || o.View == nil {
+		var ret int32
+		return ret
+	}
+	return *o.View
+}
+
+// GetViewOk returns a tuple with the View field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Video) GetViewOk() (*int32, bool) {
+	if o == nil || o.View == nil {
+		return nil, false
+	}
+	return o.View, true
+}
+
+// HasView returns a boolean if a field has been set.
+func (o *Video) HasView() bool {
+	if o != nil && o.View != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetView gets a reference to the given int32 and assigns it to the View field.
+func (o *Video) SetView(v int32) {
+	o.View = &v
 }
 
 type NullableVideo struct {

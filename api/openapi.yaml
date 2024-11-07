@@ -4253,6 +4253,1632 @@ paths:
       - players
       x-client-action: removePlayer
       x-codegen-request-body-name: request
+  /playlists:
+    post:
+      description: Retrieve a list of playlists for the authenticated user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetPlaylistListRequest'
+        description: Get playlist list request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPlaylistListResponse'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Get user's playlists
+      tags:
+      - playlist
+      x-client-action: getPlaylists
+      x-codegen-request-body-name: payload
+  /playlists/{id}:
+    delete:
+      description: Delete a specific playlist by its ID for the authenticated user
+      parameters:
+      - description: Playlist ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Delete a playlist by ID
+      tags:
+      - playlist
+      x-client-action: deletePlaylist
+    get:
+      description: Retrieve a specific playlist by its ID for the current user.
+      parameters:
+      - description: Playlist ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Sort field
+        explode: true
+        in: query
+        name: sort_by
+        required: false
+        schema:
+          enum:
+          - created_at
+          - title
+          type: string
+        style: form
+      - description: Sort order
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPlaylistByIdResponse'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Get playlist by ID
+      tags:
+      - playlist
+      x-client-action: getPlaylistById
+      x-group-parameters: true
+    patch:
+      description: Update details of a specific playlist for the authenticated user
+      parameters:
+      - description: Playlist ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  description: Thumbnail
+                  format: binary
+                  type: string
+                name:
+                  description: Playlist name
+                  type: string
+                tags:
+                  description: Tags
+                  items:
+                    type: string
+                  type: array
+                metadata:
+                  description: Metadata
+                  items:
+                    type: string
+                  type: array
+              required:
+              - file
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Update a playlist
+      tags:
+      - playlist
+      x-client-action: updatePlaylist
+  /playlists/{id}/items:
+    post:
+      description: Add a specific video to a playlist for the authenticated user
+      parameters:
+      - description: Playlist ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddVideoToPlaylistRequest'
+        description: Video details
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Add a video to a playlist
+      tags:
+      - playlist
+      x-client-action: addItem
+      x-codegen-request-body-name: request
+    put:
+      description: Change the position of a video in a playlist for the authenticated
+        user.
+      parameters:
+      - description: Playlist ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveVideoInPlaylistRequest'
+        description: Move video details
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Move a video within a playlist
+      tags:
+      - playlist
+      x-client-action: moveItems
+      x-codegen-request-body-name: payload
+  /playlists/{id}/items/{item_id}:
+    delete:
+      description: Remove a specific video from a playlist for the authenticated user
+      parameters:
+      - description: Playlist ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Playlist Item ID
+        explode: false
+        in: path
+        name: item_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Remove a video from a playlist
+      tags:
+      - playlist
+      x-client-action: deleteItem
+  /playlists/{id}/player.json:
+    get:
+      description: Get a specific playlist public by its ID
+      parameters:
+      - description: Playlist ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicPlaylistObject'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      summary: Get a playlist public
+      tags:
+      - playlist
+      x-client-action: getPlaylistInfo
+  /playlists/{id}/thumbnail:
+    delete:
+      description: Delete the thumbnail of a specific playlist for the authenticated
+        user
+      parameters:
+      - description: Playlist ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Delete a playlist thumbnail
+      tags:
+      - playlist
+      x-client-action: deleteThumbnail
+  /playlists/create:
+    post:
+      description: Create a new playlist for the authenticated user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlaylistRequest'
+        description: Create playlist request
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlaylistResponse'
+          description: Created
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - BasicAuth: []
+      - Bearer: []
+      summary: Create a new playlist
+      tags:
+      - playlist
+      x-client-action: createPlaylist
+      x-codegen-request-body-name: payload
   /videos:
     post:
       description: Retrieve a list of videos for the authenticated user.
@@ -5092,15 +6718,13 @@ paths:
           description: Delete caption successfully.
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5119,15 +6743,13 @@ paths:
           description: Bad Request
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5146,15 +6768,13 @@ paths:
           description: Forbidden
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5173,15 +6793,13 @@ paths:
           description: Not Found
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5200,15 +6818,13 @@ paths:
           description: Internal Server Error
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5422,7 +7038,7 @@ paths:
           type: string
         style: simple
       requestBody:
-        $ref: '#/components/requestBodies/inline_object'
+        $ref: '#/components/requestBodies/inline_object_1'
         content:
           multipart/form-data:
             schema:
@@ -5444,15 +7060,13 @@ paths:
           description: Created
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5471,15 +7085,13 @@ paths:
           description: Bad Request
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5498,15 +7110,13 @@ paths:
           description: Forbidden
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5525,15 +7135,13 @@ paths:
           description: Not Found
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5552,15 +7160,13 @@ paths:
           description: Internal Server Error
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5621,15 +7227,13 @@ paths:
           description: OK
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5648,15 +7252,13 @@ paths:
           description: Bad Request
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5675,15 +7277,13 @@ paths:
           description: Forbidden
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5702,15 +7302,13 @@ paths:
           description: Not Found
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5729,15 +7327,13 @@ paths:
           description: Internal Server Error
           headers:
             X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
+              description: Available requests left for current window
               explode: false
               schema:
                 type: integer
               style: simple
             X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
+              description: Seconds until rate limit window resets
               explode: false
               schema:
                 type: integer
@@ -5945,7 +7541,7 @@ paths:
           type: string
         style: simple
       requestBody:
-        $ref: '#/components/requestBodies/inline_object_1'
+        $ref: '#/components/requestBodies/inline_object_2'
         content:
           multipart/form-data:
             schema:
@@ -6606,7 +8202,7 @@ paths:
           type: string
         style: simple
       requestBody:
-        $ref: '#/components/requestBodies/inline_object_2'
+        $ref: '#/components/requestBodies/inline_object_3'
         content:
           multipart/form-data:
             schema:
@@ -7283,7 +8879,7 @@ paths:
       description: Create a new watermark by uploading a JPG or a PNG image.
       operationId: POST_watermark
       requestBody:
-        $ref: '#/components/requestBodies/inline_object_3'
+        $ref: '#/components/requestBodies/inline_object_4'
         content:
           multipart/form-data:
             schema:
@@ -8425,7 +10021,7 @@ paths:
               style: simple
             X-RateLimit-Retry-After:
               description: The number of seconds left until the current rate limit
-                window resets
+                window resets"//
               explode: false
               schema:
                 type: integer
@@ -8616,6 +10212,12 @@ components:
           schema:
             $ref: '#/components/schemas/inline_object'
       required: true
+    inline_object_4:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/inline_object_4'
+      required: true
     inline_object_3:
       content:
         multipart/form-data:
@@ -8661,6 +10263,13 @@ components:
       properties:
         player_theme_id:
           type: string
+        video_id:
+          type: string
+      type: object
+    AddVideoToPlaylistRequest:
+      example:
+        video_id: video_id
+      properties:
         video_id:
           type: string
       type: object
@@ -8834,9 +10443,12 @@ components:
           text_track_color: text_track_color
           control_bar_height: control_bar_height
           menu_background_color: menu_background_color
+        is_default: true
       properties:
         controls:
           $ref: '#/components/schemas/Controls'
+        is_default:
+          type: boolean
         name:
           type: string
         theme:
@@ -8909,6 +10521,135 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/CreatePlayerThemesData'
+        status:
+          type: string
+      type: object
+    CreatePlaylistData:
+      example:
+        playlist:
+          item_count: 6
+          metadata:
+          - key: metadata
+          - key: metadata
+          created_at: created_at
+          thumbnail_url: thumbnail_url
+          tags:
+          - tags
+          - tags
+          duration: 0.8008281904610115
+          thumbnail_id: thumbnail_id
+          size: 1
+          updated_at: updated_at
+          user_id: user_id
+          video_items:
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          name: name
+          id: id
+          iframe: iframe
+      properties:
+        playlist:
+          $ref: '#/components/schemas/Playlist'
+      type: object
+    CreatePlaylistRequest:
+      example:
+        metadata:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        name: name
+        tags:
+        - tags
+        - tags
+      properties:
+        metadata:
+          items:
+            $ref: '#/components/schemas/Metadata'
+          type: array
+        name:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+      type: object
+    CreatePlaylistResponse:
+      example:
+        data:
+          playlist:
+            item_count: 6
+            metadata:
+            - key: metadata
+            - key: metadata
+            created_at: created_at
+            thumbnail_url: thumbnail_url
+            tags:
+            - tags
+            - tags
+            duration: 0.8008281904610115
+            thumbnail_id: thumbnail_id
+            size: 1
+            updated_at: updated_at
+            user_id: user_id
+            video_items:
+            - updated_at: updated_at
+              playlist_id: playlist_id
+              previous_id: previous_id
+              created_at: created_at
+              id: id
+              video:
+                duration: 5.962133916683182
+                qualities: qualities
+                hls_url: hls_url
+                thumbnail_url: thumbnail_url
+                title: title
+              next_id: next_id
+              video_id: video_id
+            - updated_at: updated_at
+              playlist_id: playlist_id
+              previous_id: previous_id
+              created_at: created_at
+              id: id
+              video:
+                duration: 5.962133916683182
+                qualities: qualities
+                hls_url: hls_url
+                thumbnail_url: thumbnail_url
+                title: title
+              next_id: next_id
+              video_id: video_id
+            name: name
+            id: id
+            iframe: iframe
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/CreatePlaylistData'
         status:
           type: string
       type: object
@@ -9001,6 +10742,7 @@ components:
             - tags
             duration: 1.4658129805029452
             is_mp4: true
+            view: 5
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -9186,6 +10928,7 @@ components:
           - tags
           duration: 1.4658129805029452
           is_mp4: true
+          view: 5
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -9585,6 +11328,7 @@ components:
             - tags
             duration: 1.4658129805029452
             is_mp4: true
+            view: 5
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -9686,6 +11430,7 @@ components:
             - tags
             duration: 1.4658129805029452
             is_mp4: true
+            view: 5
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -9723,8 +11468,10 @@ components:
         offset: 6
         limit: 0
         order_by: order_by
+        video_status: video_status
         sort_by: sort_by
         live_stream_key_id: live_stream_key_id
+        status: status
       properties:
         limit:
           type: integer
@@ -9737,6 +11484,10 @@ components:
         search:
           type: string
         sort_by:
+          type: string
+        status:
+          type: string
+        video_status:
           type: string
       type: object
     GetLiveStreamVideosResponse:
@@ -9811,6 +11562,7 @@ components:
               - tags
               duration: 1.4658129805029452
               is_mp4: true
+              view: 5
               assets:
                 player_url: player_url
                 hls_url: hls_url
@@ -9902,6 +11654,7 @@ components:
               - tags
               duration: 1.4658129805029452
               is_mp4: true
+              view: 5
               assets:
                 player_url: player_url
                 hls_url: hls_url
@@ -10131,6 +11884,347 @@ components:
         status:
           type: string
       type: object
+    GetPlaylistByIdData:
+      example:
+        playlist:
+          item_count: 6
+          metadata:
+          - key: metadata
+          - key: metadata
+          created_at: created_at
+          thumbnail_url: thumbnail_url
+          tags:
+          - tags
+          - tags
+          duration: 0.8008281904610115
+          thumbnail_id: thumbnail_id
+          size: 1
+          updated_at: updated_at
+          user_id: user_id
+          video_items:
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          name: name
+          id: id
+          iframe: iframe
+      properties:
+        playlist:
+          $ref: '#/components/schemas/Playlist'
+      type: object
+    GetPlaylistByIdResponse:
+      example:
+        data:
+          playlist:
+            item_count: 6
+            metadata:
+            - key: metadata
+            - key: metadata
+            created_at: created_at
+            thumbnail_url: thumbnail_url
+            tags:
+            - tags
+            - tags
+            duration: 0.8008281904610115
+            thumbnail_id: thumbnail_id
+            size: 1
+            updated_at: updated_at
+            user_id: user_id
+            video_items:
+            - updated_at: updated_at
+              playlist_id: playlist_id
+              previous_id: previous_id
+              created_at: created_at
+              id: id
+              video:
+                duration: 5.962133916683182
+                qualities: qualities
+                hls_url: hls_url
+                thumbnail_url: thumbnail_url
+                title: title
+              next_id: next_id
+              video_id: video_id
+            - updated_at: updated_at
+              playlist_id: playlist_id
+              previous_id: previous_id
+              created_at: created_at
+              id: id
+              video:
+                duration: 5.962133916683182
+                qualities: qualities
+                hls_url: hls_url
+                thumbnail_url: thumbnail_url
+                title: title
+              next_id: next_id
+              video_id: video_id
+            name: name
+            id: id
+            iframe: iframe
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/GetPlaylistByIdData'
+        status:
+          type: string
+      type: object
+    GetPlaylistListData:
+      example:
+        total: 5
+        playlists:
+        - item_count: 6
+          metadata:
+          - key: metadata
+          - key: metadata
+          created_at: created_at
+          thumbnail_url: thumbnail_url
+          tags:
+          - tags
+          - tags
+          duration: 0.8008281904610115
+          thumbnail_id: thumbnail_id
+          size: 1
+          updated_at: updated_at
+          user_id: user_id
+          video_items:
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          name: name
+          id: id
+          iframe: iframe
+        - item_count: 6
+          metadata:
+          - key: metadata
+          - key: metadata
+          created_at: created_at
+          thumbnail_url: thumbnail_url
+          tags:
+          - tags
+          - tags
+          duration: 0.8008281904610115
+          thumbnail_id: thumbnail_id
+          size: 1
+          updated_at: updated_at
+          user_id: user_id
+          video_items:
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          name: name
+          id: id
+          iframe: iframe
+      properties:
+        playlists:
+          items:
+            $ref: '#/components/schemas/Playlist'
+          type: array
+        total:
+          type: integer
+      type: object
+    GetPlaylistListRequest:
+      example:
+        metadata:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        search: search
+        offset: 6
+        limit: 0
+        order_by: order_by
+        sort_by: sort_by
+        tags:
+        - tags
+        - tags
+      properties:
+        limit:
+          type: integer
+        metadata:
+          items:
+            $ref: '#/components/schemas/Metadata'
+          type: array
+        offset:
+          type: integer
+        order_by:
+          type: string
+        search:
+          type: string
+        sort_by:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+      type: object
+    GetPlaylistListResponse:
+      example:
+        data:
+          total: 5
+          playlists:
+          - item_count: 6
+            metadata:
+            - key: metadata
+            - key: metadata
+            created_at: created_at
+            thumbnail_url: thumbnail_url
+            tags:
+            - tags
+            - tags
+            duration: 0.8008281904610115
+            thumbnail_id: thumbnail_id
+            size: 1
+            updated_at: updated_at
+            user_id: user_id
+            video_items:
+            - updated_at: updated_at
+              playlist_id: playlist_id
+              previous_id: previous_id
+              created_at: created_at
+              id: id
+              video:
+                duration: 5.962133916683182
+                qualities: qualities
+                hls_url: hls_url
+                thumbnail_url: thumbnail_url
+                title: title
+              next_id: next_id
+              video_id: video_id
+            - updated_at: updated_at
+              playlist_id: playlist_id
+              previous_id: previous_id
+              created_at: created_at
+              id: id
+              video:
+                duration: 5.962133916683182
+                qualities: qualities
+                hls_url: hls_url
+                thumbnail_url: thumbnail_url
+                title: title
+              next_id: next_id
+              video_id: video_id
+            name: name
+            id: id
+            iframe: iframe
+          - item_count: 6
+            metadata:
+            - key: metadata
+            - key: metadata
+            created_at: created_at
+            thumbnail_url: thumbnail_url
+            tags:
+            - tags
+            - tags
+            duration: 0.8008281904610115
+            thumbnail_id: thumbnail_id
+            size: 1
+            updated_at: updated_at
+            user_id: user_id
+            video_items:
+            - updated_at: updated_at
+              playlist_id: playlist_id
+              previous_id: previous_id
+              created_at: created_at
+              id: id
+              video:
+                duration: 5.962133916683182
+                qualities: qualities
+                hls_url: hls_url
+                thumbnail_url: thumbnail_url
+                title: title
+              next_id: next_id
+              video_id: video_id
+            - updated_at: updated_at
+              playlist_id: playlist_id
+              previous_id: previous_id
+              created_at: created_at
+              id: id
+              video:
+                duration: 5.962133916683182
+                qualities: qualities
+                hls_url: hls_url
+                thumbnail_url: thumbnail_url
+                title: title
+              next_id: next_id
+              video_id: video_id
+            name: name
+            id: id
+            iframe: iframe
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/GetPlaylistListData'
+        status:
+          type: string
+      type: object
     GetStreamingResponse:
       example:
         data:
@@ -10201,6 +12295,7 @@ components:
             - tags
             duration: 1.4658129805029452
             is_mp4: true
+            view: 5
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -10304,6 +12399,7 @@ components:
               - tags
               duration: 1.4658129805029452
               is_mp4: true
+              view: 5
               assets:
                 player_url: player_url
                 hls_url: hls_url
@@ -10395,6 +12491,7 @@ components:
               - tags
               duration: 1.4658129805029452
               is_mp4: true
+              view: 5
               assets:
                 player_url: player_url
                 hls_url: hls_url
@@ -10609,6 +12706,7 @@ components:
           - tags
           duration: 1.4658129805029452
           is_mp4: true
+          view: 5
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -10693,6 +12791,7 @@ components:
           - tags
           duration: 1.4658129805029452
           is_mp4: true
+          view: 5
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -10766,6 +12865,7 @@ components:
           - tags
           duration: 1.4658129805029452
           is_mp4: true
+          view: 5
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -10890,6 +12990,7 @@ components:
             - tags
             duration: 1.4658129805029452
             is_mp4: true
+            view: 5
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -10963,6 +13064,7 @@ components:
             - tags
             duration: 1.4658129805029452
             is_mp4: true
+            view: 5
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -11293,6 +13395,7 @@ components:
           - tags
           duration: 1.4658129805029452
           is_mp4: true
+          view: 5
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -11414,6 +13517,7 @@ components:
           - tags
           duration: 1.4658129805029452
           is_mp4: true
+          view: 5
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -11537,6 +13641,7 @@ components:
             - tags
             duration: 1.4658129805029452
             is_mp4: true
+            view: 5
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -11628,6 +13733,7 @@ components:
             - tags
             duration: 1.4658129805029452
             is_mp4: true
+            view: 5
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -11668,6 +13774,27 @@ components:
         key:
           type: string
         value:
+          type: string
+      type: object
+    MoveVideoInPlaylistRequest:
+      example:
+        current_id: 123e4567-e89b-12d3-a456-426614174000
+        previous_id: 123e4567-e89b-12d3-a456-426614174002
+        next_id: 123e4567-e89b-12d3-a456-426614174001
+      properties:
+        current_id:
+          description: CurrentId is the UUID of the playlist item (video) to be moved
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+        next_id:
+          description: NextId is the UUID of the playlist item that should come after
+            the moved item
+          example: 123e4567-e89b-12d3-a456-426614174001
+          type: string
+        previous_id:
+          description: PreviousId is the UUID of the playlist item that should come
+            before the moved item
+          example: 123e4567-e89b-12d3-a456-426614174002
           type: string
       type: object
     PlayerTheme:
@@ -11715,6 +13842,226 @@ components:
           $ref: '#/components/schemas/Theme'
         user_id:
           type: string
+      type: object
+    Playlist:
+      example:
+        item_count: 6
+        metadata:
+        - key: metadata
+        - key: metadata
+        created_at: created_at
+        thumbnail_url: thumbnail_url
+        tags:
+        - tags
+        - tags
+        duration: 0.8008281904610115
+        thumbnail_id: thumbnail_id
+        size: 1
+        updated_at: updated_at
+        user_id: user_id
+        video_items:
+        - updated_at: updated_at
+          playlist_id: playlist_id
+          previous_id: previous_id
+          created_at: created_at
+          id: id
+          video:
+            duration: 5.962133916683182
+            qualities: qualities
+            hls_url: hls_url
+            thumbnail_url: thumbnail_url
+            title: title
+          next_id: next_id
+          video_id: video_id
+        - updated_at: updated_at
+          playlist_id: playlist_id
+          previous_id: previous_id
+          created_at: created_at
+          id: id
+          video:
+            duration: 5.962133916683182
+            qualities: qualities
+            hls_url: hls_url
+            thumbnail_url: thumbnail_url
+            title: title
+          next_id: next_id
+          video_id: video_id
+        name: name
+        id: id
+        iframe: iframe
+      properties:
+        created_at:
+          type: string
+        duration:
+          type: number
+        id:
+          type: string
+        iframe:
+          type: string
+        item_count:
+          type: integer
+        metadata:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          type: array
+        name:
+          type: string
+        size:
+          type: integer
+        tags:
+          items:
+            type: string
+          type: array
+        thumbnail_id:
+          type: string
+        thumbnail_url:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+        video_items:
+          items:
+            $ref: '#/components/schemas/PlaylistItem'
+          type: array
+      type: object
+    PlaylistItem:
+      example:
+        updated_at: updated_at
+        playlist_id: playlist_id
+        previous_id: previous_id
+        created_at: created_at
+        id: id
+        video:
+          duration: 5.962133916683182
+          qualities: qualities
+          hls_url: hls_url
+          thumbnail_url: thumbnail_url
+          title: title
+        next_id: next_id
+        video_id: video_id
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        next:
+          $ref: '#/components/schemas/PlaylistItem'
+        next_id:
+          type: string
+        playlist_id:
+          type: string
+        previous:
+          $ref: '#/components/schemas/PlaylistItem'
+        previous_id:
+          type: string
+        updated_at:
+          type: string
+        video:
+          $ref: '#/components/schemas/PlaylistItemVideo'
+        video_id:
+          type: string
+      type: object
+    PlaylistItemVideo:
+      example:
+        duration: 5.962133916683182
+        qualities: qualities
+        hls_url: hls_url
+        thumbnail_url: thumbnail_url
+        title: title
+      properties:
+        duration:
+          type: number
+        hls_url:
+          type: string
+        qualities:
+          type: string
+        thumbnail_url:
+          type: string
+        title:
+          type: string
+      type: object
+    PublicPlaylistObject:
+      example:
+        playlist:
+          item_count: 6
+          metadata:
+          - key: metadata
+          - key: metadata
+          created_at: created_at
+          thumbnail_url: thumbnail_url
+          tags:
+          - tags
+          - tags
+          duration: 0.8008281904610115
+          thumbnail_id: thumbnail_id
+          size: 1
+          updated_at: updated_at
+          user_id: user_id
+          video_items:
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          - updated_at: updated_at
+            playlist_id: playlist_id
+            previous_id: previous_id
+            created_at: created_at
+            id: id
+            video:
+              duration: 5.962133916683182
+              qualities: qualities
+              hls_url: hls_url
+              thumbnail_url: thumbnail_url
+              title: title
+            next_id: next_id
+            video_id: video_id
+          name: name
+          id: id
+          iframe: iframe
+        player_theme:
+          controls:
+            force_autoplay: true
+            enable_controls: true
+            enable_api: true
+            hide_title: true
+            force_loop: true
+          user_id: user_id
+          name: name
+          created_at: created_at
+          theme:
+            text_track_background: text_track_background
+            main_color: main_color
+            progress_bar_height: progress_bar_height
+            progress_bar_circle_size: progress_bar_circle_size
+            control_bar_background_color: control_bar_background_color
+            text_color: text_color
+            menu_item_background_hover: menu_item_background_hover
+            text_track_color: text_track_color
+            control_bar_height: control_bar_height
+            menu_background_color: menu_background_color
+          id: id
+          asset:
+            logo_link: logo_link
+            logo_image_link: logo_image_link
+            logo: logo
+          is_default: true
+      properties:
+        player_theme:
+          $ref: '#/components/schemas/PlayerTheme'
+        playlist:
+          $ref: '#/components/schemas/Playlist'
       type: object
     QualityObject:
       example:
@@ -11890,14 +14237,8 @@ components:
           text_track_color: text_track_color
           control_bar_height: control_bar_height
           menu_background_color: menu_background_color
-        asset:
-          logo_link: logo_link
-          logo_image_link: logo_image_link
-          logo: logo
         is_default: true
       properties:
-        asset:
-          $ref: '#/components/schemas/Asset'
         controls:
           $ref: '#/components/schemas/Controls'
         is_default:
@@ -11928,10 +14269,6 @@ components:
             text_track_color: text_track_color
             control_bar_height: control_bar_height
             menu_background_color: menu_background_color
-          asset:
-            logo_link: logo_link
-            logo_image_link: logo_image_link
-            logo: logo
           is_default: true
         status: status
       properties:
@@ -12116,6 +14453,7 @@ components:
         - tags
         duration: 1.4658129805029452
         is_mp4: true
+        view: 5
         assets:
           player_url: player_url
           hls_url: hls_url
@@ -12186,6 +14524,8 @@ components:
           type: string
         user_id:
           type: string
+        view:
+          type: integer
       type: object
     VideoAssets:
       example:
@@ -12236,6 +14576,8 @@ components:
       properties:
         bottom:
           type: string
+        created_at:
+          type: string
         height:
           type: string
         id:
@@ -12247,6 +14589,14 @@ components:
         right:
           type: string
         top:
+          type: string
+        updated_at:
+          type: string
+        video_id:
+          type: string
+        watermark:
+          $ref: '#/components/schemas/Watermark'
+        watermark_id:
           type: string
         width:
           type: string
@@ -12288,9 +14638,22 @@ components:
     inline_object:
       properties:
         file:
-          description: VTT File
+          description: Thumbnail
           format: binary
           type: string
+        name:
+          description: Playlist name
+          type: string
+        tags:
+          description: Tags
+          items:
+            type: string
+          type: array
+        metadata:
+          description: Metadata
+          items:
+            type: string
+          type: array
       required:
       - file
       type: object
@@ -12306,13 +14669,22 @@ components:
     inline_object_2:
       properties:
         file:
-          description: file video to be uploaded
+          description: VTT File
           format: binary
           type: string
       required:
       - file
       type: object
     inline_object_3:
+      properties:
+        file:
+          description: file video to be uploaded
+          format: binary
+          type: string
+      required:
+      - file
+      type: object
+    inline_object_4:
       properties:
         file:
           description: Watermark image file

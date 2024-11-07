@@ -17,7 +17,6 @@ import (
 
 // UpdatePlayerThemeRequest struct for UpdatePlayerThemeRequest
 type UpdatePlayerThemeRequest struct {
-	Asset     *Asset    `json:"asset,omitempty"`
 	Controls  *Controls `json:"controls,omitempty"`
 	IsDefault *bool     `json:"is_default,omitempty"`
 	Name      *string   `json:"name,omitempty"`
@@ -39,38 +38,6 @@ func NewUpdatePlayerThemeRequest() *UpdatePlayerThemeRequest {
 func NewUpdatePlayerThemeRequestWithDefaults() *UpdatePlayerThemeRequest {
 	this := UpdatePlayerThemeRequest{}
 	return &this
-}
-
-// GetAsset returns the Asset field value if set, zero value otherwise.
-func (o *UpdatePlayerThemeRequest) GetAsset() Asset {
-	if o == nil || o.Asset == nil {
-		var ret Asset
-		return ret
-	}
-	return *o.Asset
-}
-
-// GetAssetOk returns a tuple with the Asset field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdatePlayerThemeRequest) GetAssetOk() (*Asset, bool) {
-	if o == nil || o.Asset == nil {
-		return nil, false
-	}
-	return o.Asset, true
-}
-
-// HasAsset returns a boolean if a field has been set.
-func (o *UpdatePlayerThemeRequest) HasAsset() bool {
-	if o != nil && o.Asset != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAsset gets a reference to the given Asset and assigns it to the Asset field.
-func (o *UpdatePlayerThemeRequest) SetAsset(v Asset) {
-	o.Asset = &v
 }
 
 // GetControls returns the Controls field value if set, zero value otherwise.
