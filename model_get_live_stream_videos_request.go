@@ -1,7 +1,7 @@
 /*
- * W3STREAM API
+ * VMS API
  *
- * W3STREAM Service
+ * VMS Service
  *
  * API version: 1.0
  * Contact: support@swagger.io
@@ -23,8 +23,6 @@ type GetLiveStreamVideosRequest struct {
 	OrderBy         *string `json:"order_by,omitempty"`
 	Search          *string `json:"search,omitempty"`
 	SortBy          *string `json:"sort_by,omitempty"`
-	Status          *string `json:"status,omitempty"`
-	VideoStatus     *string `json:"video_status,omitempty"`
 }
 
 // NewGetLiveStreamVideosRequest instantiates a new GetLiveStreamVideosRequest object
@@ -234,70 +232,6 @@ func (o *GetLiveStreamVideosRequest) HasSortBy() bool {
 // SetSortBy gets a reference to the given string and assigns it to the SortBy field.
 func (o *GetLiveStreamVideosRequest) SetSortBy(v string) {
 	o.SortBy = &v
-}
-
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *GetLiveStreamVideosRequest) GetStatus() string {
-	if o == nil || o.Status == nil {
-		var ret string
-		return ret
-	}
-	return *o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetLiveStreamVideosRequest) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
-		return nil, false
-	}
-	return o.Status, true
-}
-
-// HasStatus returns a boolean if a field has been set.
-func (o *GetLiveStreamVideosRequest) HasStatus() bool {
-	if o != nil && o.Status != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *GetLiveStreamVideosRequest) SetStatus(v string) {
-	o.Status = &v
-}
-
-// GetVideoStatus returns the VideoStatus field value if set, zero value otherwise.
-func (o *GetLiveStreamVideosRequest) GetVideoStatus() string {
-	if o == nil || o.VideoStatus == nil {
-		var ret string
-		return ret
-	}
-	return *o.VideoStatus
-}
-
-// GetVideoStatusOk returns a tuple with the VideoStatus field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetLiveStreamVideosRequest) GetVideoStatusOk() (*string, bool) {
-	if o == nil || o.VideoStatus == nil {
-		return nil, false
-	}
-	return o.VideoStatus, true
-}
-
-// HasVideoStatus returns a boolean if a field has been set.
-func (o *GetLiveStreamVideosRequest) HasVideoStatus() bool {
-	if o != nil && o.VideoStatus != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVideoStatus gets a reference to the given string and assigns it to the VideoStatus field.
-func (o *GetLiveStreamVideosRequest) SetVideoStatus(v string) {
-	o.VideoStatus = &v
 }
 
 type NullableGetLiveStreamVideosRequest struct {

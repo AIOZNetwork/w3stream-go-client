@@ -1,7 +1,7 @@
 /*
- * W3STREAM API
+ * VMS API
  *
- * W3STREAM Service
+ * VMS Service
  *
  * API version: 1.0
  * Contact: support@swagger.io
@@ -236,23 +236,23 @@ type VideoServiceI interface {
 	GetVideoPlayerInfoWithContext(ctx context.Context, id string, r VideoApiGetVideoPlayerInfoRequest) (*GetVideoPlayerInfoResponse, error)
 
 	/*
-	 * SetCaption Set default video caption
+	 * SetDefaultCaption Set default caption
 	 * @param id Video ID
 	 * @param lan Language
-	 * @return VideoApiSetCaptionRequest
+	 * @return VideoApiSetDefaultCaptionRequest
 	 */
 
-	SetCaption(id string, lan string, isDefault SetDefaultCaptionRequest) (*ResponseSuccess, error)
+	SetDefaultCaption(id string, lan string) (*ResponseSuccess, error)
 
 	/*
-	 * SetCaption Set default video caption
+	 * SetDefaultCaption Set default caption
 	 * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 * @param id Video ID
 	 * @param lan Language
-	 * @return VideoApiSetCaptionRequest
+	 * @return VideoApiSetDefaultCaptionRequest
 	 */
 
-	SetCaptionWithContext(ctx context.Context, id string, lan string, isDefault SetDefaultCaptionRequest) (*ResponseSuccess, error)
+	SetDefaultCaptionWithContext(ctx context.Context, id string, lan string) (*ResponseSuccess, error)
 
 	/*
 	 * UploadPart Upload part of video
@@ -480,7 +480,7 @@ func (s *VideoService) UploadThumbnailWithContext(ctx context.Context, id string
 	localVarQueryParams := url.Values{}
 	localVarFormParams := make(map[string]string)
 
-	req, err := s.client.prepareUploadRequest(ctx, localVarPath, fileName, fileReader, localVarHeaderParams, localVarQueryParams, localVarFormParams)
+	req, err := s.client.prepareUploadRequest(ctx, http.MethodPost, localVarPath, fileName, fileReader, localVarHeaderParams, localVarQueryParams, localVarFormParams)
 
 	if err != nil {
 		return nil, err
@@ -552,7 +552,7 @@ func (s *VideoService) CreateCaptionWithContext(ctx context.Context, id string, 
 	localVarQueryParams := url.Values{}
 	localVarFormParams := make(map[string]string)
 
-	req, err := s.client.prepareUploadRequest(ctx, localVarPath, fileName, fileReader, localVarHeaderParams, localVarQueryParams, localVarFormParams)
+	req, err := s.client.prepareUploadRequest(ctx, http.MethodPost, localVarPath, fileName, fileReader, localVarHeaderParams, localVarQueryParams, localVarFormParams)
 
 	if err != nil {
 		return nil, err
@@ -866,30 +866,30 @@ func (s *VideoService) GetVideoPlayerInfoWithContext(ctx context.Context, id str
 }
 
 /*
- * SetCaption Set default video caption
- * Sets the default caption for the specified video and language.
+ * SetDefaultCaption Set default caption
+ * Set default caption for a video
 
  * @param id Video ID
  * @param lan Language
- * @return VideoApiSetCaptionRequest
+ * @return VideoApiSetDefaultCaptionRequest
  */
 
-func (s *VideoService) SetCaption(id string, lan string, isDefault SetDefaultCaptionRequest) (*ResponseSuccess, error) {
+func (s *VideoService) SetDefaultCaption(id string, lan string) (*ResponseSuccess, error) {
 
-	return s.SetCaptionWithContext(context.Background(), id, lan, isDefault)
+	return s.SetDefaultCaptionWithContext(context.Background(), id, lan)
 
 }
 
 /*
- * SetCaption Set default video caption
- * Sets the default caption for the specified video and language.
+ * SetDefaultCaption Set default caption
+ * Set default caption for a video
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id Video ID
  * @param lan Language
- * @return VideoApiSetCaptionRequest
+ * @return VideoApiSetDefaultCaptionRequest
  */
 
-func (s *VideoService) SetCaptionWithContext(ctx context.Context, id string, lan string, isDefault SetDefaultCaptionRequest) (*ResponseSuccess, error) {
+func (s *VideoService) SetDefaultCaptionWithContext(ctx context.Context, id string, lan string) (*ResponseSuccess, error) {
 	var localVarPostBody interface{}
 
 	localVarPath := "/videos/{id}/captions/{lan}"
@@ -898,9 +898,6 @@ func (s *VideoService) SetCaptionWithContext(ctx context.Context, id string, lan
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
-
-	// body params
-	localVarPostBody = isDefault
 
 	req, err := s.client.prepareRequest(ctx, http.MethodPatch, localVarPath, localVarPostBody, localVarHeaderParams, localVarQueryParams)
 	if err != nil {

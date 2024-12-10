@@ -1,166 +1,262 @@
 package w3streamsdk
 
 import (
-	"fmt"
-	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-var apiKeyListJSONResponse = `{
-	"data": {
-		"api_keys": [
-			{
-			"created_at": "createdAtValue",
-			"expired_at": "expiredAtValue",
-			"id": "idValue",
-			"last_used_at": "lastUsedAtValue",
-			"name": "nameValue",
-			"public_key": "publicKeyValue",
-			"secret": "secretValue",
-			"truncated_secret": "truncatedSecretValue",
-			"ttl": "ttlValue",
-			"type": "typeValue",
-			"updated_at": "updatedAtValue"
-			}
-		],
-		"total": 1
-	},
-	"status": "success"
-}`
+var (
+	testApiKeyForUpdateAndDelete string
+	testApiKeyName               string = "Test API Key"
+)
 
-var apiKeyJsonResponse = `{
-	"data": {
-		"api_key": {
-			"created_at": "createdAtValue",
-			"expired_at": "expiredAtValue",
-			"id": "idValue",
-			"last_used_at": "lastUsedAtValue",
-			"name": "nameValue",
-			"public_key": "publicKeyValue",
-			"secret": "secretValue",
-			"truncated_secret": "truncatedSecretValue",
-			"ttl": "ttlValue",
-			"type": "typeValue",
-			"updated_at": "updatedAtValue"
-		}
-	},
-	"status": "success"
-}
-`
-
-var apiKey = &ApiKey{
-	CreatedAt:       PtrString("createdAtValue"),
-	ExpiredAt:       PtrString("expiredAtValue"),
-	Id:              PtrString("idValue"),
-	LastUsedAt:      PtrString("lastUsedAtValue"),
-	Name:            PtrString("nameValue"),
-	PublicKey:       PtrString("publicKeyValue"),
-	Secret:          PtrString("secretValue"),
-	TruncatedSecret: PtrString("truncatedSecretValue"),
-	Ttl:             PtrString("ttlValue"),
-	Type:            PtrString("typeValue"),
-	UpdatedAt:       PtrString("updatedAtValue"),
-}
-
-var apiKeyListResponse = GetApiKeysResponse{
-	Data: &GetApiKeysData{
-		ApiKeys: &[]ApiKey{
-			*apiKey,
+func TestApiKeyService_Create(t *testing.T) {
+	tests := []struct {
+		name    string
+		request CreateApiKeyRequest
+		wantErr bool
+	}{
+		{
+			name: "Valid Create",
+			request: CreateApiKeyRequest{
+				ApiKeyName: stringPtr(testApiKeyName),
+				Type:       stringPtr("full_access"),
+				Ttl:        stringPtr("100000000"),
+			},
+			wantErr: false,
 		},
-		Total: PtrInt32(1),
-	},
-	Status: PtrString("success"),
-}
-
-var apiKeyResponse = CreateApiKeyResponse{
-	Data: &CreateApiKeyData{
-		ApiKey: apiKey,
-	},
-	Status: PtrString("success"),
-}
-
-func TestApiKey_Create(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/api_keys", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPost)
-		fmt.Fprint(w, apiKeyJsonResponse)
-	})
-
-	resp, err := client.ApiKey.Create(CreateApiKeyRequest{
-		ApiKeyName: PtrString("nameValue"),
-		Ttl:        PtrString("ttlValue"),
-		Type:       PtrString("typeValue"),
-	})
-	if err != nil {
-		t.Errorf("ApiKey.Create error: %v", err)
+		{
+			name: "Empty Name",
+			request: CreateApiKeyRequest{
+				Type: stringPtr("read"),
+				Ttl:  stringPtr("24h"),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Invalid Type",
+			request: CreateApiKeyRequest{
+				ApiKeyName: stringPtr(testApiKeyName),
+				Type:       stringPtr("invalid"),
+				Ttl:        stringPtr("24h"),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Invalid TTL",
+			request: CreateApiKeyRequest{
+				ApiKeyName: stringPtr(testApiKeyName),
+				Type:       stringPtr("read"),
+				Ttl:        stringPtr("invalid"),
+			},
+			wantErr: true,
+		},
 	}
 
-	expected := &apiKeyResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("ApiKey.Create\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
-
-func TestApiKey_List(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/api_keys", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		fmt.Fprint(w, apiKeyListJSONResponse)
-	})
-
-	resp, err := client.ApiKey.List(ApiKeyApiListRequest{
-		offset: PtrInt32(0),
-		limit:  PtrInt32(10),
-	})
-	if err != nil {
-		t.Errorf("ApiKey.List error: %v", err)
-	}
-
-	expected := &apiKeyListResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("ApiKey.List\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.ApiKey.Create(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				testApiKeyForUpdateAndDelete = *resp.Data.ApiKey.Id
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+				assert.NotEmpty(t, resp.Data.ApiKey.Id)
+				assert.Equal(t, *tt.request.ApiKeyName, *resp.Data.ApiKey.Name)
+			}
+		})
 	}
 }
 
-func TestApiKey_Rename(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/api_keys/apiKeyId", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPatch)
-		fmt.Fprint(w, successResponse)
-	})
-
-	resp, err := client.ApiKey.Update("apiKeyId", RenameAPIKeyRequest{
-		ApiKeyName: PtrString("nameValue"),
-	})
-	if err != nil {
-		t.Errorf("ApiKey.Rename error: %v", err)
+func TestApiKeyService_Update(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+		request RenameAPIKeyRequest
+	}{
+		{
+			name: "Update other",
+			id:   testApiKeyForUpdateAndDelete,
+			request: RenameAPIKeyRequest{
+				ApiKeyName: stringPtr("Updated API Key"),
+			},
+			wantErr: true,
+		},
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("ApiKey.Rename\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.ApiKey.Update(tt.id, tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		request RenameAPIKeyRequest
+		wantErr bool
+	}{
+		{
+			name: "Valid Update",
+			id:   testApiKeyForUpdateAndDelete,
+			request: RenameAPIKeyRequest{
+				ApiKeyName: stringPtr("Updated API Key"),
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid ID",
+			id:   "invalid-id",
+			request: RenameAPIKeyRequest{
+				ApiKeyName: stringPtr("Updated API Key"),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Empty Name",
+			id:   testApiKeyForUpdateAndDelete,
+			request: RenameAPIKeyRequest{
+				ApiKeyName: stringPtr(""),
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.ApiKey.Update(tt.id, tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }
 
-func TestApiKey_Delete(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/api_keys/apiKeyId", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodDelete)
-		fmt.Fprint(w, successResponse)
-	})
+func TestApiKeyService_Delete(t *testing.T) {
 
-	resp, err := client.ApiKey.Delete("apiKeyId")
-	if err != nil {
-		t.Errorf("ApiKey.Delete error: %v", err)
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Delete other",
+			id:      testApiKeyForUpdateAndDelete,
+			wantErr: true,
+		},
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("ApiKey.Delete\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.ApiKey.Delete(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Delete",
+			id:      testApiKeyForUpdateAndDelete,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid ID",
+			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Empty ID",
+			id:      "",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.ApiKey.Delete(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+}
+
+func TestApiKeyService_List(t *testing.T) {
+	tests := []struct {
+		name    string
+		request ApiKeyApiListRequest
+		wantErr bool
+	}{
+		{
+			name:    "Valid List No Filters",
+			request: ApiKeyApiListRequest{},
+			wantErr: false,
+		},
+		{
+			name: "Valid List With Filters",
+			request: ApiKeyApiListRequest{}.
+				Search("test").
+				SortBy("created_at").
+				OrderBy("desc").
+				Offset(0).
+				Limit(10),
+			wantErr: false,
+		},
+		{
+			name: "Invalid Offset",
+			request: ApiKeyApiListRequest{}.
+				Offset(-1),
+			wantErr: true,
+		},
+		{
+			name: "Invalid Limit",
+			request: ApiKeyApiListRequest{}.
+				Limit(1001),
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.ApiKey.List(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+				assert.NotNil(t, resp.Data)
+				assert.NotNil(t, resp.Data.ApiKeys)
+			}
+		})
 	}
 }

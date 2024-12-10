@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Chapters** | Pointer to [**[]VideoChapter**](VideoChapter.md) |  | [optional] 
 **Duration** | Pointer to **float32** |  | [optional] 
 **HlsUrl** | Pointer to **string** |  | [optional] 
 **Qualities** | Pointer to **string** |  | [optional] 
@@ -28,6 +29,31 @@ will change when the set of required properties is changed
 NewPlaylistItemVideoWithDefaults instantiates a new PlaylistItemVideo object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetChapters
+
+`func (o *PlaylistItemVideo) GetChapters() []VideoChapter`
+
+GetChapters returns the Chapters field if non-nil, zero value otherwise.
+
+### GetChaptersOk
+
+`func (o *PlaylistItemVideo) GetChaptersOk() (*[]VideoChapter, bool)`
+
+GetChaptersOk returns a tuple with the Chapters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChapters
+
+`func (o *PlaylistItemVideo) SetChapters(v []VideoChapter)`
+
+SetChapters sets Chapters field to given value.
+
+### HasChapters
+
+`func (o *PlaylistItemVideo) HasChapters() bool`
+
+HasChapters returns a boolean if a field has been set.
 
 ### GetDuration
 

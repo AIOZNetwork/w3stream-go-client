@@ -5,17 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bottom** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **string** |  | [optional] 
 **Height** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Left** | Pointer to **string** |  | [optional] 
 **Opacity** | Pointer to **string** |  | [optional] 
 **Right** | Pointer to **string** |  | [optional] 
 **Top** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **string** |  | [optional] 
-**VideoId** | Pointer to **string** |  | [optional] 
-**Watermark** | Pointer to [**Watermark**](Watermark.md) |  | [optional] 
-**WatermarkId** | Pointer to **string** |  | [optional] 
 **Width** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -61,31 +56,6 @@ SetBottom sets Bottom field to given value.
 `func (o *VideoWatermark) HasBottom() bool`
 
 HasBottom returns a boolean if a field has been set.
-
-### GetCreatedAt
-
-`func (o *VideoWatermark) GetCreatedAt() string`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *VideoWatermark) GetCreatedAtOk() (*string, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *VideoWatermark) SetCreatedAt(v string)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-### HasCreatedAt
-
-`func (o *VideoWatermark) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 ### GetHeight
 
@@ -236,106 +206,6 @@ SetTop sets Top field to given value.
 `func (o *VideoWatermark) HasTop() bool`
 
 HasTop returns a boolean if a field has been set.
-
-### GetUpdatedAt
-
-`func (o *VideoWatermark) GetUpdatedAt() string`
-
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
-
-### GetUpdatedAtOk
-
-`func (o *VideoWatermark) GetUpdatedAtOk() (*string, bool)`
-
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedAt
-
-`func (o *VideoWatermark) SetUpdatedAt(v string)`
-
-SetUpdatedAt sets UpdatedAt field to given value.
-
-### HasUpdatedAt
-
-`func (o *VideoWatermark) HasUpdatedAt() bool`
-
-HasUpdatedAt returns a boolean if a field has been set.
-
-### GetVideoId
-
-`func (o *VideoWatermark) GetVideoId() string`
-
-GetVideoId returns the VideoId field if non-nil, zero value otherwise.
-
-### GetVideoIdOk
-
-`func (o *VideoWatermark) GetVideoIdOk() (*string, bool)`
-
-GetVideoIdOk returns a tuple with the VideoId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVideoId
-
-`func (o *VideoWatermark) SetVideoId(v string)`
-
-SetVideoId sets VideoId field to given value.
-
-### HasVideoId
-
-`func (o *VideoWatermark) HasVideoId() bool`
-
-HasVideoId returns a boolean if a field has been set.
-
-### GetWatermark
-
-`func (o *VideoWatermark) GetWatermark() Watermark`
-
-GetWatermark returns the Watermark field if non-nil, zero value otherwise.
-
-### GetWatermarkOk
-
-`func (o *VideoWatermark) GetWatermarkOk() (*Watermark, bool)`
-
-GetWatermarkOk returns a tuple with the Watermark field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetWatermark
-
-`func (o *VideoWatermark) SetWatermark(v Watermark)`
-
-SetWatermark sets Watermark field to given value.
-
-### HasWatermark
-
-`func (o *VideoWatermark) HasWatermark() bool`
-
-HasWatermark returns a boolean if a field has been set.
-
-### GetWatermarkId
-
-`func (o *VideoWatermark) GetWatermarkId() string`
-
-GetWatermarkId returns the WatermarkId field if non-nil, zero value otherwise.
-
-### GetWatermarkIdOk
-
-`func (o *VideoWatermark) GetWatermarkIdOk() (*string, bool)`
-
-GetWatermarkIdOk returns a tuple with the WatermarkId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetWatermarkId
-
-`func (o *VideoWatermark) SetWatermarkId(v string)`
-
-SetWatermarkId sets WatermarkId field to given value.
-
-### HasWatermarkId
-
-`func (o *VideoWatermark) HasWatermarkId() bool`
-
-HasWatermarkId returns a boolean if a field has been set.
 
 ### GetWidth
 

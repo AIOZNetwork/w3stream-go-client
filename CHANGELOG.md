@@ -1,6 +1,12 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+# Changelog
+All changes to this project will be documented in this file.
+
+## [1.0.5] - 2024-10-25
+- Add test case
+
 ## [1.0.4] - 2024-10-25
 - Update get api live stream player and add api playlist
 

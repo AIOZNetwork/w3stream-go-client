@@ -15,7 +15,7 @@ Method | HTTP request | Description
 [**GetDetail**](Video.md#GetDetail) | **Get** /videos/{id} | get video detail
 [**GetVideoList**](Video.md#GetVideoList) | **Post** /videos | Get user videos list
 [**GetVideoPlayerInfo**](Video.md#GetVideoPlayerInfo) | **Get** /videos/{id}/player.json | Get video player info
-[**SetCaption**](Video.md#SetCaption) | **Patch** /videos/{id}/captions/{lan} | Set default video caption
+[**SetDefaultCaption**](Video.md#SetDefaultCaption) | **Patch** /videos/{id}/captions/{lan} | Set default caption
 [**UploadPart**](Video.md#UploadPart) | **Post** /videos/{id}/part | Upload part of video
 [**UploadVideoComplete**](Video.md#UploadVideoComplete) | **Get** /videos/{id}/complete | Get upload video when complete
 
@@ -835,14 +835,14 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## SetCaption
+## SetDefaultCaption
 
-> SetCaption(id string, lan string, isDefault SetDefaultCaptionRequest) (*ResponseSuccess, error)
+> SetDefaultCaption(id string, lan string) (*ResponseSuccess, error)
 
-> SetCaptionWithContext(ctx context.Context, id string, lan string, isDefault SetDefaultCaptionRequest) (*ResponseSuccess, error)
+> SetDefaultCaptionWithContext(ctx context.Context, id string, lan string) (*ResponseSuccess, error)
 
 
-Set default video caption
+Set default caption
 
 
 
@@ -869,20 +869,19 @@ func main() {
         
     id := "id_example" // string | Video ID
     lan := "lan_example" // string | Language
-    isDefault := *w3streamsdk.NewSetDefaultCaptionRequest() // SetDefaultCaptionRequest | Set Default Caption Request
 
     
-    res, err := client.Video.SetCaption(id, lan, isDefault)
+    res, err := client.Video.SetDefaultCaption(id, lan)
 
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `Video.SetCaption``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `Video.SetDefaultCaption``: %v\n", err)
     }
-    // response from `SetCaption`: ResponseSuccess
+    // response from `SetDefaultCaption`: ResponseSuccess
     newJsonString, err := json.MarshalIndent(res, "", "  ")
     if err != nil {
     fmt.Println(err)
     }
-    fmt.Println("Response from `Video.SetCaption`")
+    fmt.Println("Response from `Video.SetDefaultCaption`")
     fmt.Println(string(newJsonString))
 }
 ```
@@ -900,7 +899,6 @@ Name | Type | Description  | Notes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**isDefault** | [**SetDefaultCaptionRequest**](SetDefaultCaptionRequest.md) | Set Default Caption Request | 
 
 ### Return type
 

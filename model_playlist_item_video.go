@@ -1,7 +1,7 @@
 /*
- * W3STREAM API
+ * VMS API
  *
- * W3STREAM Service
+ * VMS Service
  *
  * API version: 1.0
  * Contact: support@swagger.io
@@ -17,11 +17,12 @@ import (
 
 // PlaylistItemVideo struct for PlaylistItemVideo
 type PlaylistItemVideo struct {
-	Duration     *float32 `json:"duration,omitempty"`
-	HlsUrl       *string  `json:"hls_url,omitempty"`
-	Qualities    *string  `json:"qualities,omitempty"`
-	ThumbnailUrl *string  `json:"thumbnail_url,omitempty"`
-	Title        *string  `json:"title,omitempty"`
+	Chapters     *[]VideoChapter `json:"chapters,omitempty"`
+	Duration     *float32        `json:"duration,omitempty"`
+	HlsUrl       *string         `json:"hls_url,omitempty"`
+	Qualities    *string         `json:"qualities,omitempty"`
+	ThumbnailUrl *string         `json:"thumbnail_url,omitempty"`
+	Title        *string         `json:"title,omitempty"`
 }
 
 // NewPlaylistItemVideo instantiates a new PlaylistItemVideo object
@@ -39,6 +40,38 @@ func NewPlaylistItemVideo() *PlaylistItemVideo {
 func NewPlaylistItemVideoWithDefaults() *PlaylistItemVideo {
 	this := PlaylistItemVideo{}
 	return &this
+}
+
+// GetChapters returns the Chapters field value if set, zero value otherwise.
+func (o *PlaylistItemVideo) GetChapters() []VideoChapter {
+	if o == nil || o.Chapters == nil {
+		var ret []VideoChapter
+		return ret
+	}
+	return *o.Chapters
+}
+
+// GetChaptersOk returns a tuple with the Chapters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PlaylistItemVideo) GetChaptersOk() (*[]VideoChapter, bool) {
+	if o == nil || o.Chapters == nil {
+		return nil, false
+	}
+	return o.Chapters, true
+}
+
+// HasChapters returns a boolean if a field has been set.
+func (o *PlaylistItemVideo) HasChapters() bool {
+	if o != nil && o.Chapters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetChapters gets a reference to the given []VideoChapter and assigns it to the Chapters field.
+func (o *PlaylistItemVideo) SetChapters(v []VideoChapter) {
+	o.Chapters = &v
 }
 
 // GetDuration returns the Duration field value if set, zero value otherwise.

@@ -1,7 +1,7 @@
 /*
- * W3STREAM API
+ * VMS API
  *
- * W3STREAM Service
+ * VMS Service
  *
  * API version: 1.0
  * Contact: support@swagger.io
@@ -254,23 +254,6 @@ type LiveStreamServiceI interface {
 	 */
 
 	UpdateLiveStreamKeyWithContext(ctx context.Context, id string, input UpdateLiveStreamKeyRequest) (*UpdateLiveStreamKeyResponse, error)
-
-	/*
-	 * UpdateLiveStreamVideo Update live stream video
-	 * @param id Live stream key ID
-	 * @return LiveStreamApiUpdateLiveStreamVideoRequest
-	 */
-
-	UpdateLiveStreamVideo(id string, data UpdateLiveStreamVideoRequest) (*ResponseSuccess, error)
-
-	/*
-	 * UpdateLiveStreamVideo Update live stream video
-	 * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 * @param id Live stream key ID
-	 * @return LiveStreamApiUpdateLiveStreamVideoRequest
-	 */
-
-	UpdateLiveStreamVideoWithContext(ctx context.Context, id string, data UpdateLiveStreamVideoRequest) (*ResponseSuccess, error)
 }
 
 // LiveStreamService communicating with the LiveStream
@@ -858,56 +841,6 @@ func (s *LiveStreamService) UpdateLiveStreamKeyWithContext(ctx context.Context, 
 	}
 
 	res := new(UpdateLiveStreamKeyResponse)
-	_, err = s.client.do(req, res)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return res, nil
-
-}
-
-/*
- * UpdateLiveStreamVideo Update live stream video
- * Update live stream video. You can only update while live streaming.
-
- * @param id Live stream key ID
- * @return LiveStreamApiUpdateLiveStreamVideoRequest
- */
-
-func (s *LiveStreamService) UpdateLiveStreamVideo(id string, data UpdateLiveStreamVideoRequest) (*ResponseSuccess, error) {
-
-	return s.UpdateLiveStreamVideoWithContext(context.Background(), id, data)
-
-}
-
-/*
- * UpdateLiveStreamVideo Update live stream video
- * Update live stream video. You can only update while live streaming.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id Live stream key ID
- * @return LiveStreamApiUpdateLiveStreamVideoRequest
- */
-
-func (s *LiveStreamService) UpdateLiveStreamVideoWithContext(ctx context.Context, id string, data UpdateLiveStreamVideoRequest) (*ResponseSuccess, error) {
-	var localVarPostBody interface{}
-
-	localVarPath := "/live_streams/{id}/streamings"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(id, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-
-	// body params
-	localVarPostBody = data
-
-	req, err := s.client.prepareRequest(ctx, http.MethodPut, localVarPath, localVarPostBody, localVarHeaderParams, localVarQueryParams)
-	if err != nil {
-		return nil, err
-	}
-
-	res := new(ResponseSuccess)
 	_, err = s.client.do(req, res)
 
 	if err != nil {
