@@ -1,7 +1,7 @@
 /*
- * W3STREAM API
+ * VMS API
  *
- * W3STREAM Service
+ * VMS Service
  *
  * API version: 1.0
  * Contact: support@swagger.io
@@ -319,7 +319,7 @@ func (s *WebhookService) UpdateWithContext(ctx context.Context, id string, reque
 
 /*
  * Delete Delete webhook
- * This method will delete the indicated webhook.
+ * This endpoint will delete the indicated webhook.
 
  * @param id Webhook ID
  * @return WebhookApiDeleteRequest
@@ -333,7 +333,7 @@ func (s *WebhookService) Delete(id string) (*ResponseSuccess, error) {
 
 /*
  * Delete Delete webhook
- * This method will delete the indicated webhook.
+ * This endpoint will delete the indicated webhook.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id Webhook ID
  * @return WebhookApiDeleteRequest
@@ -439,7 +439,7 @@ func (s *WebhookService) ListWithContext(ctx context.Context, r WebhookApiListRe
 
 /*
  * Check Check webhook by id
- * This method will check the indicated webhook.
+ * This endpoint will check the indicated webhook.
 
  * @param id webhook's id
  * @return WebhookApiCheckRequest
@@ -453,7 +453,7 @@ func (s *WebhookService) Check(id string) (*ResponseSuccess, error) {
 
 /*
  * Check Check webhook by id
- * This method will check the indicated webhook.
+ * This endpoint will check the indicated webhook.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id webhook's id
  * @return WebhookApiCheckRequest

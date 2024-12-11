@@ -1,7 +1,7 @@
 /*
- * W3STREAM API
+ * VMS API
  *
- * W3STREAM Service
+ * VMS Service
  *
  * API version: 1.0
  * Contact: support@swagger.io
@@ -17,20 +17,20 @@ import (
 
 // Playlist struct for Playlist
 type Playlist struct {
-	CreatedAt    *string              `json:"created_at,omitempty"`
-	Duration     *float32             `json:"duration,omitempty"`
-	Id           *string              `json:"id,omitempty"`
-	Iframe       *string              `json:"iframe,omitempty"`
-	ItemCount    *int32               `json:"item_count,omitempty"`
-	Metadata     *[]map[string]string `json:"metadata,omitempty"`
-	Name         *string              `json:"name,omitempty"`
-	Size         *int32               `json:"size,omitempty"`
-	Tags         *[]string            `json:"tags,omitempty"`
-	ThumbnailId  *string              `json:"thumbnail_id,omitempty"`
-	ThumbnailUrl *string              `json:"thumbnail_url,omitempty"`
-	UpdatedAt    *string              `json:"updated_at,omitempty"`
-	UserId       *string              `json:"user_id,omitempty"`
-	VideoItems   *[]PlaylistItem      `json:"video_items,omitempty"`
+	CreatedAt    *string            `json:"created_at,omitempty"`
+	Duration     *float32           `json:"duration,omitempty"`
+	Id           *string            `json:"id,omitempty"`
+	Iframe       *string            `json:"iframe,omitempty"`
+	ItemCount    *int32             `json:"item_count,omitempty"`
+	Metadata     *map[string]string `json:"metadata,omitempty"`
+	Name         *string            `json:"name,omitempty"`
+	Size         *int32             `json:"size,omitempty"`
+	Tags         *string            `json:"tags,omitempty"`
+	ThumbnailId  *string            `json:"thumbnail_id,omitempty"`
+	ThumbnailUrl *string            `json:"thumbnail_url,omitempty"`
+	UpdatedAt    *string            `json:"updated_at,omitempty"`
+	UserId       *string            `json:"user_id,omitempty"`
+	VideoItems   *[]PlaylistItem    `json:"video_items,omitempty"`
 }
 
 // NewPlaylist instantiates a new Playlist object
@@ -211,9 +211,9 @@ func (o *Playlist) SetItemCount(v int32) {
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *Playlist) GetMetadata() []map[string]string {
+func (o *Playlist) GetMetadata() map[string]string {
 	if o == nil || o.Metadata == nil {
-		var ret []map[string]string
+		var ret map[string]string
 		return ret
 	}
 	return *o.Metadata
@@ -221,7 +221,7 @@ func (o *Playlist) GetMetadata() []map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Playlist) GetMetadataOk() (*[]map[string]string, bool) {
+func (o *Playlist) GetMetadataOk() (*map[string]string, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *Playlist) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given []map[string]string and assigns it to the Metadata field.
-func (o *Playlist) SetMetadata(v []map[string]string) {
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *Playlist) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
@@ -307,9 +307,9 @@ func (o *Playlist) SetSize(v int32) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Playlist) GetTags() []string {
+func (o *Playlist) GetTags() string {
 	if o == nil || o.Tags == nil {
-		var ret []string
+		var ret string
 		return ret
 	}
 	return *o.Tags
@@ -317,7 +317,7 @@ func (o *Playlist) GetTags() []string {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Playlist) GetTagsOk() (*[]string, bool) {
+func (o *Playlist) GetTagsOk() (*string, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -333,8 +333,8 @@ func (o *Playlist) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *Playlist) SetTags(v []string) {
+// SetTags gets a reference to the given string and assigns it to the Tags field.
+func (o *Playlist) SetTags(v string) {
 	o.Tags = &v
 }
 

@@ -10,8 +10,6 @@ Name | Type | Description | Notes
 **OrderBy** | Pointer to **string** |  | [optional] 
 **Search** | Pointer to **string** |  | [optional] 
 **SortBy** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**VideoStatus** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -181,56 +179,6 @@ SetSortBy sets SortBy field to given value.
 `func (o *GetLiveStreamVideosRequest) HasSortBy() bool`
 
 HasSortBy returns a boolean if a field has been set.
-
-### GetStatus
-
-`func (o *GetLiveStreamVideosRequest) GetStatus() string`
-
-GetStatus returns the Status field if non-nil, zero value otherwise.
-
-### GetStatusOk
-
-`func (o *GetLiveStreamVideosRequest) GetStatusOk() (*string, bool)`
-
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatus
-
-`func (o *GetLiveStreamVideosRequest) SetStatus(v string)`
-
-SetStatus sets Status field to given value.
-
-### HasStatus
-
-`func (o *GetLiveStreamVideosRequest) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
-
-### GetVideoStatus
-
-`func (o *GetLiveStreamVideosRequest) GetVideoStatus() string`
-
-GetVideoStatus returns the VideoStatus field if non-nil, zero value otherwise.
-
-### GetVideoStatusOk
-
-`func (o *GetLiveStreamVideosRequest) GetVideoStatusOk() (*string, bool)`
-
-GetVideoStatusOk returns a tuple with the VideoStatus field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVideoStatus
-
-`func (o *GetLiveStreamVideosRequest) SetVideoStatus(v string)`
-
-SetVideoStatus sets VideoStatus field to given value.
-
-### HasVideoStatus
-
-`func (o *GetLiveStreamVideosRequest) HasVideoStatus() bool`
-
-HasVideoStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

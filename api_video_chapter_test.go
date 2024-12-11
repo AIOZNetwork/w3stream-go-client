@@ -1,114 +1,241 @@
 package w3streamsdk
 
 import (
-	"fmt"
-	"net/http"
-	"reflect"
-	"strings"
+	"io"
+	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-var getVideoChaptersJSONResponse = `
-	{
-  "data": {
-    "total": 0,
-    "video_chapters": [
-      {
-        "language": "string",
-        "url": "string"
-      }
-    ]
-  },
-  "status": "string"
-}
-`
+var (
+	testLang              = "en"
+	testVideoIDForChapter = "c91e1c8b-e93c-423c-98dd-690fdfa19659"
+	chapterContent        = `WEBVTT
 
-var createVideoChapterJSONResponse = `{
-  "data": {
-    "video_chapter": {
-      "language": "string",
-      "url": "string"
-    }
-  },
-  "status": "string"
-}`
+00:00:00.000 --> 00:01:00.000
+Chapter 1
 
-var videoChapter = VideoChapter{
-	Language: PtrString("string"),
-	Url:      PtrString("string"),
+00:01:00.000 --> 00:02:00.000
+Chapter 2`
+)
+
+func createTempVTTFile(t *testing.T) *os.File {
+	tmpFile, err := os.CreateTemp("", "test-*.vtt")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = tmpFile.WriteString(chapterContent)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tmpFile.Seek(0, 0)
+	return tmpFile
 }
 
-var getVideosChaptersResponse = GetVideoChaptersResponse{
-	Data: &GetVideoChaptersData{
-		Total: PtrInt32(0),
-		VideoChapters: &[]VideoChapter{
-			videoChapter,
+func TestVideoChapterService_Create(t *testing.T) {
+	tmpFile := createTempVTTFile(t)
+	defer os.Remove(tmpFile.Name())
+	defer tmpFile.Close()
+
+	tests := []struct {
+		name    string
+		videoID string
+		lang    string
+		file    *os.File
+		wantErr bool
+	}{
+		{
+			name:    "Valid Create",
+			videoID: testVideoIDForChapter,
+			lang:    testLang,
+			file:    tmpFile,
+			wantErr: false,
 		},
-	},
-	Status: PtrString("string"),
-}
-
-var createVideoChapterResponse = CreateVideoChapterResponse{
-	Data: &CreateVideoChapterData{
-		VideoChapter: &videoChapter,
-	},
-	Status: PtrString("string"),
-}
-
-func TestVideoChapter_Create(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/videos/videoId/chapter/en", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPost)
-		fmt.Fprint(w, createVideoChapterJSONResponse)
-	})
-
-	reader := strings.NewReader("data")
-	resp, err := client.VideoChapter.Create("videoId", "en", "chapter.vtt", reader)
-	if err != nil {
-		t.Errorf("Chapter.Create error: %v", err)
+		{
+			name:    "Invalid Video ID",
+			videoID: "invalid-id",
+			lang:    testLang,
+			file:    tmpFile,
+			wantErr: true,
+		},
+		{
+			name:    "Invalid Language",
+			videoID: testVideoIDForChapter,
+			lang:    "invalid",
+			file:    tmpFile,
+			wantErr: true,
+		},
 	}
 
-	expected := &createVideoChapterResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Chapter.Create\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var reader io.Reader
+			var fileName string
+			if tt.file != nil {
+				reader = tt.file
+				fileName = tt.file.Name()
+			}
 
-func TestVideoChapter_List(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/videos/videoId/chapters", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		fmt.Fprint(w, getVideoChaptersJSONResponse)
-	})
-
-	resp, err := client.VideoChapter.Get("videoId", VideoChapterApiGetRequest{})
-	if err != nil {
-		t.Errorf("Chapter.List error: %v", err)
-	}
-
-	expected := &getVideosChaptersResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Chapter.List\n got=%#v\nwant=%#v", resp, expected)
+			resp, err := testClient.VideoChapter.Create(tt.videoID, tt.lang, fileName, reader)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }
 
-func TestVideoChapter_Delete(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/videos/videoId/chapter/en", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodDelete)
-		fmt.Fprint(w, successResponse)
-	})
-
-	resp, err := client.VideoChapter.Delete("videoId", "en")
-	if err != nil {
-		t.Errorf("Chapter.Delete error: %v", err)
+func TestVideoChapterService_Get(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		videoID string
+		wantErr bool
+	}{
+		{
+			name:    "Get other",
+			videoID: testVideoIDForChapter,
+			wantErr: true,
+		},
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Chapter.Delete\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.VideoChapter.Get(tt.videoID, VideoChapterApiGetRequest{})
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		videoID string
+		request VideoChapterApiGetRequest
+		wantErr bool
+		checkFn func(*testing.T, *GetVideoChaptersResponse)
+	}{
+		{
+			name:    "Valid Get",
+			videoID: testVideoIDForChapter,
+			request: VideoChapterApiGetRequest{}.
+				Limit(10).
+				Offset(0),
+			wantErr: false,
+			checkFn: func(t *testing.T, resp *GetVideoChaptersResponse) {
+				assert.NotNil(t, resp.Data)
+			},
+		},
+		{
+			name:    "Invalid Video ID",
+			videoID: "invalid-id",
+			request: VideoChapterApiGetRequest{},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.VideoChapter.Get(tt.videoID, tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+				if tt.checkFn != nil {
+					tt.checkFn(t, resp)
+				}
+			}
+		})
+	}
+}
+
+func TestVideoChapterService_Delete(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		videoID string
+		lang    string
+		wantErr bool
+	}{
+		{
+			name:    "Delete other",
+			videoID: testVideoIDForChapter,
+			lang:    testLang,
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.VideoChapter.Delete(tt.videoID, tt.lang)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		videoID string
+		lang    string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Delete",
+			videoID: testVideoIDForChapter,
+			lang:    testLang,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid Video ID",
+			videoID: "invalid-id",
+			lang:    testLang,
+			wantErr: true,
+		},
+		{
+			name:    "Invalid Language",
+			videoID: testVideoIDForChapter,
+			lang:    "invalid",
+			wantErr: true,
+		},
+		{
+			name:    "Empty Video ID",
+			videoID: "",
+			lang:    testLang,
+			wantErr: true,
+		},
+		{
+			name:    "Empty Language",
+			videoID: testVideoIDForChapter,
+			lang:    "",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.VideoChapter.Delete(tt.videoID, tt.lang)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }

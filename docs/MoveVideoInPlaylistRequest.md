@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CurrentId** | Pointer to **string** | CurrentId is the UUID of the playlist item (video) to be moved | [optional] 
-**NextId** | Pointer to **string** | NextId is the UUID of the playlist item that should come after the moved item | [optional] 
-**PreviousId** | Pointer to **string** | PreviousId is the UUID of the playlist item that should come before the moved item | [optional] 
+**CurrentId** | Pointer to **string** |  | [optional] 
+**NextId** | Pointer to **string** |  | [optional] 
+**PreviousId** | Pointer to **string** |  | [optional] 
 
 ## Methods
 

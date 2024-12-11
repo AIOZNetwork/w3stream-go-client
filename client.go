@@ -40,7 +40,6 @@ type Client struct {
 	Playlist     PlaylistServiceI
 	Video        VideoServiceI
 	VideoChapter VideoChapterServiceI
-	Watermark    WatermarkServiceI
 	Webhook      WebhookServiceI
 }
 
@@ -207,7 +206,6 @@ func (cb *Builder) Build() *Client {
 	c.Playlist = &PlaylistService{client: c}
 	c.Video = &VideoService{client: c}
 	c.VideoChapter = &VideoChapterService{client: c}
-	c.Watermark = &WatermarkService{client: c}
 	c.Webhook = &WebhookService{client: c}
 
 	return c
@@ -522,6 +520,7 @@ func (c *Client) prepareRangeRequests(ctx context.Context, urlStr string, fileNa
 
 func (c *Client) prepareUploadRequest(
 	ctx context.Context,
+	method,
 	urlStr string,
 	fileName string,
 	fileReader io.Reader,
@@ -554,7 +553,7 @@ func (c *Client) prepareUploadRequest(
 		return nil, err
 	}
 
-	req, err := c.prepareRequest(ctx, http.MethodPost, urlStr, body, headerParams, queryParams)
+	req, err := c.prepareRequest(ctx, method, urlStr, body, headerParams, queryParams)
 	if err != nil {
 		return nil, err
 	}

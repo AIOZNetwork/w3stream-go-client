@@ -1,7 +1,7 @@
 /*
- * W3STREAM API
+ * VMS API
  *
- * W3STREAM Service
+ * VMS Service
  *
  * API version: 1.0
  * Contact: support@swagger.io
@@ -17,11 +17,8 @@ import (
 
 // MoveVideoInPlaylistRequest struct for MoveVideoInPlaylistRequest
 type MoveVideoInPlaylistRequest struct {
-	// CurrentId is the UUID of the playlist item (video) to be moved
-	CurrentId *string `json:"current_id,omitempty"`
-	// NextId is the UUID of the playlist item that should come after the moved item
-	NextId *string `json:"next_id,omitempty"`
-	// PreviousId is the UUID of the playlist item that should come before the moved item
+	CurrentId  *string `json:"current_id,omitempty"`
+	NextId     *string `json:"next_id,omitempty"`
 	PreviousId *string `json:"previous_id,omitempty"`
 }
 

@@ -127,7 +127,7 @@ apiKeyApi := client.ApiKey
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Create**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Create) | **Post** `/api_keys` | Create API key
-[**Update**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Update) | **Patch** `/api_keys/{id}` | Rename api key
+[**Update**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Update) | **Patch** `/api_keys/{id}` | Rename API key
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Delete) | **Delete** `/api_keys/{id}` | Delete API key
 [**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#List) | **Get** `/api_keys` | Get list API keys
 
@@ -135,7 +135,7 @@ Method | HTTP request | Description
 #### Live stream
 
 
-##### Retrieve an instance of the Live stream API:
+##### Retrieve an instance of the live stream API:
 ```go
 secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
@@ -163,7 +163,6 @@ Method | HTTP request | Description
 [**GetStreaming**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetStreaming) | **Get** `/live_streams/{id}/streamings/{stream_id}` | Get live stream video streaming
 [**GetStreamings**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetStreamings) | **Get** `/live_streams/{id}/streamings` | Get live stream video streamings
 [**UpdateLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#UpdateLiveStreamKey) | **Put** `/live_streams/{id}` | Update live stream key
-[**UpdateLiveStreamVideo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#UpdateLiveStreamVideo) | **Put** `/live_streams/{id}/streamings` | Update live stream video
 
 
 #### Players
@@ -215,15 +214,15 @@ playlistApi := client.Playlist
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteThumbnail**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#DeleteThumbnail) | **Delete** `/playlists/{id}/thumbnail` | Delete a playlist thumbnail
-[**AddItem**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#AddItem) | **Post** `/playlists/{id}/items` | Add a video to a playlist
-[**CreatePlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#CreatePlaylist) | **Post** `/playlists/create` | Create a new playlist
-[**DeleteItem**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#DeleteItem) | **Delete** `/playlists/{id}/items/{item_id}` | Remove a video from a playlist
-[**DeletePlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#DeletePlaylist) | **Delete** `/playlists/{id}` | Delete a playlist by ID
+[**AddVideoToPlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#AddVideoToPlaylist) | **Post** `/playlists/{id}/items` | Add a video to a playlist
+[**CreatePlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#CreatePlaylist) | **Post** `/playlists/create` | Create a playlist
+[**DeletePlaylistById**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#DeletePlaylistById) | **Delete** `/playlists/{id}` | Delete a playlist by ID
+[**DeletePlaylistThumbnail**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#DeletePlaylistThumbnail) | **Delete** `/playlists/{id}/thumbnail` | Delete a playlist thumbnail
 [**GetPlaylistById**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#GetPlaylistById) | **Get** `/playlists/{id}` | Get playlist by ID
-[**GetPlaylistInfo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#GetPlaylistInfo) | **Get** `/playlists/{id}/player.json` | Get a playlist public
+[**GetPlaylistPublicInfo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#GetPlaylistPublicInfo) | **Get** `/playlists/{id}/player.json` | Get a playlist public
 [**GetPlaylists**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#GetPlaylists) | **Post** `/playlists` | Get user&#39;s playlists
-[**MoveItems**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#MoveItems) | **Put** `/playlists/{id}/items` | Move a video within a playlist
+[**MoveVideoInPlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#MoveVideoInPlaylist) | **Put** `/playlists/{id}/items` | Move a video in a playlist
+[**RemoveVideoFromPlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#RemoveVideoFromPlaylist) | **Delete** `/playlists/{id}/items/{item_id}` | Remove a video from a playlist
 [**UpdatePlaylist**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Playlist.md#UpdatePlaylist) | **Patch** `/playlists/{id}` | Update a playlist
 
 
@@ -257,7 +256,7 @@ Method | HTTP request | Description
 [**GetDetail**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#GetDetail) | **Get** `/videos/{id}` | get video detail
 [**GetVideoList**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#GetVideoList) | **Post** `/videos` | Get user videos list
 [**GetVideoPlayerInfo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#GetVideoPlayerInfo) | **Get** `/videos/{id}/player.json` | Get video player info
-[**SetCaption**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#SetCaption) | **Patch** `/videos/{id}/captions/{lan}` | Set default video caption
+[**SetDefaultCaption**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#SetDefaultCaption) | **Patch** `/videos/{id}/captions/{lan}` | Set default caption
 [**UploadPart**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#UploadPart) | **Post** `/videos/{id}/part` | Upload part of video
 [**UploadVideoComplete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#UploadVideoComplete) | **Get** `/videos/{id}/complete` | Get upload video when complete
 
@@ -284,30 +283,6 @@ Method | HTTP request | Description
 [**Create**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Create) | **Post** `/videos/{id}/chapters/{lan}` | Create a video chapter
 [**Get**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Get) | **Get** `/videos/{id}/chapters` | Get video chapters
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Delete) | **Delete** `/videos/{id}/chapters/{lan}` | Delete a video chapter
-
-
-#### Watermark
-
-
-##### Retrieve an instance of the watermark API:
-```go
-secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
-publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
-apiCreds := w3streamsdk.AuthCredentials{
-	PublicKey: publicKey,
-	SecretKey: secretKey,
-}
-client := w3streamsdk.ClientBuilder(apiCreds).Build()
-watermarkApi := client.Watermark
-```
-
-##### Endpoints
-
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**Upload**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#Upload) | **Post** `/watermarks` | Create a new watermark
-[**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#Delete) | **Delete** `/watermarks/{id}` | Delete a watermark by ID
-[**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#List) | **Get** `/watermarks` | List all watermarks
 
 
 #### Webhook
@@ -365,13 +340,9 @@ Method | HTTP request | Description
  - [CreateVideoChapterResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoChapterResponse.md)
  - [CreateVideoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoRequest.md)
  - [CreateVideoResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoResponse.md)
- - [CreateWatermarkData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWatermarkData.md)
- - [CreateWatermarkResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWatermarkResponse.md)
  - [CreateWebhookData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookData.md)
  - [CreateWebhookRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookRequest.md)
  - [CreateWebhookResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookResponse.md)
- - [GetAllWatermarkData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetAllWatermarkData.md)
- - [GetAllWatermarkResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetAllWatermarkResponse.md)
  - [GetApiKeysData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetApiKeysData.md)
  - [GetApiKeysResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetApiKeysResponse.md)
  - [GetLiveStreamKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamKeyData.md)
@@ -425,12 +396,10 @@ Method | HTTP request | Description
  - [RenameAPIKeyRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/RenameAPIKeyRequest.md)
  - [ResponseError](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ResponseError.md)
  - [ResponseSuccess](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ResponseSuccess.md)
- - [SetDefaultCaptionRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/SetDefaultCaptionRequest.md)
  - [Theme](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Theme.md)
  - [UpdateLiveStreamKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyData.md)
  - [UpdateLiveStreamKeyRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyRequest.md)
  - [UpdateLiveStreamKeyResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyResponse.md)
- - [UpdateLiveStreamVideoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamVideoRequest.md)
  - [UpdatePlayerThemeRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdatePlayerThemeRequest.md)
  - [UpdatePlayerThemeResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdatePlayerThemeResponse.md)
  - [UpdateVideoInfoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateVideoInfoRequest.md)
@@ -441,7 +410,6 @@ Method | HTTP request | Description
  - [VideoCaption](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoCaption.md)
  - [VideoChapter](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md)
  - [VideoWatermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoWatermark.md)
- - [Watermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md)
  - [Webhook](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Webhook.md)
 
 

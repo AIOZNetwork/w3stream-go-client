@@ -1,7 +1,7 @@
 /*
- * W3STREAM API
+ * VMS API
  *
- * W3STREAM Service
+ * VMS Service
  *
  * API version: 1.0
  * Contact: support@swagger.io

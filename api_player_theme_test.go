@@ -1,311 +1,618 @@
 package w3streamsdk
 
 import (
-	"fmt"
-	"net/http"
-	"reflect"
-	"strings"
+	"io"
+	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-var playerTheresJSONResponse = `{
-	"data": {
-    "player_themes": [
-      {
-        "asset": {
-          "logo": "string",
-          "logo_image_link": "string",
-          "logo_link": "string"
-        },
-        "controls": {
-          "enable_api": true,
-          "enable_controls": true,
-          "force_autoplay": true,
-          "force_loop": true,
-          "hide_title": true
-        },
-        "created_at": "string",
-        "id": "string",
-        "name": "string",
-        "theme": {
-          "captions_background": "string",
-          "controls_background": "string",
-          "main_color": "string",
-          "main_color_active": "string",
-          "menu_background": "string",
-          "text_control_color": "string",
-          "text_control_hover": "string",
-          "text_menu_color": "string",
-          "thumb_height": "string",
-          "track_background": "string",
-          "track_height": "string",
-          "track_played": "string",
-          "track_unplayed": "string",
-          "video_background": "string"
-        },
-        "user_id": "string"
-      }
-    ],
-    "total": 0
-  },
-  "status": "string"
-}`
+var (
+	testPlayerIDForUpdateAndDeleteAndGet string
+	playerName                           = "Test Player Theme"
+	logoURL                              = "https://example.com/logo.png"
+	testVideoForPlayer                   = "c91e1c8b-e93c-423c-98dd-690fdfa19659"
+)
 
-var playerThemeJSONResponse = `{
-	"data": {
-    "player_theme": {
-      "asset": {
-        "logo": "string",
-        "logo_image_link": "string",
-        "logo_link": "string"
-      },
-      "controls": {
-        "enable_api": true,
-        "enable_controls": true,
-        "force_autoplay": true,
-        "force_loop": true,
-        "hide_title": true
-      },
-      "created_at": "string",
-      "id": "string",
-      "name": "string",
-      "theme": {
-        "captions_background": "string",
-        "controls_background": "string",
-        "main_color": "string",
-        "main_color_active": "string",
-        "menu_background": "string",
-        "text_control_color": "string",
-        "text_control_hover": "string",
-        "text_menu_color": "string",
-        "thumb_height": "string",
-        "track_background": "string",
-        "track_height": "string",
-        "track_played": "string",
-        "track_unplayed": "string",
-        "video_background": "string"
-      },
-      "user_id": "string"
-    }
-  },
-  "status": "string"
-}`
-
-var playTheme = PlayerTheme{
-	Asset: &Asset{
-		Logo:          PtrString("string"),
-		LogoImageLink: PtrString("string"),
-		LogoLink:      PtrString("string"),
-	},
-	Controls: &Controls{
-		EnableApi:      PtrBool(true),
-		EnableControls: PtrBool(true),
-		ForceAutoplay:  PtrBool(true),
-		ForceLoop:      PtrBool(true),
-		HideTitle:      PtrBool(true),
-	},
-	CreatedAt: PtrString("string"),
-	Id:        PtrString("string"),
-	Name:      PtrString("string"),
-	Theme: &Theme{
-		CaptionsBackground: PtrString("string"),
-		ControlsBackground: PtrString("string"),
-		MainColor:          PtrString("string"),
-		MainColorActive:    PtrString("string"),
-		MenuBackground:     PtrString("string"),
-		TextControlColor:   PtrString("string"),
-		TextControlHover:   PtrString("string"),
-		TextMenuColor:      PtrString("string"),
-		ThumbHeight:        PtrString("string"),
-		TrackBackground:    PtrString("string"),
-		TrackHeight:        PtrString("string"),
-		TrackPlayed:        PtrString("string"),
-		TrackUnplayed:      PtrString("string"),
-		VideoBackground:    PtrString("string"),
-	},
-	UserId: PtrString("string"),
+func openTestImageFile(t *testing.T) (*os.File, error) {
+	logoFile, err := os.Open("test-assets/logo.png")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return logoFile, nil
 }
 
-var createPlayerThemeResponse = CreatePlayerThemesResponse{
-	Data: &CreatePlayerThemesData{
-		PlayerTheme: &playTheme,
-	},
-	Status: PtrString("string"),
+func openInvalidFile(t *testing.T) *os.File {
+	logoFile, err := os.Open("test-assets/invalid-file.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return logoFile
 }
 
-var getPlayerThemeResponse = GetPlayerThemeByIdResponse{
-	Data: &GetPlayerThemeByIdData{
-		PlayerTheme: &playTheme,
-	},
-	Status: PtrString("string"),
-}
-
-var updatePlayerThemeResponse = UpdatePlayerThemeResponse{
-	Data: &GetPlayerThemeByIdData{
-		PlayerTheme: &playTheme,
-	},
-	Status: PtrString("string"),
-}
-
-var getPlayerThemesResponse = GetPlayerThemeResponse{
-	Data: &GetPlayerThemeData{
-		PlayerThemes: &[]PlayerTheme{
-			playTheme,
+func TestPlayersService_Create(t *testing.T) {
+	tests := []struct {
+		name    string
+		request CreatePlayerThemeRequest
+		wantErr bool
+	}{
+		{
+			name: "Valid Create with All Fields",
+			request: CreatePlayerThemeRequest{
+				Name:      stringPtr(playerName),
+				IsDefault: boolPtr(true),
+				Controls: &Controls{
+					EnableApi:      boolPtr(true),
+					EnableControls: boolPtr(true),
+					ForceAutoplay:  boolPtr(false),
+					ForceLoop:      boolPtr(false),
+					HideTitle:      boolPtr(false),
+				},
+				Theme: &Theme{
+					ControlBarBackgroundColor: stringPtr("#ffffff"),
+					ControlBarHeight:          stringPtr("100px"),
+					MainColor:                 stringPtr("#ffffff"),
+					MenuBackgroundColor:       stringPtr("#ffffff"),
+					MenuItemBackgroundHover:   stringPtr("#cccccc"),
+					ProgressBarCircleSize:     stringPtr("10px"),
+					ProgressBarHeight:         stringPtr("10px"),
+					TextColor:                 stringPtr("#ffffff"),
+					TextTrackBackground:       stringPtr("#ffffff"),
+					TextTrackColor:            stringPtr("#ffffff"),
+				},
+			},
+			wantErr: false,
 		},
-		Total: PtrInt32(0),
-	},
-	Status: PtrString("string"),
-}
-
-func TestPlayerTheme_Create(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/players", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPost)
-		fmt.Fprint(w, playerThemeJSONResponse)
-	})
-
-	resp, err := client.Players.Create(CreatePlayerThemeRequest{})
-	if err != nil {
-		t.Errorf("PlayerTheme.Create error: %v", err)
+		{
+			name: "Valid Create with Some Required Fields Only",
+			request: CreatePlayerThemeRequest{
+				Name:      stringPtr(playerName),
+				IsDefault: boolPtr(true),
+				Theme: &Theme{
+					ControlBarBackgroundColor: stringPtr("#ffffff"),
+					ControlBarHeight:          stringPtr("100px"),
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid Color Code",
+			request: CreatePlayerThemeRequest{
+				Name: stringPtr(playerName),
+				Theme: &Theme{
+					TextColor: stringPtr("invalid-color"),
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "Empty Name",
+			request: CreatePlayerThemeRequest{
+				Theme: &Theme{
+					TextColor: stringPtr("#ffffff"),
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid Size Format",
+			request: CreatePlayerThemeRequest{
+				Name: stringPtr(playerName),
+				Theme: &Theme{
+					ControlBarHeight: stringPtr("invalid-size"),
+				},
+			},
+			wantErr: true,
+		},
 	}
 
-	expected := &createPlayerThemeResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("PlayerTheme.Create\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
-
-func TestPlayerTheme_List(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/players", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		fmt.Fprint(w, playerTheresJSONResponse)
-	})
-
-	resp, err := client.Players.List(PlayersApiListRequest{})
-	if err != nil {
-		t.Errorf("PlayerTheme.List error: %v", err)
-	}
-
-	expected := &getPlayerThemesResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("PlayerTheme.List\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
-
-func TestPlayerTheme_Get(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/players/playerId", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		fmt.Fprint(w, playerThemeJSONResponse)
-	})
-
-	resp, err := client.Players.Get("playerId")
-	if err != nil {
-		t.Errorf("PlayerTheme.Get error: %v", err)
-	}
-
-	expected := &getPlayerThemeResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("PlayerTheme.Get\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Players.Create(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+				assert.NotEmpty(t, resp.Data.PlayerTheme.Id)
+				testPlayerIDForUpdateAndDeleteAndGet = *resp.Data.PlayerTheme.Id
+			}
+		})
 	}
 }
 
-func TestPlayerTheme_Delete(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/players/playerId", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodDelete)
-		fmt.Fprint(w, successResponse)
-	})
-
-	resp, err := client.Players.Delete("playerId")
+func TestPlayersService_UploadLogo(t *testing.T) {
+	logoFile, err := openTestImageFile(t)
 	if err != nil {
-		t.Errorf("PlayerTheme.Delete error: %v", err)
+		t.Fatal(err)
+	}
+	invalidFile := openInvalidFile(t)
+	defer logoFile.Close()
+	defer invalidFile.Close()
+
+	tests := []struct {
+		name     string
+		playerID string
+		file     *os.File
+		link     string
+		wantErr  bool
+	}{
+		{
+			name:     "Valid Upload",
+			playerID: testPlayerIDForUpdateAndDeleteAndGet,
+			file:     logoFile,
+			link:     logoURL,
+			wantErr:  false,
+		},
+		{
+			name:     "Invalid Player ID",
+			playerID: "invalid-id",
+			file:     logoFile,
+			link:     logoURL,
+			wantErr:  true,
+		},
+		{
+			name:     "Invalid File Type",
+			playerID: testPlayerIDForUpdateAndDeleteAndGet,
+			file:     invalidFile,
+			link:     logoURL,
+			wantErr:  true,
+		},
+		{
+			name:     "Invalid Upload Link",
+			playerID: testPlayerIDForUpdateAndDeleteAndGet,
+			file:     logoFile,
+			link:     "invalid-link",
+			wantErr:  true,
+		},
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("PlayerTheme.Delete\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var reader io.Reader
+			if tt.file != nil {
+				reader = tt.file
+			}
+			resp, err := testClient.Players.UploadLogo(tt.playerID, tt.link, "logo.png", reader)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }
 
-func TestPlayerTheme_Update(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/players/playerId", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPatch)
-		fmt.Fprint(w, playerThemeJSONResponse)
-	})
-
-	resp, err := client.Players.Update("playerId", UpdatePlayerThemeRequest{})
-	if err != nil {
-		t.Errorf("PlayerTheme.Update error: %v", err)
+func TestPlayersService_AddPlayer(t *testing.T) {
+	tests := []struct {
+		name    string
+		request AddPlayerThemesToVideoRequest
+		wantErr bool
+	}{
+		{
+			name: "Valid Add",
+			request: AddPlayerThemesToVideoRequest{
+				PlayerThemeId: stringPtr(testPlayerIDForUpdateAndDeleteAndGet),
+				VideoId:       stringPtr(testVideoForPlayer),
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid Player ID",
+			request: AddPlayerThemesToVideoRequest{
+				PlayerThemeId: stringPtr("invalid-id"),
+				VideoId:       stringPtr(testVideoForPlayer),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Empty Video ID",
+			request: AddPlayerThemesToVideoRequest{
+				PlayerThemeId: stringPtr(testPlayerIDForUpdateAndDeleteAndGet),
+			},
+			wantErr: true,
+		},
 	}
 
-	expected := &updatePlayerThemeResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("PlayerTheme.Update\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
-
-func TestPlayerTheme_UploadLogo(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/players/playerId/logo", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPost)
-		fmt.Fprint(w, playerThemeJSONResponse)
-	})
-
-	reader := strings.NewReader("data")
-	resp, err := client.Players.UploadLogo("playerId", "link", "photo.png", reader)
-	if err != nil {
-		t.Errorf("PlayerTheme.UploadLogo error: %v", err)
-	}
-
-	expected := &getPlayerThemeResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("PlayerTheme.UploadLogo\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
-
-func TestPlayerTheme_DeleteLogo(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/players/playerId/logo", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodDelete)
-		fmt.Fprint(w, successResponse)
-	})
-
-	resp, err := client.Players.DeleteLogo("playerId")
-	if err != nil {
-		t.Errorf("PlayerTheme.DeleteLogo error: %v", err)
-	}
-
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("PlayerTheme.DeleteLogo\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Players.AddPlayer(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }
 
-func TestPlayerTheme_AddPlayer(t *testing.T) {
-	setup()
-	defer teardown()
-	mux.HandleFunc("/players/add-player", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPost)
-		fmt.Fprint(w, successResponse)
-	})
-
-	resp, err := client.Players.AddPlayer(AddPlayerThemesToVideoRequest{})
-	if err != nil {
-		t.Errorf("PlayerTheme.AddPlayer error: %v", err)
+func TestPlayersService_Get(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Get other",
+			id:      testPlayerIDForUpdateAndDeleteAndGet,
+			wantErr: true,
+		},
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("PlayerTheme.AddPlayer\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Players.Get(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Get",
+			id:      testPlayerIDForUpdateAndDeleteAndGet,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid ID",
+			id:      "invalid-id",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Players.Get(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+				assert.NotEmpty(t, resp.Data.PlayerTheme.Id)
+			}
+		})
+	}
+}
+
+func TestPlayersService_Update(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		request UpdatePlayerThemeRequest
+		wantErr bool
+	}{
+		{
+			name: "Update other",
+			id:   testPlayerIDForUpdateAndDeleteAndGet,
+			request: UpdatePlayerThemeRequest{
+				Name: stringPtr("Updated Player Theme"),
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Players.Update(tt.id, tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		request UpdatePlayerThemeRequest
+		wantErr bool
+	}{
+		{
+			name: "Valid Update",
+			id:   testPlayerIDForUpdateAndDeleteAndGet,
+			request: UpdatePlayerThemeRequest{
+				Name: stringPtr("Updated Player Theme"),
+				Theme: &Theme{
+					TextColor: stringPtr("#000000"),
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid Color Code",
+			id:   testPlayerIDForUpdateAndDeleteAndGet,
+			request: UpdatePlayerThemeRequest{
+				Theme: &Theme{
+					TextColor: stringPtr("invalid-color"),
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "Invalid ID",
+			id:   "invalid-id",
+			request: UpdatePlayerThemeRequest{
+				Name: stringPtr("Updated Player Theme"),
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Players.Update(tt.id, tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+}
+
+func TestPlayersService_List(t *testing.T) {
+	tests := []struct {
+		name    string
+		request PlayersApiListRequest
+		wantErr bool
+	}{
+		{
+			name:    "List All",
+			request: PlayersApiListRequest{},
+			wantErr: false,
+		},
+		{
+			name: "With Search and Pagination",
+			request: PlayersApiListRequest{}.
+				Search("test").
+				Limit(10).
+				Offset(0).
+				SortBy("created_at").
+				OrderBy("desc"),
+			wantErr: false,
+		},
+		{
+			name: "Invalid Offset",
+			request: PlayersApiListRequest{}.
+				Offset(-1),
+			wantErr: true,
+		},
+		{
+			name: "Invalid Limit",
+			request: PlayersApiListRequest{}.
+				Limit(1001),
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Players.List(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+				assert.NotNil(t, resp.Data)
+			}
+		})
+	}
+}
+
+func TestPlayersService_DeleteLogo(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Delete other",
+			id:      testPlayerIDForUpdateAndDeleteAndGet,
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Players.DeleteLogo(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Delete Logo",
+			id:      testPlayerIDForUpdateAndDeleteAndGet,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid ID",
+			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Empty ID",
+			id:      "",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Players.DeleteLogo(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+}
+
+func TestPlayersService_RemovePlayer(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		request RemovePlayerThemesFromVideoRequest
+		wantErr bool
+	}{
+		{
+			name: "Remove other",
+			request: RemovePlayerThemesFromVideoRequest{
+				PlayerThemeId: stringPtr(testPlayerIDForUpdateAndDeleteAndGet),
+				VideoId:       stringPtr(testVideoForPlayer),
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Players.RemovePlayer(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		request RemovePlayerThemesFromVideoRequest
+		wantErr bool
+	}{
+		{
+			name: "Valid Remove",
+			request: RemovePlayerThemesFromVideoRequest{
+				PlayerThemeId: stringPtr(testPlayerIDForUpdateAndDeleteAndGet),
+				VideoId:       stringPtr(testVideoForPlayer),
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid Player ID",
+			request: RemovePlayerThemesFromVideoRequest{
+				PlayerThemeId: stringPtr("invalid-id"),
+				VideoId:       stringPtr(testVideoForPlayer),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Empty Video ID",
+			request: RemovePlayerThemesFromVideoRequest{
+				PlayerThemeId: stringPtr(testPlayerIDForUpdateAndDeleteAndGet),
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Players.RemovePlayer(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+}
+func TestPlayersService_Delete(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Delete other",
+			id:      testPlayerIDForUpdateAndDeleteAndGet,
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Players.Delete(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Delete",
+			id:      testPlayerIDForUpdateAndDeleteAndGet,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid ID",
+			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Empty ID",
+			id:      "",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Players.Delete(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }

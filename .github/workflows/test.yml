@@ -1,0 +1,26 @@
+name: Run unit tests
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ["1.22"]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Go ${{ matrix.go }}
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo TEST_PUBLIC_KEY=${{ secrets.TEST_PUBLIC_KEY }} >> .env
+          echo TEST_SECRET_KEY=${{ secrets.TEST_SECRET_KEY }} >> .env
+          echo TEST_ANONYMOUS_SECRET_KEY=${{ secrets.TEST_ANONYMOUS_SECRET_KEY }} >> .env
+          echo TEST_ANONYMOUS_PUBLIC_KEY=${{ secrets.TEST_ANONYMOUS_PUBLIC_KEY }} >> .env
+
+      - name: Test
+        run: go test

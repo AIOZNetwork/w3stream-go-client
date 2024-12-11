@@ -1,475 +1,1088 @@
 package w3streamsdk
 
 import (
+	"crypto/md5"
 	"fmt"
-	"net/http"
-	"reflect"
+	"io"
+	"log"
+	"os"
 	"strings"
-
-	// "strings"
 	"testing"
+
+	"github.com/joho/godotenv"
+	"github.com/stretchr/testify/assert"
 )
 
-var getVideoListJSONResponse = `
-{
-  "data": {
-    "total": 0,
-    "videos": [
-      {
-        "assets": {
-          "hls_url": "string",
-          "mp4_url": "string",
-          "source_url": "string",
-          "thumbnail_url": "string"
-        },
-        "chapters": [
-          {
-            "language": "string",
-            "url": "string"
-          }
-        ],
-        "created_at": "string",
-        "description": "string",
-        "duration": 0,
-        "id": "string",
-        "is_mp4": true,
-        "is_panoramic": true,
-        "is_public": true,
-        "metadata": [
-          {
-            "key": "string",
-            "value": "string"
-          }
-        ],
-        "player_theme": {
-          "asset": {
-            "logo": "string",
-            "logo_image_link": "string",
-            "logo_link": "string"
-          },
-          "controls": {
-            "enable_api": true,
-            "enable_controls": true,
-            "force_autoplay": true,
-            "force_loop": true,
-            "hide_title": true
-          },
-          "created_at": "string",
-          "id": "string",
-          "name": "string",
-          "theme": {
-            "captions_background": "string",
-            "controls_background": "string",
-            "main_color": "string",
-            "main_color_active": "string",
-            "menu_background": "string",
-            "text_control_color": "string",
-            "text_control_hover": "string",
-            "text_menu_color": "string",
-            "thumb_height": "string",
-            "track_background": "string",
-            "track_height": "string",
-            "track_played": "string",
-            "track_unplayed": "string",
-            "video_background": "string"
-          },
-          "user_id": "string"
-        },
-        "player_theme_id": "string",
-        "qualities": [
-          {
-            "name": "string",
-            "status": "string",
-            "type": "string"
-          }
-        ],
-        "size": 0,
-        "status": "string",
-        "captions": [
-          {
-            "is_default": true,
-            "language": "string",
-            "url": "string"
-          }
-        ],
-        "tags": [
-          "string"
-        ],
-        "title": "string",
-        "user_id": "string"
-      }
-    ]
-  },
-  "status": "string"
-}
-`
+var (
+	testPublicKey          string
+	testSecretKey          string
+	testAnonymousSecretKey string
+	testAnonymousPublicKey string
 
-var getVideoJSONResponse = `
-{
-  "data": {
-    "video": {
-      "assets": {
-        "hls_url": "string",
-        "mp4_url": "string",
-        "source_url": "string",
-        "thumbnail_url": "string"
-      },
-      "chapters": [
-        {
-          "language": "string",
-          "url": "string"
-        }
-      ],
-      "created_at": "string",
-      "description": "string",
-      "duration": 0,
-      "id": "string",
-      "is_mp4": true,
-      "is_panoramic": true,
-      "is_public": true,
-      "metadata": [
-        {
-          "key": "string",
-          "value": "string"
-        }
-      ],
-      "player_theme": {
-        "asset": {
-          "logo": "string",
-          "logo_image_link": "string",
-          "logo_link": "string"
-        },
-        "controls": {
-          "enable_api": true,
-          "enable_controls": true,
-          "force_autoplay": true,
-          "force_loop": true,
-          "hide_title": true
-        },
-        "created_at": "string",
-        "id": "string",
-        "name": "string",
-        "theme": {
-          "captions_background": "string",
-          "controls_background": "string",
-          "main_color": "string",
-          "main_color_active": "string",
-          "menu_background": "string",
-          "text_control_color": "string",
-          "text_control_hover": "string",
-          "text_menu_color": "string",
-          "thumb_height": "string",
-          "track_background": "string",
-          "track_height": "string",
-          "track_played": "string",
-          "track_unplayed": "string",
-          "video_background": "string"
-        },
-        "user_id": "string"
-      },
-      "player_theme_id": "string",
-      "qualities": [
-        {
-          "name": "string",
-          "status": "string",
-          "type": "string"
-        }
-      ],
-      "size": 0,
-      "status": "string",
-      "captions": [
-        {
-          "is_default": true,
-          "language": "string",
-          "url": "string"
-        }
-      ],
-      "tags": [
-        "string"
-      ],
-      "title": "string",
-      "user_id": "string"
-    }
-  },
-  "status": "string"
-}
-`
+	testClient          *Client
+	testAnonymousClient *Client
 
-var getVideoTransCodingJSONResponse = `
-{
-  "data": {
-    "is_enough": true,
-    "price": 0
-  },
-  "status": "string"
-}
-`
+	testVideoID        string
+	title              = "Test Video"
+	description        = "Test Description"
+	testVideoCaptionID = "c91e1c8b-e93c-423c-98dd-690fdfa19659"
+)
 
-var video = Video{
-	Assets: &VideoAssets{
-		HlsUrl:       PtrString("string"),
-		Mp4Url:       PtrString("string"),
-		SourceUrl:    PtrString("string"),
-		ThumbnailUrl: PtrString("string"),
-	},
-	Chapters: &[]VideoChapter{
+func init() {
+	if err := loadEnvVariables(); err != nil {
+		log.Fatalf("Failed to load environment variables: %v", err)
+	}
+
+	initializeClients()
+}
+
+func loadEnvVariables() error {
+	if err := godotenv.Load(); err != nil {
+		log.Printf("Warning: .env file not found, using environment variables")
+	}
+
+	var missingVars []string
+
+	testPublicKey = os.Getenv("TEST_PUBLIC_KEY")
+	if testPublicKey == "" {
+		missingVars = append(missingVars, "TEST_PUBLIC_KEY")
+	}
+
+	testSecretKey = os.Getenv("TEST_SECRET_KEY")
+	if testSecretKey == "" {
+		missingVars = append(missingVars, "TEST_SECRET_KEY")
+	}
+
+	testAnonymousSecretKey = os.Getenv("TEST_ANONYMOUS_SECRET_KEY")
+	if testAnonymousSecretKey == "" {
+		missingVars = append(missingVars, "TEST_ANONYMOUS_SECRET_KEY")
+	}
+
+	testAnonymousPublicKey = os.Getenv("TEST_ANONYMOUS_PUBLIC_KEY")
+
+	if len(missingVars) > 0 {
+		return fmt.Errorf("missing required environment variables: %v", missingVars)
+	}
+
+	return nil
+}
+
+func initializeClients() {
+	testClient = ClientBuilder(AuthCredentials{
+		PublicKey: testPublicKey,
+		SecretKey: testSecretKey,
+	}).Build()
+
+	testAnonymousClient = ClientBuilder(AuthCredentials{
+		PublicKey: testAnonymousPublicKey,
+		SecretKey: testAnonymousSecretKey,
+	}).Build()
+}
+
+func openTestVideoFile(t *testing.T) *os.File {
+	file, err := os.Open("test-assets/558k.mp4")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return file
+}
+
+func getFileHash(t *testing.T, file *os.File) string {
+	hash := md5.New()
+	_, err := io.Copy(hash, file)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := file.Seek(0, 0); err != nil {
+		t.Fatal(err)
+	}
+	return fmt.Sprintf("%x", hash.Sum(nil))
+}
+
+func TestVideoService_Create(t *testing.T) {
+	validMetadata := []Metadata{
+		{Key: stringPtr("key1"), Value: stringPtr("value1")},
+		{Key: stringPtr("key2"), Value: stringPtr("value2")},
+	}
+
+	validTags := []string{"tag1", "tag2"}
+	tests := []struct {
+		name    string
+		request CreateVideoRequest
+		wantErr bool
+	}{
 		{
-			Language: PtrString("string"),
-			Url:      PtrString("string"),
+			name: "Valid Complete Request",
+			request: CreateVideoRequest{
+				Title:       stringPtr("Test Video"),
+				Description: stringPtr("Test Description"),
+				IsPublic:    boolPtr(true),
+				Metadata:    &validMetadata,
+				Qualities:   &[]string{"1080p", "720p", "360p"},
+				Tags:        &validTags,
+			},
+			wantErr: false,
 		},
-	},
-	CreatedAt:   PtrString("string"),
-	Description: PtrString("string"),
-	Duration:    PtrFloat32(0),
-	Id:          PtrString("string"),
-	IsMp4:       PtrBool(true),
-	IsPublic:    PtrBool(true),
-	Metadata: &[]Metadata{
 		{
-			Key:   PtrString("string"),
-			Value: PtrString("string"),
+			name: "Valid Minimal Request",
+			request: CreateVideoRequest{
+				Title:     stringPtr("Test Video"),
+				Qualities: &[]string{"720p"},
+			},
+			wantErr: false,
 		},
-	},
-	PlayerTheme: &PlayerTheme{
-		Asset: &Asset{
-			Logo:          PtrString("string"),
-			LogoImageLink: PtrString("string"),
-			LogoLink:      PtrString("string"),
-		},
-		Controls: &Controls{
-			EnableApi:      PtrBool(true),
-			EnableControls: PtrBool(true),
-			ForceAutoplay:  PtrBool(true),
-			ForceLoop:      PtrBool(true),
-			HideTitle:      PtrBool(true),
-		},
-		CreatedAt: PtrString("string"),
-		Id:        PtrString("string"),
-		Name:      PtrString("string"),
-		Theme: &Theme{
-			CaptionsBackground: PtrString("string"),
-			ControlsBackground: PtrString("string"),
-			MainColor:          PtrString("string"),
-			MainColorActive:    PtrString("string"),
-			MenuBackground:     PtrString("string"),
-			TextControlColor:   PtrString("string"),
-			TextControlHover:   PtrString("string"),
-			TextMenuColor:      PtrString("string"),
-			ThumbHeight:        PtrString("string"),
-			TrackBackground:    PtrString("string"),
-			TrackHeight:        PtrString("string"),
-			TrackPlayed:        PtrString("string"),
-			TrackUnplayed:      PtrString("string"),
-			VideoBackground:    PtrString("string"),
-		},
-		UserId: PtrString("string"),
-	},
-	PlayerThemeId: PtrString("string"),
-	Qualities: &[]QualityObject{
 		{
-			Name:   PtrString("string"),
-			Status: PtrString("string"),
-			Type:   PtrString("string"),
+			name: "Invalid Title - Empty",
+			request: CreateVideoRequest{
+				Qualities: &[]string{"720p"},
+			},
+			wantErr: true,
 		},
-	},
-	Size:   PtrInt32(0),
-	Status: PtrString("string"),
-	Captions: &[]VideoCaption{
 		{
-			IsDefault: PtrBool(true),
-			Language:  PtrString("string"),
-			Url:       PtrString("string"),
+			name: "Invalid Title - Too Long",
+			request: CreateVideoRequest{
+				Title:     stringPtr(strings.Repeat("a", 256)),
+				Qualities: &[]string{"720p"},
+			},
+			wantErr: true,
 		},
-	},
-	Tags: &[]string{
-		"string",
-	},
-	Title:  PtrString("string"),
-	UserId: PtrString("string"),
-}
-
-var getVideoListResponse = GetVideoListResponse{
-	Data: &GetVideoListData{
-		Total: PtrInt32(0),
-		Videos: &[]Video{
-			video,
+		{
+			name: "Invalid Description - Too Long",
+			request: CreateVideoRequest{
+				Title:       stringPtr("Test Video"),
+				Description: stringPtr(strings.Repeat("a", 1001)),
+				Qualities:   &[]string{"720p"},
+			},
+			wantErr: true,
 		},
-	},
-	Status: PtrString("string"),
+		{
+			name: "Invalid Metadata - Key Too Long",
+			request: CreateVideoRequest{
+				Title:     stringPtr("Test Video"),
+				Qualities: &[]string{"720p"},
+				Metadata:  &[]Metadata{{Key: stringPtr(strings.Repeat("a", 256)), Value: stringPtr("value")}},
+			},
+			wantErr: true,
+		},
+		{
+			name: "Invalid Qualities - Empty",
+			request: CreateVideoRequest{
+				Title:     stringPtr("Test Video"),
+				Qualities: &[]string{},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid Qualities - Invalid Value",
+			request: CreateVideoRequest{
+				Title:     stringPtr("Test Video"),
+				Qualities: &[]string{"invalid_quality"},
+			},
+			wantErr: true,
+		},
+		{
+			name: "Valid Qualities - All Supported",
+			request: CreateVideoRequest{
+				Title:     stringPtr("Test Video"),
+				Qualities: &[]string{"2160p", "1440p", "1080p", "720p", "360p", "240p", "144p"},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid Tags - Tag Too Long",
+			request: CreateVideoRequest{
+				Title:     stringPtr("Test Video"),
+				Qualities: &[]string{"720p"},
+				Tags:      &[]string{strings.Repeat("a", 256)},
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.Create(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+				assert.NotEmpty(t, resp.Data.Id)
+				testVideoID = *resp.Data.Id
+			}
+		})
+	}
+
 }
 
-var createVideoResponse = CreateVideoResponse{
-	Data:   &Video{},
-	Status: PtrString("string"),
+func TestVideoService_List(t *testing.T) {
+	tests := []struct {
+		name    string
+		request GetVideoListRequest
+		wantErr bool
+	}{
+		{
+			name:    "Valid Get Video List With No Filter",
+			request: GetVideoListRequest{},
+			wantErr: false,
+		},
+		{
+			name: "Valid Get Video List With Filter",
+			request: GetVideoListRequest{
+				Limit:   int32Ptr(10),
+				Offset:  int32Ptr(0),
+				OrderBy: stringPtr("created_at"),
+				SortBy:  stringPtr("desc"),
+			},
+			wantErr: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.GetVideoList(tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
 }
 
-var getVideoTransCodingResponse = GetTranscodeCostResponse{
-	Data: &GetTranscodeCostData{
-		IsEnough: PtrBool(true),
-		Price:    PtrString("0"),
-	},
-	Status: PtrString("string"),
+func TestVideoService_Update(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		input   UpdateVideoInfoRequest
+		wantErr bool
+	}{
+		{
+			name:    "Update other",
+			id:      testVideoID,
+			input:   UpdateVideoInfoRequest{Title: &title},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Video.Update(tt.id, tt.input)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		input   UpdateVideoInfoRequest
+		wantErr bool
+	}{
+		{
+			name: "Valid Update All Fields",
+			id:   testVideoID,
+			input: UpdateVideoInfoRequest{
+				Title:       &title,
+				Description: &description,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Valid Update Title Only",
+			id:   testVideoID,
+			input: UpdateVideoInfoRequest{
+				Title: &title,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Valid Update Description Only",
+			id:   testVideoID,
+			input: UpdateVideoInfoRequest{
+				Description: &description,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Invalid Title Length",
+			id:   testVideoID,
+			input: UpdateVideoInfoRequest{
+				Title: stringPtr(strings.Repeat("a", 256)),
+			},
+			wantErr: true,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-uuid",
+			input:   UpdateVideoInfoRequest{Title: &title},
+			wantErr: true,
+		},
+		{
+			name:    "Non-existent Video ID",
+			id:      "12345678-1234-1234-1234-123456789012",
+			input:   UpdateVideoInfoRequest{Title: &title},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.Update(tt.id, tt.input)
+			if tt.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
 }
 
-var getVideoDetailResponse = GetVideoDetailResponse{
-	Data:   &video,
-	Status: PtrString("string"),
+func TestVideoService_GetDetail(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Get other",
+			id:      testVideoID,
+			wantErr: true,
+		},
+	}
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Video.GetDetail(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		wantErr bool
+		checkFn func(*testing.T, *GetVideoDetailResponse)
+	}{
+		{
+			name:    "Valid Get Detail",
+			id:      testVideoID,
+			wantErr: false,
+			checkFn: func(t *testing.T, resp *GetVideoDetailResponse) {
+				assert.NotEmpty(t, resp.Data.Id)
+				assert.NotEmpty(t, resp.Data.Title)
+				assert.NotEmpty(t, resp.Status)
+			},
+		},
+		{
+			name:    "Invalid ID Format",
+			id:      "invalid-uuid",
+			wantErr: true,
+			checkFn: nil,
+		},
+		{
+			name:    "Non-existent ID",
+			id:      "12345678-1234-1234-1234-123456789012",
+			wantErr: true,
+			checkFn: nil,
+		},
+		{
+			name:    "Empty ID",
+			id:      "",
+			wantErr: true,
+			checkFn: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.GetDetail(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+				if tt.checkFn != nil {
+					tt.checkFn(t, resp)
+				}
+			}
+		})
+	}
 }
 
-func TestVideos_List(t *testing.T) {
-	setup()
-	defer teardown()
+func TestVideoService_UploadThumbnail(t *testing.T) {
+	validThumbnail, err := openTestImageFile(t)
+	if err != nil {
+		t.Fatal("Failed to open test image file:", err)
+	}
+	if validThumbnail == nil {
+		t.Fatal("Valid thumbnail file is nil")
+	}
+	defer validThumbnail.Close()
 
-	mux.HandleFunc("/videos", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPost)
-		fmt.Fprint(w, getVideoListJSONResponse)
+	anotherThumbnail, err := openTestImageFile(t)
+	if err != nil {
+		t.Fatal("Failed to open test image file:", err)
+	}
+
+	if anotherThumbnail == nil {
+		t.Fatal("anotherThumbnail is nil")
+	}
+	defer anotherThumbnail.Close()
+
+	invalidFile := openInvalidFile(t)
+	if invalidFile == nil {
+		t.Fatal("Invalid file is nil")
+	}
+	defer invalidFile.Close()
+
+	t.Run("Anonymous Client Tests", func(t *testing.T) {
+		tests := []struct {
+			name     string
+			id       string
+			fileName string
+			file     *os.File
+			wantErr  bool
+		}{
+			{
+				name:     "Unauthorized thumbnail upload",
+				id:       testVideoID,
+				fileName: "thumbnail.jpg",
+				file:     anotherThumbnail,
+				wantErr:  true,
+			},
+		}
+
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				resp, err := testAnonymousClient.Video.UploadThumbnail(tt.id, tt.fileName, tt.file)
+				assert.Equal(t, tt.wantErr, err != nil)
+				if tt.wantErr {
+					assert.Nil(t, resp)
+				}
+			})
+		}
 	})
 
-	resp, err := client.Video.GetVideoList(GetVideoListRequest{})
-	if err != nil {
-		t.Errorf("Videos.VideosApiListRequest error: %v", err)
+	tests := []struct {
+		name     string
+		id       string
+		fileName string
+		file     *os.File
+		wantErr  bool
+	}{
+		{
+			name:     "Valid Thumbnail Upload",
+			id:       testVideoID,
+			fileName: "thumbnail.jpg",
+			file:     validThumbnail,
+			wantErr:  false,
+		},
+		{
+			name:     "Invalid File Type",
+			id:       testVideoID,
+			fileName: "thumbnail.gif",
+			file:     invalidFile,
+			wantErr:  true,
+		},
+		{
+			name:     "Invalid Video ID",
+			id:       "invalid-id",
+			fileName: "thumbnail.jpg",
+			file:     validThumbnail,
+			wantErr:  true,
+		},
+		{
+			name:     "Empty File Name",
+			id:       testVideoID,
+			fileName: "",
+			file:     validThumbnail,
+			wantErr:  true,
+		},
+		{
+			name:     "Nil File",
+			id:       testVideoID,
+			fileName: "thumbnail.jpg",
+			file:     nil,
+			wantErr:  true,
+		},
 	}
 
-	expected := &getVideoListResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Videos.VideosApiListRequest\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
-
-func TestVideos_create(t *testing.T) {
-	setup()
-	defer teardown()
-
-	mux.HandleFunc("/videos/create", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPost)
-		fmt.Fprint(w, getVideoJSONResponse)
-	})
-
-	resp, err := client.Video.Create(CreateVideoRequest{})
-	if err != nil {
-		t.Errorf("Videos.Create error: %v", err)
-	}
-
-	expected := &createVideoResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Videos.Create\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
-
-func TestVideos_getCost(t *testing.T) {
-	setup()
-	defer teardown()
-
-	mux.HandleFunc("/videos/cost", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		fmt.Fprint(w, getVideoTransCodingJSONResponse)
-	})
-
-	resp, err := client.Video.GetCost("360p", 120.0)
-	if err != nil {
-		t.Errorf("Videos.GetCost error: %v", err)
-	}
-
-	expected := &getVideoTransCodingResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Videos.GetCost\n got=%#v\nwant=%#v", resp, expected)
-	}
-}
-
-func TestVideos_getDetails(t *testing.T) {
-	setup()
-	defer teardown()
-
-	mux.HandleFunc("/videos/videoId", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		fmt.Fprint(w, getVideoJSONResponse)
-	})
-
-	resp, err := client.Video.GetDetail("videoId")
-	if err != nil {
-		t.Errorf("Videos.GetStatus error: %v", err)
-	}
-
-	expected := &getVideoDetailResponse
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Videos.GetStatus\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.UploadThumbnail(tt.id, tt.fileName, tt.file)
+			if tt.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }
 
-func TestVideos_delete(t *testing.T) {
-	setup()
-	defer teardown()
-
-	mux.HandleFunc("/videos/videoId", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodDelete)
-		fmt.Fprint(w, successResponse)
-	})
-
-	resp, err := client.Video.Delete("videoId")
-	if err != nil {
-		t.Errorf("Videos.Delete error: %v", err)
+func TestVideoService_GetCost(t *testing.T) {
+	tests := []struct {
+		name      string
+		qualities string
+		duration  float32
+		wantErr   bool
+	}{
+		{
+			name:      "Valid Single Quality",
+			qualities: "720p",
+			duration:  120.5,
+			wantErr:   false,
+		},
+		{
+			name:      "Valid Multiple Qualities",
+			qualities: "720p,1080p",
+			duration:  120.5,
+			wantErr:   false,
+		},
+		{
+			name:      "Invalid Quality",
+			qualities: "invalid",
+			duration:  120.5,
+			wantErr:   true,
+		},
+		{
+			name:      "Empty Quality",
+			qualities: "",
+			duration:  120.5,
+			wantErr:   true,
+		},
+		{
+			name:      "Negative Duration",
+			qualities: "720p",
+			duration:  -1,
+			wantErr:   true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.GetCost(tt.qualities, tt.duration)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Videos.Delete\n got=%#v\nwant=%#v", resp, expected)
+}
+
+func TestVideoService_UploadPart(t *testing.T) {
+
+	video := openTestVideoFile(t)
+	videoHash := getFileHash(t, video)
+
+	index := "1"
+
+	tests := []struct {
+		name    string
+		id      string
+		hash    *string
+		index   *string
+		file    *os.File
+		wantErr bool
+	}{
+		{
+			name:    "Valid File Upload",
+			id:      testVideoID,
+			hash:    &videoHash,
+			index:   &index,
+			file:    video,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-id",
+			hash:    &videoHash,
+			index:   &index,
+			file:    video,
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			fileInfo, _ := tt.file.Stat()
+			resp, err := testClient.Video.UploadPart(tt.id, tt.hash, tt.index, tt.file.Name(), tt.file, fileInfo.Size())
+			if tt.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }
 
-func TestVideos_getComplete(t *testing.T) {
-	setup()
-	defer teardown()
+func TestVideoService_UploadWhenVideoComplete(t *testing.T) {
 
-	mux.HandleFunc("/videos/videoId/complete", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		fmt.Fprint(w, successResponse)
-	})
-
-	resp, err := client.Video.UploadVideoComplete("videoId")
-	if err != nil {
-		t.Errorf("Videos.GetComplete error: %v", err)
+	tests := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Get Upload When Video Complete",
+			id:      testVideoID,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Empty Video ID",
+			id:      "",
+			wantErr: true,
+		},
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Videos.GetComplete\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.UploadVideoComplete(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Check other video complete",
+			id:      testVideoID,
+			wantErr: true,
+		},
+	}
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Video.UploadVideoComplete(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+}
+
+func TestVideoService_GetVideoPlayerInfo(t *testing.T) {
+	tests := []struct {
+		name    string
+		id      string
+		request VideoApiGetVideoPlayerInfoRequest
+		wantErr bool
+	}{
+		{
+			name:    "Valid Get Video Player Info",
+			id:      testVideoID,
+			request: VideoApiGetVideoPlayerInfoRequest{},
+			wantErr: false,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-id",
+			request: VideoApiGetVideoPlayerInfoRequest{},
+			wantErr: true,
+		},
+		{
+			name:    "Empty Video ID",
+			id:      "",
+			request: VideoApiGetVideoPlayerInfoRequest{},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.GetVideoPlayerInfo(tt.id, tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }
-func TestVideos_updateInfo(t *testing.T) {
-	setup()
-	defer teardown()
 
-	mux.HandleFunc("/videos/videoId/info", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPatch)
-		fmt.Fprint(w, successResponse)
-	})
+func TestVideoService_CreateVideoCaptions(t *testing.T) {
+	tmpFile := createTempVTTFile(t)
+	defer os.Remove(tmpFile.Name())
+	defer tmpFile.Close()
 
-	resp, err := client.Video.Update("videoId", UpdateVideoInfoRequest{})
-	if err != nil {
-		t.Errorf("Videos.UpdateInfo error: %v", err)
+	tests := []struct {
+		name    string
+		id      string
+		lang    string
+		file    *os.File
+		wantErr bool
+	}{
+		{
+			name:    "Valid Create Video Captions",
+			id:      testVideoID,
+			lang:    testLang,
+			file:    tmpFile,
+			wantErr: false,
+		},
+		{
+			name:    "Empty Language",
+			id:      testVideoID,
+			lang:    "",
+			file:    tmpFile,
+			wantErr: true,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-id",
+			lang:    testLang,
+			file:    tmpFile,
+			wantErr: true,
+		},
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Videos.UpdateInfo\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.CreateCaption(tt.id, tt.lang, tt.file.Name(), tt.file)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
 }
-func TestVideos_uploadVideoThumbnail(t *testing.T) {
-	setup()
-	defer teardown()
 
-	mux.HandleFunc("/videos/videoId/thumbnail", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodPost)
-		fmt.Fprint(w, successResponse)
-	})
-	reader := strings.NewReader("data")
-	resp, err := client.Video.UploadThumbnail("videoId", "thumbnail.jpg", reader)
+func TestVideoService_GetVideoCaptions(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Get other",
+			id:      testVideoCaptionID,
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Video.GetCaptions(tt.id, VideoApiGetCaptionsRequest{})
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		request VideoApiGetCaptionsRequest
+		wantErr bool
+	}{
+		{
+			name:    "Valid Get Video Captions",
+			id:      testVideoCaptionID,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Empty Video ID",
+			id:      "",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.GetCaptions(tt.id, tt.request)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+}
+
+func TestVideoService_SetDefaultCaption(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		lang    string
+		wantErr bool
+	}{
+		{
+			name:    "Set other",
+			id:      testVideoID,
+			lang:    testLang,
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Video.SetDefaultCaption(tt.id, tt.lang)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		lang    string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Set Default Caption",
+			id:      testVideoID,
+			lang:    testLang,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Empty Video ID",
+			id:      "",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.SetDefaultCaption(tt.id, testLang)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+}
+
+func TestVideoService_DeleteVideoCaptions(t *testing.T) {
+	anonymousTest := []struct {
+		name    string
+		id      string
+		lang    string
+		wantErr bool
+	}{
+		{
+			name:    "Delete other",
+			id:      testVideoID,
+			lang:    testLang,
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Video.DeleteCaption(tt.id, tt.lang)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+	tests := []struct {
+		name    string
+		id      string
+		lang    string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Delete Video Captions",
+			id:      testVideoID,
+			lang:    testLang,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-id",
+			lang:    testLang,
+			wantErr: true,
+		},
+		{
+			name:    "Empty Video ID",
+			id:      "",
+			lang:    testLang,
+			wantErr: true,
+		},
+		{
+			name:    "Invalid Language",
+			id:      testVideoID,
+			lang:    "invalid",
+			wantErr: true,
+		},
+		{
+			name:    "Empty Language",
+			id:      testVideoID,
+			lang:    "",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.DeleteCaption(tt.id, tt.lang)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+
+}
+
+func TestVideoService_Delete(t *testing.T) {
+	validMetadata := []Metadata{
+		{Key: stringPtr("key1"), Value: stringPtr("value1")},
+		{Key: stringPtr("key2"), Value: stringPtr("value2")},
+	}
+
+	validTags := []string{"tag1", "tag2"}
+	createRequest := CreateVideoRequest{
+		Title:       stringPtr("Test Video for Deletion"),
+		Description: stringPtr("Test Description"),
+		IsPublic:    boolPtr(true),
+		Metadata:    &validMetadata,
+		Qualities:   &[]string{"1080p", "720p", "360p"},
+		Tags:        &validTags,
+	}
+
+	resp, err := testClient.Video.Create(createRequest)
 	if err != nil {
-		t.Errorf("Videos.UploadThumbnail error: %v", err)
+		t.Fatalf("Failed to create video: %v", err)
+	}
+	testVideoID := *resp.Data.Id
+
+	anonymousTest := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Delete other",
+			id:      testVideoID,
+			wantErr: true,
+		},
 	}
 
-	expected := &successResponseStruct
-	if !reflect.DeepEqual(resp, expected) {
-		t.Errorf("Videos.UploadThumbnail\n got=%#v\nwant=%#v", resp, expected)
+	for _, tt := range anonymousTest {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testAnonymousClient.Video.Delete(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
 	}
+
+	tests := []struct {
+		name    string
+		id      string
+		wantErr bool
+	}{
+		{
+			name:    "Valid Delete",
+			id:      testVideoID,
+			wantErr: false,
+		},
+		{
+			name:    "Invalid Video ID",
+			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Empty Video ID",
+			id:      "",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp, err := testClient.Video.Delete(tt.id)
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, resp)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, resp)
+			}
+		})
+	}
+}
+
+func stringPtr(s string) *string {
+	return &s
 }

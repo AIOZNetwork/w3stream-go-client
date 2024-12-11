@@ -4,96 +4,24 @@ All URIs are relative to https://api.w3stream.xyz/api
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteThumbnail**](Playlist.md#DeleteThumbnail) | **Delete** /playlists/{id}/thumbnail | Delete a playlist thumbnail
-[**AddItem**](Playlist.md#AddItem) | **Post** /playlists/{id}/items | Add a video to a playlist
-[**CreatePlaylist**](Playlist.md#CreatePlaylist) | **Post** /playlists/create | Create a new playlist
-[**DeleteItem**](Playlist.md#DeleteItem) | **Delete** /playlists/{id}/items/{item_id} | Remove a video from a playlist
-[**DeletePlaylist**](Playlist.md#DeletePlaylist) | **Delete** /playlists/{id} | Delete a playlist by ID
+[**AddVideoToPlaylist**](Playlist.md#AddVideoToPlaylist) | **Post** /playlists/{id}/items | Add a video to a playlist
+[**CreatePlaylist**](Playlist.md#CreatePlaylist) | **Post** /playlists/create | Create a playlist
+[**DeletePlaylistById**](Playlist.md#DeletePlaylistById) | **Delete** /playlists/{id} | Delete a playlist by ID
+[**DeletePlaylistThumbnail**](Playlist.md#DeletePlaylistThumbnail) | **Delete** /playlists/{id}/thumbnail | Delete a playlist thumbnail
 [**GetPlaylistById**](Playlist.md#GetPlaylistById) | **Get** /playlists/{id} | Get playlist by ID
-[**GetPlaylistInfo**](Playlist.md#GetPlaylistInfo) | **Get** /playlists/{id}/player.json | Get a playlist public
+[**GetPlaylistPublicInfo**](Playlist.md#GetPlaylistPublicInfo) | **Get** /playlists/{id}/player.json | Get a playlist public
 [**GetPlaylists**](Playlist.md#GetPlaylists) | **Post** /playlists | Get user&#39;s playlists
-[**MoveItems**](Playlist.md#MoveItems) | **Put** /playlists/{id}/items | Move a video within a playlist
+[**MoveVideoInPlaylist**](Playlist.md#MoveVideoInPlaylist) | **Put** /playlists/{id}/items | Move a video in a playlist
+[**RemoveVideoFromPlaylist**](Playlist.md#RemoveVideoFromPlaylist) | **Delete** /playlists/{id}/items/{item_id} | Remove a video from a playlist
 [**UpdatePlaylist**](Playlist.md#UpdatePlaylist) | **Patch** /playlists/{id} | Update a playlist
 
 
 
-## DeleteThumbnail
+## AddVideoToPlaylist
 
-> DeleteThumbnail(id string) (*ResponseSuccess, error)
+> AddVideoToPlaylist(id string, payload AddVideoToPlaylistRequest) (*ResponseSuccess, error)
 
-> DeleteThumbnailWithContext(ctx context.Context, id string) (*ResponseSuccess, error)
-
-
-Delete a playlist thumbnail
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "encoding/json"
-    "os"
-    w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
-)
-
-func main() {
-    // create a new client
-    apiCreds := w3streamsdk.AuthCredentials{
-		SecretKey: "YOUR_SECRET_KEY",
-		PublicKey: "YOUR_PUBLIC_KEY",
-    }
-    client := w3streamsdk.ClientBuilder(apiCreds).Build()
-        
-    id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
-
-    
-    res, err := client.Playlist.DeleteThumbnail(id)
-
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.DeleteThumbnail``: %v\n", err)
-    }
-    // response from `DeleteThumbnail`: ResponseSuccess
-    newJsonString, err := json.MarshalIndent(res, "", "  ")
-    if err != nil {
-    fmt.Println(err)
-    }
-    fmt.Println("Response from `Playlist.DeleteThumbnail`")
-    fmt.Println(string(newJsonString))
-}
-```
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**id** | **string** | Playlist ID | 
-
-### Other Parameters
-
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-### Return type
-
-[**ResponseSuccess**](ResponseSuccess.md)
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## AddItem
-
-> AddItem(id string, request AddVideoToPlaylistRequest) (*ResponseSuccess, error)
-
-> AddItemWithContext(ctx context.Context, id string, request AddVideoToPlaylistRequest) (*ResponseSuccess, error)
+> AddVideoToPlaylistWithContext(ctx context.Context, id string, payload AddVideoToPlaylistRequest) (*ResponseSuccess, error)
 
 
 Add a video to a playlist
@@ -122,20 +50,20 @@ func main() {
     client := w3streamsdk.ClientBuilder(apiCreds).Build()
         
     id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
-    request := *w3streamsdk.NewAddVideoToPlaylistRequest() // AddVideoToPlaylistRequest | Video details
+    payload := *w3streamsdk.NewAddVideoToPlaylistRequest() // AddVideoToPlaylistRequest | Video details
 
     
-    res, err := client.Playlist.AddItem(id, request)
+    res, err := client.Playlist.AddVideoToPlaylist(id, payload)
 
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.AddItem``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.AddVideoToPlaylist``: %v\n", err)
     }
-    // response from `AddItem`: ResponseSuccess
+    // response from `AddVideoToPlaylist`: ResponseSuccess
     newJsonString, err := json.MarshalIndent(res, "", "  ")
     if err != nil {
     fmt.Println(err)
     }
-    fmt.Println("Response from `Playlist.AddItem`")
+    fmt.Println("Response from `Playlist.AddVideoToPlaylist`")
     fmt.Println(string(newJsonString))
 }
 ```
@@ -152,7 +80,7 @@ Name | Type | Description  | Notes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**request** | [**AddVideoToPlaylistRequest**](AddVideoToPlaylistRequest.md) | Video details | 
+**payload** | [**AddVideoToPlaylistRequest**](AddVideoToPlaylistRequest.md) | Video details | 
 
 ### Return type
 
@@ -165,12 +93,12 @@ Name | Type | Description  | Notes
 
 ## CreatePlaylist
 
-> CreatePlaylist(payload CreatePlaylistRequest) (*CreatePlaylistResponse, error)
+> CreatePlaylist(request CreatePlaylistRequest) (*CreatePlaylistResponse, error)
 
-> CreatePlaylistWithContext(ctx context.Context, payload CreatePlaylistRequest) (*CreatePlaylistResponse, error)
+> CreatePlaylistWithContext(ctx context.Context, request CreatePlaylistRequest) (*CreatePlaylistResponse, error)
 
 
-Create a new playlist
+Create a playlist
 
 
 
@@ -195,10 +123,10 @@ func main() {
     }
     client := w3streamsdk.ClientBuilder(apiCreds).Build()
         
-    payload := *w3streamsdk.NewCreatePlaylistRequest() // CreatePlaylistRequest | Create playlist request
+    request := *w3streamsdk.NewCreatePlaylistRequest() // CreatePlaylistRequest | Playlist input
 
     
-    res, err := client.Playlist.CreatePlaylist(payload)
+    res, err := client.Playlist.CreatePlaylist(request)
 
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Playlist.CreatePlaylist``: %v\n", err)
@@ -222,7 +150,7 @@ func main() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**payload** | [**CreatePlaylistRequest**](CreatePlaylistRequest.md) | Create playlist request | 
+**request** | [**CreatePlaylistRequest**](CreatePlaylistRequest.md) | Playlist input | 
 
 ### Return type
 
@@ -233,85 +161,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteItem
+## DeletePlaylistById
 
-> DeleteItem(id string, itemId string) (*ResponseSuccess, error)
+> DeletePlaylistById(id string) (*ResponseSuccess, error)
 
-> DeleteItemWithContext(ctx context.Context, id string, itemId string) (*ResponseSuccess, error)
-
-
-Remove a video from a playlist
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "encoding/json"
-    "os"
-    w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
-)
-
-func main() {
-    // create a new client
-    apiCreds := w3streamsdk.AuthCredentials{
-		SecretKey: "YOUR_SECRET_KEY",
-		PublicKey: "YOUR_PUBLIC_KEY",
-    }
-    client := w3streamsdk.ClientBuilder(apiCreds).Build()
-        
-    id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
-    itemId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist Item ID
-
-    
-    res, err := client.Playlist.DeleteItem(id, itemId)
-
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.DeleteItem``: %v\n", err)
-    }
-    // response from `DeleteItem`: ResponseSuccess
-    newJsonString, err := json.MarshalIndent(res, "", "  ")
-    if err != nil {
-    fmt.Println(err)
-    }
-    fmt.Println("Response from `Playlist.DeleteItem`")
-    fmt.Println(string(newJsonString))
-}
-```
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**id** | **string** | Playlist ID | 
-**itemId** | **string** | Playlist Item ID | 
-
-### Other Parameters
-
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-### Return type
-
-[**ResponseSuccess**](ResponseSuccess.md)
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeletePlaylist
-
-> DeletePlaylist(id string) (*ResponseSuccess, error)
-
-> DeletePlaylistWithContext(ctx context.Context, id string) (*ResponseSuccess, error)
+> DeletePlaylistByIdWithContext(ctx context.Context, id string) (*ResponseSuccess, error)
 
 
 Delete a playlist by ID
@@ -342,17 +196,89 @@ func main() {
     id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
 
     
-    res, err := client.Playlist.DeletePlaylist(id)
+    res, err := client.Playlist.DeletePlaylistById(id)
 
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.DeletePlaylist``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.DeletePlaylistById``: %v\n", err)
     }
-    // response from `DeletePlaylist`: ResponseSuccess
+    // response from `DeletePlaylistById`: ResponseSuccess
     newJsonString, err := json.MarshalIndent(res, "", "  ")
     if err != nil {
     fmt.Println(err)
     }
-    fmt.Println("Response from `Playlist.DeletePlaylist`")
+    fmt.Println("Response from `Playlist.DeletePlaylistById`")
+    fmt.Println(string(newJsonString))
+}
+```
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**id** | **string** | Playlist ID | 
+
+### Other Parameters
+
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Return type
+
+[**ResponseSuccess**](ResponseSuccess.md)
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeletePlaylistThumbnail
+
+> DeletePlaylistThumbnail(id string) (*ResponseSuccess, error)
+
+> DeletePlaylistThumbnailWithContext(ctx context.Context, id string) (*ResponseSuccess, error)
+
+
+Delete a playlist thumbnail
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "encoding/json"
+    "os"
+    w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
+)
+
+func main() {
+    // create a new client
+    apiCreds := w3streamsdk.AuthCredentials{
+		SecretKey: "YOUR_SECRET_KEY",
+		PublicKey: "YOUR_PUBLIC_KEY",
+    }
+    client := w3streamsdk.ClientBuilder(apiCreds).Build()
+        
+    id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
+
+    
+    res, err := client.Playlist.DeletePlaylistThumbnail(id)
+
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.DeletePlaylistThumbnail``: %v\n", err)
+    }
+    // response from `DeletePlaylistThumbnail`: ResponseSuccess
+    newJsonString, err := json.MarshalIndent(res, "", "  ")
+    if err != nil {
+    fmt.Println(err)
+    }
+    fmt.Println("Response from `Playlist.DeletePlaylistThumbnail`")
     fmt.Println(string(newJsonString))
 }
 ```
@@ -415,8 +341,8 @@ func main() {
     req := w3streamsdk.PlaylistApiGetPlaylistByIdRequest{}
     
     req.Id("id_example") // string | Playlist ID
-    req.SortBy("sortBy_example") // string | Sort field
-    req.OrderBy("orderBy_example") // string | Sort order
+    req.SortBy("sortBy_example") // string | sort by (default to "created_at")
+    req.OrderBy("orderBy_example") // string | allowed: asc, desc. Default: asc (default to "asc")
 
     res, err := client.Playlist.GetPlaylistById(id string, req)
     
@@ -446,8 +372,8 @@ Name | Type | Description  | Notes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**sortBy** | **string** | Sort field | 
-**orderBy** | **string** | Sort order | 
+**sortBy** | **string** | sort by | [default to &quot;created_at&quot;]
+**orderBy** | **string** | allowed: asc, desc. Default: asc | [default to &quot;asc&quot;]
 
 ### Return type
 
@@ -458,11 +384,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetPlaylistInfo
+## GetPlaylistPublicInfo
 
-> GetPlaylistInfo(id string) (*PublicPlaylistObject, error)
+> GetPlaylistPublicInfo(id string) (*PublicPlaylistObject, error)
 
-> GetPlaylistInfoWithContext(ctx context.Context, id string) (*PublicPlaylistObject, error)
+> GetPlaylistPublicInfoWithContext(ctx context.Context, id string) (*PublicPlaylistObject, error)
 
 
 Get a playlist public
@@ -493,17 +419,17 @@ func main() {
     id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
 
     
-    res, err := client.Playlist.GetPlaylistInfo(id)
+    res, err := client.Playlist.GetPlaylistPublicInfo(id)
 
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.GetPlaylistInfo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.GetPlaylistPublicInfo``: %v\n", err)
     }
-    // response from `GetPlaylistInfo`: PublicPlaylistObject
+    // response from `GetPlaylistPublicInfo`: PublicPlaylistObject
     newJsonString, err := json.MarshalIndent(res, "", "  ")
     if err != nil {
     fmt.Println(err)
     }
-    fmt.Println("Response from `Playlist.GetPlaylistInfo`")
+    fmt.Println("Response from `Playlist.GetPlaylistPublicInfo`")
     fmt.Println(string(newJsonString))
 }
 ```
@@ -532,9 +458,9 @@ Name | Type | Description  | Notes
 
 ## GetPlaylists
 
-> GetPlaylists(payload GetPlaylistListRequest) (*GetPlaylistListResponse, error)
+> GetPlaylists(request GetPlaylistListRequest) (*GetPlaylistListResponse, error)
 
-> GetPlaylistsWithContext(ctx context.Context, payload GetPlaylistListRequest) (*GetPlaylistListResponse, error)
+> GetPlaylistsWithContext(ctx context.Context, request GetPlaylistListRequest) (*GetPlaylistListResponse, error)
 
 
 Get user's playlists
@@ -562,10 +488,10 @@ func main() {
     }
     client := w3streamsdk.ClientBuilder(apiCreds).Build()
         
-    payload := *w3streamsdk.NewGetPlaylistListRequest() // GetPlaylistListRequest | Get playlist list request
+    request := *w3streamsdk.NewGetPlaylistListRequest() // GetPlaylistListRequest | Playlist filter
 
     
-    res, err := client.Playlist.GetPlaylists(payload)
+    res, err := client.Playlist.GetPlaylists(request)
 
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `Playlist.GetPlaylists``: %v\n", err)
@@ -589,7 +515,7 @@ func main() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**payload** | [**GetPlaylistListRequest**](GetPlaylistListRequest.md) | Get playlist list request | 
+**request** | [**GetPlaylistListRequest**](GetPlaylistListRequest.md) | Playlist filter | 
 
 ### Return type
 
@@ -600,14 +526,14 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## MoveItems
+## MoveVideoInPlaylist
 
-> MoveItems(id string, payload MoveVideoInPlaylistRequest) (*ResponseSuccess, error)
+> MoveVideoInPlaylist(id string, payload MoveVideoInPlaylistRequest) (*ResponseSuccess, error)
 
-> MoveItemsWithContext(ctx context.Context, id string, payload MoveVideoInPlaylistRequest) (*ResponseSuccess, error)
+> MoveVideoInPlaylistWithContext(ctx context.Context, id string, payload MoveVideoInPlaylistRequest) (*ResponseSuccess, error)
 
 
-Move a video within a playlist
+Move a video in a playlist
 
 
 
@@ -633,20 +559,20 @@ func main() {
     client := w3streamsdk.ClientBuilder(apiCreds).Build()
         
     id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
-    payload := *w3streamsdk.NewMoveVideoInPlaylistRequest() // MoveVideoInPlaylistRequest | Move video details
+    payload := *w3streamsdk.NewMoveVideoInPlaylistRequest() // MoveVideoInPlaylistRequest | Video details
 
     
-    res, err := client.Playlist.MoveItems(id, payload)
+    res, err := client.Playlist.MoveVideoInPlaylist(id, payload)
 
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.MoveItems``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.MoveVideoInPlaylist``: %v\n", err)
     }
-    // response from `MoveItems`: ResponseSuccess
+    // response from `MoveVideoInPlaylist`: ResponseSuccess
     newJsonString, err := json.MarshalIndent(res, "", "  ")
     if err != nil {
     fmt.Println(err)
     }
-    fmt.Println("Response from `Playlist.MoveItems`")
+    fmt.Println("Response from `Playlist.MoveVideoInPlaylist`")
     fmt.Println(string(newJsonString))
 }
 ```
@@ -663,7 +589,81 @@ Name | Type | Description  | Notes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**payload** | [**MoveVideoInPlaylistRequest**](MoveVideoInPlaylistRequest.md) | Move video details | 
+**payload** | [**MoveVideoInPlaylistRequest**](MoveVideoInPlaylistRequest.md) | Video details | 
+
+### Return type
+
+[**ResponseSuccess**](ResponseSuccess.md)
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RemoveVideoFromPlaylist
+
+> RemoveVideoFromPlaylist(id string, itemId string) (*ResponseSuccess, error)
+
+> RemoveVideoFromPlaylistWithContext(ctx context.Context, id string, itemId string) (*ResponseSuccess, error)
+
+
+Remove a video from a playlist
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "encoding/json"
+    "os"
+    w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
+)
+
+func main() {
+    // create a new client
+    apiCreds := w3streamsdk.AuthCredentials{
+		SecretKey: "YOUR_SECRET_KEY",
+		PublicKey: "YOUR_PUBLIC_KEY",
+    }
+    client := w3streamsdk.ClientBuilder(apiCreds).Build()
+        
+    id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
+    itemId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist Item ID
+
+    
+    res, err := client.Playlist.RemoveVideoFromPlaylist(id, itemId)
+
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `Playlist.RemoveVideoFromPlaylist``: %v\n", err)
+    }
+    // response from `RemoveVideoFromPlaylist`: ResponseSuccess
+    newJsonString, err := json.MarshalIndent(res, "", "  ")
+    if err != nil {
+    fmt.Println(err)
+    }
+    fmt.Println("Response from `Playlist.RemoveVideoFromPlaylist`")
+    fmt.Println(string(newJsonString))
+}
+```
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**id** | **string** | Playlist ID | 
+**itemId** | **string** | Playlist Item ID | 
+
+### Other Parameters
+
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -707,10 +707,10 @@ func main() {
     client := w3streamsdk.ClientBuilder(apiCreds).Build()
         
     id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Playlist ID
-    file := os.NewFile(1234, "some_file") // *os.File | Thumbnail
-    name := "name_example" // string | Playlist name
-    tags := []string{"Inner_example"} // []string | Tags
-    metadata := []string{"Inner_example"} // []string | Metadata
+    file := os.NewFile(1234, "some_file") // *os.File | 
+    metadata := []w3streamsdk.Metadata{*w3streamsdk.NewMetadata()} // []Metadata | 
+    name := "name_example" // string | 
+    tags := []string{"Inner_example"} // []string | 
 
     
     res, err := client.Playlist.UpdatePlaylistFile(id, file)
@@ -744,10 +744,10 @@ Name | Type | Description  | Notes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**file** | ***os.File** | Thumbnail | 
-**name** | **string** | Playlist name | 
-**tags** | **[]string** | Tags | 
-**metadata** | **[]string** | Metadata | 
+**file** | ***os.File** |  | 
+**metadata** | [**[]Metadata**](Metadata.md) |  | 
+**name** | **string** |  | 
+**tags** | **[]string** |  | 
 
 ### Return type
 
