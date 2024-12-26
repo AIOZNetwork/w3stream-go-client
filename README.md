@@ -22,7 +22,7 @@ For a more advanced usage you can checkout the rest of the documentation in the 
 ```golang
 
 import (
-	"encoding/json"
+	"context"
 	"fmt"
 	"os"
  
