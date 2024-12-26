@@ -19,10 +19,8 @@ import (
 type PlaylistItem struct {
 	CreatedAt  *string            `json:"created_at,omitempty"`
 	Id         *string            `json:"id,omitempty"`
-	Next       *PlaylistItem      `json:"next,omitempty"`
 	NextId     *string            `json:"next_id,omitempty"`
 	PlaylistId *string            `json:"playlist_id,omitempty"`
-	Previous   *PlaylistItem      `json:"previous,omitempty"`
 	PreviousId *string            `json:"previous_id,omitempty"`
 	UpdatedAt  *string            `json:"updated_at,omitempty"`
 	Video      *PlaylistItemVideo `json:"video,omitempty"`
@@ -110,38 +108,6 @@ func (o *PlaylistItem) SetId(v string) {
 	o.Id = &v
 }
 
-// GetNext returns the Next field value if set, zero value otherwise.
-func (o *PlaylistItem) GetNext() PlaylistItem {
-	if o == nil || o.Next == nil {
-		var ret PlaylistItem
-		return ret
-	}
-	return *o.Next
-}
-
-// GetNextOk returns a tuple with the Next field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PlaylistItem) GetNextOk() (*PlaylistItem, bool) {
-	if o == nil || o.Next == nil {
-		return nil, false
-	}
-	return o.Next, true
-}
-
-// HasNext returns a boolean if a field has been set.
-func (o *PlaylistItem) HasNext() bool {
-	if o != nil && o.Next != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNext gets a reference to the given PlaylistItem and assigns it to the Next field.
-func (o *PlaylistItem) SetNext(v PlaylistItem) {
-	o.Next = &v
-}
-
 // GetNextId returns the NextId field value if set, zero value otherwise.
 func (o *PlaylistItem) GetNextId() string {
 	if o == nil || o.NextId == nil {
@@ -204,38 +170,6 @@ func (o *PlaylistItem) HasPlaylistId() bool {
 // SetPlaylistId gets a reference to the given string and assigns it to the PlaylistId field.
 func (o *PlaylistItem) SetPlaylistId(v string) {
 	o.PlaylistId = &v
-}
-
-// GetPrevious returns the Previous field value if set, zero value otherwise.
-func (o *PlaylistItem) GetPrevious() PlaylistItem {
-	if o == nil || o.Previous == nil {
-		var ret PlaylistItem
-		return ret
-	}
-	return *o.Previous
-}
-
-// GetPreviousOk returns a tuple with the Previous field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PlaylistItem) GetPreviousOk() (*PlaylistItem, bool) {
-	if o == nil || o.Previous == nil {
-		return nil, false
-	}
-	return o.Previous, true
-}
-
-// HasPrevious returns a boolean if a field has been set.
-func (o *PlaylistItem) HasPrevious() bool {
-	if o != nil && o.Previous != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPrevious gets a reference to the given PlaylistItem and assigns it to the Previous field.
-func (o *PlaylistItem) SetPrevious(v PlaylistItem) {
-	o.Previous = &v
 }
 
 // GetPreviousId returns the PreviousId field value if set, zero value otherwise.

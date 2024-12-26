@@ -3,6 +3,7 @@ package w3streamsdk
 import (
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -90,6 +91,7 @@ func TestWebhookService_Create(t *testing.T) {
 }
 
 func TestWebhookService_Update(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -156,6 +158,12 @@ func TestWebhookService_Update(t *testing.T) {
 		{
 			name:    "Invalid ID",
 			id:      "invalid-id",
+			request: UpdateWebhookRequest{},
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			request: UpdateWebhookRequest{},
 			wantErr: true,
 		},
@@ -241,6 +249,7 @@ func TestWebhookService_List(t *testing.T) {
 }
 
 func TestWebhookService_Get(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -287,6 +296,11 @@ func TestWebhookService_Get(t *testing.T) {
 			id:      "invalid-id",
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -307,6 +321,7 @@ func TestWebhookService_Get(t *testing.T) {
 }
 
 func TestWebhookService_Delete(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -345,6 +360,11 @@ func TestWebhookService_Delete(t *testing.T) {
 		{
 			name:    "Invalid ID",
 			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}

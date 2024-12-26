@@ -22,7 +22,7 @@ For a more advanced usage you can checkout the rest of the documentation in the 
 ```golang
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"os"
  
@@ -107,7 +107,7 @@ func main() {
 All urls are relative to https://api.w3stream.xyz/api
 
 
-#### Api key
+#### ApiKey
 
 
 ##### Retrieve an instance of the ApiKey API:
@@ -132,10 +132,10 @@ Method | HTTP request | Description
 [**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#List) | **Get** `/api_keys` | Get list API keys
 
 
-#### Live stream
+#### LiveStream
 
 
-##### Retrieve an instance of the live stream API:
+##### Retrieve an instance of the LiveStream API:
 ```go
 secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
@@ -168,7 +168,7 @@ Method | HTTP request | Description
 #### Players
 
 
-##### Retrieve an instance of the players API:
+##### Retrieve an instance of the Players API:
 ```go
 secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
@@ -198,7 +198,7 @@ Method | HTTP request | Description
 #### Playlist
 
 
-##### Retrieve an instance of the playlist API:
+##### Retrieve an instance of the Playlist API:
 ```go
 secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
@@ -229,7 +229,7 @@ Method | HTTP request | Description
 #### Video
 
 
-##### Retrieve an instance of the video API:
+##### Retrieve an instance of the Video API:
 ```go
 secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
@@ -261,10 +261,10 @@ Method | HTTP request | Description
 [**UploadVideoComplete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Video.md#UploadVideoComplete) | **Get** `/videos/{id}/complete` | Get upload video when complete
 
 
-#### Video chapter
+#### VideoChapter
 
 
-##### Retrieve an instance of the video chapter API:
+##### Retrieve an instance of the VideoChapter API:
 ```go
 secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
@@ -285,10 +285,34 @@ Method | HTTP request | Description
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Delete) | **Delete** `/videos/{id}/chapters/{lan}` | Delete a video chapter
 
 
+#### Watermark
+
+
+##### Retrieve an instance of the Watermark API:
+```go
+secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
+publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
+apiCreds := w3streamsdk.AuthCredentials{
+	PublicKey: publicKey,
+	SecretKey: secretKey,
+}
+client := w3streamsdk.ClientBuilder(apiCreds).Build()
+watermarkApi := client.Watermark
+```
+
+##### Endpoints
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**Upload**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#Upload) | **Post** `/watermarks` | Create a new watermark
+[**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#Delete) | **Delete** `/watermarks/{id}` | Delete a watermark by ID
+[**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#List) | **Get** `/watermarks` | List all watermarks
+
+
 #### Webhook
 
 
-##### Retrieve an instance of the webhook API:
+##### Retrieve an instance of the Webhook API:
 ```go
 secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
 publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
@@ -340,9 +364,13 @@ Method | HTTP request | Description
  - [CreateVideoChapterResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoChapterResponse.md)
  - [CreateVideoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoRequest.md)
  - [CreateVideoResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoResponse.md)
+ - [CreateWatermarkData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWatermarkData.md)
+ - [CreateWatermarkResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWatermarkResponse.md)
  - [CreateWebhookData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookData.md)
  - [CreateWebhookRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookRequest.md)
  - [CreateWebhookResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookResponse.md)
+ - [GetAllWatermarkData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetAllWatermarkData.md)
+ - [GetAllWatermarkResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetAllWatermarkResponse.md)
  - [GetApiKeysData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetApiKeysData.md)
  - [GetApiKeysResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetApiKeysResponse.md)
  - [GetLiveStreamKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamKeyData.md)
@@ -410,6 +438,7 @@ Method | HTTP request | Description
  - [VideoCaption](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoCaption.md)
  - [VideoChapter](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md)
  - [VideoWatermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoWatermark.md)
+ - [Watermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md)
  - [Webhook](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Webhook.md)
 
 

@@ -3,6 +3,7 @@ package w3streamsdk
 import (
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -72,6 +73,7 @@ func TestApiKeyService_Create(t *testing.T) {
 }
 
 func TestApiKeyService_Update(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -131,6 +133,14 @@ func TestApiKeyService_Update(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "Not Exist ID",
+			id:   notExistId,
+			request: RenameAPIKeyRequest{
+				ApiKeyName: stringPtr("Updated API Key"),
+			},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -148,7 +158,7 @@ func TestApiKeyService_Update(t *testing.T) {
 }
 
 func TestApiKeyService_Delete(t *testing.T) {
-
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -192,6 +202,11 @@ func TestApiKeyService_Delete(t *testing.T) {
 		{
 			name:    "Empty ID",
 			id:      "",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}

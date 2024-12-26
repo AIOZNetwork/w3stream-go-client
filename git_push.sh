@@ -1,5 +1,15 @@
 #!/bin/sh
 
+cp -R ../../templates/go/statics/.github ./
+cp -R ../../templates/go/statics/* ./
+mkdir test-assets
+cp ../../templates/common-resources/test-assets/* test-assets
+cp ../../templates/common-resources/LICENSE ./
+
+gofmt -s -w *.go
+
+go mod tidy
+
 git_user_id=$1
 git_repo_id=$2
 release_note=$3
@@ -25,24 +35,12 @@ if [ "$branch_suffix" = "" ]; then
     echo "[INFO] No branch name provided. Using timestamp: $branch_suffix"
 fi
 
-rm -rf .git
-
-git init
-
-git remote add origin git@github.com:${git_user_id}/${git_repo_id}.git
-
-git fetch origin main
-
-git branch main origin/main
-
-git checkout main
-
 git add .
-
-git commit -m "$release_note"
 
 branch_name="w3stream/$branch_suffix"
 git checkout -b $branch_name main
+
+git commit -m "$release_note"
 
 echo "Git pushing to git@github.com:${git_user_id}/${git_repo_id}.git"
 git push -u origin $branch_name
