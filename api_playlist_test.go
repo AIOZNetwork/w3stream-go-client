@@ -5,14 +5,15 @@ import (
 	"os"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 var (
 	testPlaylistID   string
-	testVideoIDOne   = "f59def07-0028-4656-9963-43df7bf01659"
-	testVideoIDTwo   = "58dbce74-d9da-49de-a3ae-702c1ba0685d"
-	testVideoIDThree = "c91e1c8b-e93c-423c-98dd-690fdfa19659"
+	testVideoIDOne   = "fdcaf04d-db3d-41af-8d2a-42f272ed556b"
+	testVideoIDTwo   = "598b9aaa-f2dc-4622-9dfb-d1993a9c6165"
+	testVideoIDThree = "ee8f0f53-a847-48b8-b6cf-811dc1a31c9d"
 	testName         = "Test Playlist"
 	testCurrentId    string
 	testNextId       string
@@ -100,6 +101,7 @@ func TestPlaylistService_GetPlaylists(t *testing.T) {
 }
 
 func TestPlaylistService_UpdatePlaylist(t *testing.T) {
+	notExistId := uuid.New().String()
 	thumbnailFileForAnonymous, err := openTestImageFile(t)
 	if err != nil {
 		t.Fatal(err)
@@ -180,6 +182,13 @@ func TestPlaylistService_UpdatePlaylist(t *testing.T) {
 			file:    invalidFile,
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			Name:    stringPtr(name),
+			file:    thumbnailFile,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -208,6 +217,7 @@ func TestPlaylistService_UpdatePlaylist(t *testing.T) {
 }
 
 func TestPlaylistService_GetPlaylistPublicInfo(t *testing.T) {
+	notExistId := uuid.New().String()
 	tests := []struct {
 		name    string
 		id      string
@@ -221,6 +231,11 @@ func TestPlaylistService_GetPlaylistPublicInfo(t *testing.T) {
 		{
 			name:    "Invalid Playlist ID",
 			id:      "",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}
@@ -240,6 +255,7 @@ func TestPlaylistService_GetPlaylistPublicInfo(t *testing.T) {
 }
 
 func TestPlaylistService_AddVideoToPlaylist(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -313,6 +329,14 @@ func TestPlaylistService_AddVideoToPlaylist(t *testing.T) {
 			payload: AddVideoToPlaylistRequest{},
 			wantErr: true,
 		},
+		{
+			name: "Not Exist ID",
+			id:   notExistId,
+			payload: AddVideoToPlaylistRequest{
+				VideoId: stringPtr(testVideoIDOne),
+			},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -331,6 +355,7 @@ func TestPlaylistService_AddVideoToPlaylist(t *testing.T) {
 }
 
 func TestPlaylistService_GetPlaylistByID(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -401,6 +426,11 @@ func TestPlaylistService_GetPlaylistByID(t *testing.T) {
 			request: PlaylistApiGetPlaylistByIdRequest{
 				orderBy: stringPtr("invalid"),
 			},
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}
@@ -517,6 +547,7 @@ func TestPlaylistService_MoveVideoInPlaylist(t *testing.T) {
 }
 
 func TestPlaylistService_RemoveVideoFromPlaylist(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -578,6 +609,11 @@ func TestPlaylistService_RemoveVideoFromPlaylist(t *testing.T) {
 			id:      testPlaylistID,
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -596,6 +632,7 @@ func TestPlaylistService_RemoveVideoFromPlaylist(t *testing.T) {
 }
 
 func TestPlaylistService_DeletePlaylistThumbnail(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -636,6 +673,11 @@ func TestPlaylistService_DeletePlaylistThumbnail(t *testing.T) {
 			id:      "",
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -654,6 +696,7 @@ func TestPlaylistService_DeletePlaylistThumbnail(t *testing.T) {
 }
 
 func TestPlaylistService_DeletePlaylistById(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -692,6 +735,11 @@ func TestPlaylistService_DeletePlaylistById(t *testing.T) {
 		{
 			name:    "Invalid Playlist ID",
 			id:      "",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}

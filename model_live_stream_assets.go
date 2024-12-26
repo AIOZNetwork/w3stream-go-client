@@ -18,6 +18,8 @@ import (
 // LiveStreamAssets struct for LiveStreamAssets
 type LiveStreamAssets struct {
 	HlsUrl       *string `json:"hls_url,omitempty"`
+	Iframe       *string `json:"iframe,omitempty"`
+	PlayerUrl    *string `json:"player_url,omitempty"`
 	ThumbnailUrl *string `json:"thumbnail_url,omitempty"`
 }
 
@@ -68,6 +70,70 @@ func (o *LiveStreamAssets) HasHlsUrl() bool {
 // SetHlsUrl gets a reference to the given string and assigns it to the HlsUrl field.
 func (o *LiveStreamAssets) SetHlsUrl(v string) {
 	o.HlsUrl = &v
+}
+
+// GetIframe returns the Iframe field value if set, zero value otherwise.
+func (o *LiveStreamAssets) GetIframe() string {
+	if o == nil || o.Iframe == nil {
+		var ret string
+		return ret
+	}
+	return *o.Iframe
+}
+
+// GetIframeOk returns a tuple with the Iframe field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LiveStreamAssets) GetIframeOk() (*string, bool) {
+	if o == nil || o.Iframe == nil {
+		return nil, false
+	}
+	return o.Iframe, true
+}
+
+// HasIframe returns a boolean if a field has been set.
+func (o *LiveStreamAssets) HasIframe() bool {
+	if o != nil && o.Iframe != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIframe gets a reference to the given string and assigns it to the Iframe field.
+func (o *LiveStreamAssets) SetIframe(v string) {
+	o.Iframe = &v
+}
+
+// GetPlayerUrl returns the PlayerUrl field value if set, zero value otherwise.
+func (o *LiveStreamAssets) GetPlayerUrl() string {
+	if o == nil || o.PlayerUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.PlayerUrl
+}
+
+// GetPlayerUrlOk returns a tuple with the PlayerUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LiveStreamAssets) GetPlayerUrlOk() (*string, bool) {
+	if o == nil || o.PlayerUrl == nil {
+		return nil, false
+	}
+	return o.PlayerUrl, true
+}
+
+// HasPlayerUrl returns a boolean if a field has been set.
+func (o *LiveStreamAssets) HasPlayerUrl() bool {
+	if o != nil && o.PlayerUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPlayerUrl gets a reference to the given string and assigns it to the PlayerUrl field.
+func (o *LiveStreamAssets) SetPlayerUrl(v string) {
+	o.PlayerUrl = &v
 }
 
 // GetThumbnailUrl returns the ThumbnailUrl field value if set, zero value otherwise.

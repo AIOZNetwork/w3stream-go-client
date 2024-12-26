@@ -9,6 +9,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 )
@@ -25,7 +26,7 @@ var (
 	testVideoID        string
 	title              = "Test Video"
 	description        = "Test Description"
-	testVideoCaptionID = "c91e1c8b-e93c-423c-98dd-690fdfa19659"
+	testVideoCaptionID = "598b9aaa-f2dc-4622-9dfb-d1993a9c6165"
 )
 
 func init() {
@@ -254,6 +255,7 @@ func TestVideoService_List(t *testing.T) {
 }
 
 func TestVideoService_Update(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -332,6 +334,12 @@ func TestVideoService_Update(t *testing.T) {
 			input:   UpdateVideoInfoRequest{Title: &title},
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			input:   UpdateVideoInfoRequest{Title: &title},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -348,6 +356,7 @@ func TestVideoService_Update(t *testing.T) {
 }
 
 func TestVideoService_GetDetail(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -406,6 +415,12 @@ func TestVideoService_GetDetail(t *testing.T) {
 			wantErr: true,
 			checkFn: nil,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+			checkFn: nil,
+		},
 	}
 
 	for _, tt := range tests {
@@ -427,6 +442,7 @@ func TestVideoService_GetDetail(t *testing.T) {
 
 func TestVideoService_UploadThumbnail(t *testing.T) {
 	validThumbnail, err := openTestImageFile(t)
+	notExistId := uuid.New().String()
 	if err != nil {
 		t.Fatal("Failed to open test image file:", err)
 	}
@@ -521,6 +537,13 @@ func TestVideoService_UploadThumbnail(t *testing.T) {
 			file:     nil,
 			wantErr:  true,
 		},
+		{
+			name:     "Not Exist ID",
+			id:       notExistId,
+			fileName: "thumbnail.jpg",
+			file:     validThumbnail,
+			wantErr:  true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -595,6 +618,7 @@ func TestVideoService_UploadPart(t *testing.T) {
 	videoHash := getFileHash(t, video)
 
 	index := "1"
+	notExistId := uuid.New().String()
 
 	tests := []struct {
 		name    string
@@ -620,6 +644,14 @@ func TestVideoService_UploadPart(t *testing.T) {
 			file:    video,
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			hash:    &videoHash,
+			index:   &index,
+			file:    video,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -637,7 +669,7 @@ func TestVideoService_UploadPart(t *testing.T) {
 }
 
 func TestVideoService_UploadWhenVideoComplete(t *testing.T) {
-
+	notExistId := uuid.New().String()
 	tests := []struct {
 		name    string
 		id      string
@@ -656,6 +688,11 @@ func TestVideoService_UploadWhenVideoComplete(t *testing.T) {
 		{
 			name:    "Empty Video ID",
 			id:      "",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}
@@ -700,6 +737,7 @@ func TestVideoService_UploadWhenVideoComplete(t *testing.T) {
 }
 
 func TestVideoService_GetVideoPlayerInfo(t *testing.T) {
+	notExistId := uuid.New().String()
 	tests := []struct {
 		name    string
 		id      string
@@ -724,6 +762,12 @@ func TestVideoService_GetVideoPlayerInfo(t *testing.T) {
 			request: VideoApiGetVideoPlayerInfoRequest{},
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			request: VideoApiGetVideoPlayerInfoRequest{},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -742,6 +786,7 @@ func TestVideoService_GetVideoPlayerInfo(t *testing.T) {
 
 func TestVideoService_CreateVideoCaptions(t *testing.T) {
 	tmpFile := createTempVTTFile(t)
+	notExistId := uuid.New().String()
 	defer os.Remove(tmpFile.Name())
 	defer tmpFile.Close()
 
@@ -773,6 +818,13 @@ func TestVideoService_CreateVideoCaptions(t *testing.T) {
 			file:    tmpFile,
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			lang:    testLang,
+			file:    tmpFile,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -790,6 +842,7 @@ func TestVideoService_CreateVideoCaptions(t *testing.T) {
 }
 
 func TestVideoService_GetVideoCaptions(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -836,6 +889,11 @@ func TestVideoService_GetVideoCaptions(t *testing.T) {
 			id:      "",
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -853,6 +911,7 @@ func TestVideoService_GetVideoCaptions(t *testing.T) {
 }
 
 func TestVideoService_SetDefaultCaption(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -902,6 +961,11 @@ func TestVideoService_SetDefaultCaption(t *testing.T) {
 			id:      "",
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -920,6 +984,7 @@ func TestVideoService_SetDefaultCaption(t *testing.T) {
 }
 
 func TestVideoService_DeleteVideoCaptions(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -983,6 +1048,12 @@ func TestVideoService_DeleteVideoCaptions(t *testing.T) {
 			lang:    "",
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			lang:    testLang,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -1001,6 +1072,7 @@ func TestVideoService_DeleteVideoCaptions(t *testing.T) {
 }
 
 func TestVideoService_Delete(t *testing.T) {
+	notExistId := uuid.New().String()
 	validMetadata := []Metadata{
 		{Key: stringPtr("key1"), Value: stringPtr("value1")},
 		{Key: stringPtr("key2"), Value: stringPtr("value2")},
@@ -1065,6 +1137,11 @@ func TestVideoService_Delete(t *testing.T) {
 		{
 			name:    "Empty Video ID",
 			id:      "",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}

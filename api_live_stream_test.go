@@ -3,6 +3,7 @@ package w3streamsdk
 import (
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -67,6 +68,7 @@ func TestLiveStreamService_CreateLiveStreamKey(t *testing.T) {
 }
 
 func TestLiveStreamService_GetLiveStreamKey(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -105,6 +107,11 @@ func TestLiveStreamService_GetLiveStreamKey(t *testing.T) {
 		{
 			name:    "Invalid Get Live Stream Key",
 			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}
@@ -161,6 +168,7 @@ func TestLiveStreamService_GetLiveStreamKeys(t *testing.T) {
 }
 
 func TestLiveStreamService_UpdateLiveStreamKey(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -227,6 +235,15 @@ func TestLiveStreamService_UpdateLiveStreamKey(t *testing.T) {
 		{
 			name: "Invalid Update Live Stream Key with ID is empty",
 			id:   "",
+			input: UpdateLiveStreamKeyRequest{
+				Name: &liveStreamKeyName,
+				Save: boolPtr(true),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Not Exist ID",
+			id:   notExistId,
 			input: UpdateLiveStreamKeyRequest{
 				Name: &liveStreamKeyName,
 				Save: boolPtr(true),
@@ -391,6 +408,7 @@ func TestLiveStreamService_CreateStreaming(t *testing.T) {
 }
 
 func TestLiveStreamService_GetStreaming(t *testing.T) {
+	notExistId := uuid.New().String()
 	tests := []struct {
 		name     string
 		id       string
@@ -407,6 +425,12 @@ func TestLiveStreamService_GetStreaming(t *testing.T) {
 			name:     "Invalid Get Streaming",
 			id:       "invalid-id",
 			streamId: "invalid-stream-id",
+			wantErr:  true,
+		},
+		{
+			name:     "Not Exist ID",
+			id:       notExistId,
+			streamId: streamId,
 			wantErr:  true,
 		},
 	}
@@ -458,6 +482,7 @@ func TestLiveStreamService_GetStreamings(t *testing.T) {
 }
 
 func TestLiveStreamService_DeleteLiveStreamVideo(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -498,6 +523,11 @@ func TestLiveStreamService_DeleteLiveStreamVideo(t *testing.T) {
 			id:      "invalid-id",
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -515,6 +545,7 @@ func TestLiveStreamService_DeleteLiveStreamVideo(t *testing.T) {
 }
 
 func TestLiveStreamService_DeleteLiveStreamKey(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -553,6 +584,11 @@ func TestLiveStreamService_DeleteLiveStreamKey(t *testing.T) {
 		{
 			name:    "Invalid Delete Live Stream Key with Invalid ID",
 			id:      "invalid-id",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}
