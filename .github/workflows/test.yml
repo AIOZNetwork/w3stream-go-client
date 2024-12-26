@@ -1,7 +1,7 @@
-name: Run unit tests
+name: Run unit tests and create PR
 on: [push]
 jobs:
-  test:
+  test-and-pr:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,4 +23,15 @@ jobs:
           echo TEST_ANONYMOUS_PUBLIC_KEY=${{ secrets.TEST_ANONYMOUS_PUBLIC_KEY }} >> .env
 
       - name: Test
-        run: go test
+        run: go test -v
+
+      - name: Create Pull Request
+        if: success() && github.ref != 'refs/heads/main'
+        run: |
+          gh pr create \
+            -B main \
+            -H ${{ github.ref_name }} \
+            --title "Merge ${{ github.ref_name }} into main" \
+            --body "Created by Github action after successful tests"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

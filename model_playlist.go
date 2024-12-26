@@ -24,6 +24,7 @@ type Playlist struct {
 	ItemCount    *int32             `json:"item_count,omitempty"`
 	Metadata     *map[string]string `json:"metadata,omitempty"`
 	Name         *string            `json:"name,omitempty"`
+	PlaylistUrl  *string            `json:"playlist_url,omitempty"`
 	Size         *int32             `json:"size,omitempty"`
 	Tags         *string            `json:"tags,omitempty"`
 	ThumbnailId  *string            `json:"thumbnail_id,omitempty"`
@@ -272,6 +273,38 @@ func (o *Playlist) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *Playlist) SetName(v string) {
 	o.Name = &v
+}
+
+// GetPlaylistUrl returns the PlaylistUrl field value if set, zero value otherwise.
+func (o *Playlist) GetPlaylistUrl() string {
+	if o == nil || o.PlaylistUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.PlaylistUrl
+}
+
+// GetPlaylistUrlOk returns a tuple with the PlaylistUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Playlist) GetPlaylistUrlOk() (*string, bool) {
+	if o == nil || o.PlaylistUrl == nil {
+		return nil, false
+	}
+	return o.PlaylistUrl, true
+}
+
+// HasPlaylistUrl returns a boolean if a field has been set.
+func (o *Playlist) HasPlaylistUrl() bool {
+	if o != nil && o.PlaylistUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPlaylistUrl gets a reference to the given string and assigns it to the PlaylistUrl field.
+func (o *Playlist) SetPlaylistUrl(v string) {
+	o.PlaylistUrl = &v
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.

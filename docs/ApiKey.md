@@ -5,7 +5,7 @@ All URIs are relative to https://api.w3stream.xyz/api
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Create**](ApiKey.md#Create) | **Post** /api_keys | Create API key
-[**Update**](ApiKey.md#Update) | **Patch** /api_keys/{id} | Rename api key
+[**Update**](ApiKey.md#Update) | **Patch** /api_keys/{id} | Rename API key
 [**Delete**](ApiKey.md#Delete) | **Delete** /api_keys/{id} | Delete API key
 [**List**](ApiKey.md#List) | **Get** /api_keys | Get list API keys
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 > UpdateWithContext(ctx context.Context, id string, request RenameAPIKeyRequest) (*ResponseSuccess, error)
 
 
-Rename api key
+Rename API key
 
 
 

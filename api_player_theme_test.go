@@ -5,6 +5,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -12,7 +13,7 @@ var (
 	testPlayerIDForUpdateAndDeleteAndGet string
 	playerName                           = "Test Player Theme"
 	logoURL                              = "https://example.com/logo.png"
-	testVideoForPlayer                   = "c91e1c8b-e93c-423c-98dd-690fdfa19659"
+	testVideoForPlayer                   = "fdcaf04d-db3d-41af-8d2a-42f272ed556b"
 )
 
 func openTestImageFile(t *testing.T) (*os.File, error) {
@@ -188,6 +189,7 @@ func TestPlayersService_UploadLogo(t *testing.T) {
 }
 
 func TestPlayersService_AddPlayer(t *testing.T) {
+	notExistId := uuid.New().String()
 	tests := []struct {
 		name    string
 		request AddPlayerThemesToVideoRequest
@@ -216,6 +218,14 @@ func TestPlayersService_AddPlayer(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "Not Exist ID",
+			request: AddPlayerThemesToVideoRequest{
+				PlayerThemeId: stringPtr(notExistId),
+				VideoId:       stringPtr(testVideoForPlayer),
+			},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -233,6 +243,7 @@ func TestPlayersService_AddPlayer(t *testing.T) {
 }
 
 func TestPlayersService_Get(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -273,6 +284,11 @@ func TestPlayersService_Get(t *testing.T) {
 			id:      "invalid-id",
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -291,6 +307,7 @@ func TestPlayersService_Get(t *testing.T) {
 }
 
 func TestPlayersService_Update(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -350,6 +367,14 @@ func TestPlayersService_Update(t *testing.T) {
 		{
 			name: "Invalid ID",
 			id:   "invalid-id",
+			request: UpdatePlayerThemeRequest{
+				Name: stringPtr("Updated Player Theme"),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Not Exist ID",
+			id:   notExistId,
 			request: UpdatePlayerThemeRequest{
 				Name: stringPtr("Updated Player Theme"),
 			},
@@ -422,6 +447,7 @@ func TestPlayersService_List(t *testing.T) {
 }
 
 func TestPlayersService_DeleteLogo(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -467,6 +493,11 @@ func TestPlayersService_DeleteLogo(t *testing.T) {
 			id:      "",
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -484,6 +515,7 @@ func TestPlayersService_DeleteLogo(t *testing.T) {
 }
 
 func TestPlayersService_RemovePlayer(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		request RemovePlayerThemesFromVideoRequest
@@ -540,6 +572,14 @@ func TestPlayersService_RemovePlayer(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "Not Exist ID",
+			request: RemovePlayerThemesFromVideoRequest{
+				PlayerThemeId: stringPtr(notExistId),
+				VideoId:       stringPtr(testVideoForPlayer),
+			},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -556,6 +596,7 @@ func TestPlayersService_RemovePlayer(t *testing.T) {
 	}
 }
 func TestPlayersService_Delete(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		id      string
@@ -599,6 +640,11 @@ func TestPlayersService_Delete(t *testing.T) {
 		{
 			name:    "Empty ID",
 			id:      "",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			id:      notExistId,
 			wantErr: true,
 		},
 	}
