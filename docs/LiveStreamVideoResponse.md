@@ -5,14 +5,18 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Assets** | Pointer to [**LiveStreamAssets**](LiveStreamAssets.md) |  | [optional] 
+**AudioBitrate** | Pointer to **int32** |  | [optional] 
 **CreatedAt** | Pointer to **string** |  | [optional] 
+**CurrentView** | Pointer to **int32** |  | [optional] 
 **Duration** | Pointer to **int32** |  | [optional] 
+**FrameRate** | Pointer to **int32** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **LiveStreamKeyId** | Pointer to **string** |  | [optional] 
 **Qualities** | Pointer to **[]string** |  | [optional] 
 **Save** | Pointer to **bool** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
+**TotalView** | Pointer to **int32** |  | [optional] 
 **UpdatedAt** | Pointer to **string** |  | [optional] 
 **UserId** | Pointer to **string** |  | [optional] 
 **Video** | Pointer to [**Video**](Video.md) |  | [optional] 
@@ -61,6 +65,31 @@ SetAssets sets Assets field to given value.
 
 HasAssets returns a boolean if a field has been set.
 
+### GetAudioBitrate
+
+`func (o *LiveStreamVideoResponse) GetAudioBitrate() int32`
+
+GetAudioBitrate returns the AudioBitrate field if non-nil, zero value otherwise.
+
+### GetAudioBitrateOk
+
+`func (o *LiveStreamVideoResponse) GetAudioBitrateOk() (*int32, bool)`
+
+GetAudioBitrateOk returns a tuple with the AudioBitrate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAudioBitrate
+
+`func (o *LiveStreamVideoResponse) SetAudioBitrate(v int32)`
+
+SetAudioBitrate sets AudioBitrate field to given value.
+
+### HasAudioBitrate
+
+`func (o *LiveStreamVideoResponse) HasAudioBitrate() bool`
+
+HasAudioBitrate returns a boolean if a field has been set.
+
 ### GetCreatedAt
 
 `func (o *LiveStreamVideoResponse) GetCreatedAt() string`
@@ -86,6 +115,31 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
+### GetCurrentView
+
+`func (o *LiveStreamVideoResponse) GetCurrentView() int32`
+
+GetCurrentView returns the CurrentView field if non-nil, zero value otherwise.
+
+### GetCurrentViewOk
+
+`func (o *LiveStreamVideoResponse) GetCurrentViewOk() (*int32, bool)`
+
+GetCurrentViewOk returns a tuple with the CurrentView field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCurrentView
+
+`func (o *LiveStreamVideoResponse) SetCurrentView(v int32)`
+
+SetCurrentView sets CurrentView field to given value.
+
+### HasCurrentView
+
+`func (o *LiveStreamVideoResponse) HasCurrentView() bool`
+
+HasCurrentView returns a boolean if a field has been set.
+
 ### GetDuration
 
 `func (o *LiveStreamVideoResponse) GetDuration() int32`
@@ -110,6 +164,31 @@ SetDuration sets Duration field to given value.
 `func (o *LiveStreamVideoResponse) HasDuration() bool`
 
 HasDuration returns a boolean if a field has been set.
+
+### GetFrameRate
+
+`func (o *LiveStreamVideoResponse) GetFrameRate() int32`
+
+GetFrameRate returns the FrameRate field if non-nil, zero value otherwise.
+
+### GetFrameRateOk
+
+`func (o *LiveStreamVideoResponse) GetFrameRateOk() (*int32, bool)`
+
+GetFrameRateOk returns a tuple with the FrameRate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFrameRate
+
+`func (o *LiveStreamVideoResponse) SetFrameRate(v int32)`
+
+SetFrameRate sets FrameRate field to given value.
+
+### HasFrameRate
+
+`func (o *LiveStreamVideoResponse) HasFrameRate() bool`
+
+HasFrameRate returns a boolean if a field has been set.
 
 ### GetId
 
@@ -260,6 +339,31 @@ SetTitle sets Title field to given value.
 `func (o *LiveStreamVideoResponse) HasTitle() bool`
 
 HasTitle returns a boolean if a field has been set.
+
+### GetTotalView
+
+`func (o *LiveStreamVideoResponse) GetTotalView() int32`
+
+GetTotalView returns the TotalView field if non-nil, zero value otherwise.
+
+### GetTotalViewOk
+
+`func (o *LiveStreamVideoResponse) GetTotalViewOk() (*int32, bool)`
+
+GetTotalViewOk returns a tuple with the TotalView field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalView
+
+`func (o *LiveStreamVideoResponse) SetTotalView(v int32)`
+
+SetTotalView sets TotalView field to given value.
+
+### HasTotalView
+
+`func (o *LiveStreamVideoResponse) HasTotalView() bool`
+
+HasTotalView returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

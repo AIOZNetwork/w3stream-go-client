@@ -18,14 +18,18 @@ import (
 // LiveStreamVideoResponse struct for LiveStreamVideoResponse
 type LiveStreamVideoResponse struct {
 	Assets          *LiveStreamAssets `json:"assets,omitempty"`
+	AudioBitrate    *int32            `json:"audio_bitrate,omitempty"`
 	CreatedAt       *string           `json:"created_at,omitempty"`
+	CurrentView     *int32            `json:"current_view,omitempty"`
 	Duration        *int32            `json:"duration,omitempty"`
+	FrameRate       *int32            `json:"frame_rate,omitempty"`
 	Id              *string           `json:"id,omitempty"`
 	LiveStreamKeyId *string           `json:"live_stream_key_id,omitempty"`
 	Qualities       *[]string         `json:"qualities,omitempty"`
 	Save            *bool             `json:"save,omitempty"`
 	Status          *string           `json:"status,omitempty"`
 	Title           *string           `json:"title,omitempty"`
+	TotalView       *int32            `json:"total_view,omitempty"`
 	UpdatedAt       *string           `json:"updated_at,omitempty"`
 	UserId          *string           `json:"user_id,omitempty"`
 	Video           *Video            `json:"video,omitempty"`
@@ -80,6 +84,38 @@ func (o *LiveStreamVideoResponse) SetAssets(v LiveStreamAssets) {
 	o.Assets = &v
 }
 
+// GetAudioBitrate returns the AudioBitrate field value if set, zero value otherwise.
+func (o *LiveStreamVideoResponse) GetAudioBitrate() int32 {
+	if o == nil || o.AudioBitrate == nil {
+		var ret int32
+		return ret
+	}
+	return *o.AudioBitrate
+}
+
+// GetAudioBitrateOk returns a tuple with the AudioBitrate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LiveStreamVideoResponse) GetAudioBitrateOk() (*int32, bool) {
+	if o == nil || o.AudioBitrate == nil {
+		return nil, false
+	}
+	return o.AudioBitrate, true
+}
+
+// HasAudioBitrate returns a boolean if a field has been set.
+func (o *LiveStreamVideoResponse) HasAudioBitrate() bool {
+	if o != nil && o.AudioBitrate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAudioBitrate gets a reference to the given int32 and assigns it to the AudioBitrate field.
+func (o *LiveStreamVideoResponse) SetAudioBitrate(v int32) {
+	o.AudioBitrate = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *LiveStreamVideoResponse) GetCreatedAt() string {
 	if o == nil || o.CreatedAt == nil {
@@ -112,6 +148,38 @@ func (o *LiveStreamVideoResponse) SetCreatedAt(v string) {
 	o.CreatedAt = &v
 }
 
+// GetCurrentView returns the CurrentView field value if set, zero value otherwise.
+func (o *LiveStreamVideoResponse) GetCurrentView() int32 {
+	if o == nil || o.CurrentView == nil {
+		var ret int32
+		return ret
+	}
+	return *o.CurrentView
+}
+
+// GetCurrentViewOk returns a tuple with the CurrentView field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LiveStreamVideoResponse) GetCurrentViewOk() (*int32, bool) {
+	if o == nil || o.CurrentView == nil {
+		return nil, false
+	}
+	return o.CurrentView, true
+}
+
+// HasCurrentView returns a boolean if a field has been set.
+func (o *LiveStreamVideoResponse) HasCurrentView() bool {
+	if o != nil && o.CurrentView != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentView gets a reference to the given int32 and assigns it to the CurrentView field.
+func (o *LiveStreamVideoResponse) SetCurrentView(v int32) {
+	o.CurrentView = &v
+}
+
 // GetDuration returns the Duration field value if set, zero value otherwise.
 func (o *LiveStreamVideoResponse) GetDuration() int32 {
 	if o == nil || o.Duration == nil {
@@ -142,6 +210,38 @@ func (o *LiveStreamVideoResponse) HasDuration() bool {
 // SetDuration gets a reference to the given int32 and assigns it to the Duration field.
 func (o *LiveStreamVideoResponse) SetDuration(v int32) {
 	o.Duration = &v
+}
+
+// GetFrameRate returns the FrameRate field value if set, zero value otherwise.
+func (o *LiveStreamVideoResponse) GetFrameRate() int32 {
+	if o == nil || o.FrameRate == nil {
+		var ret int32
+		return ret
+	}
+	return *o.FrameRate
+}
+
+// GetFrameRateOk returns a tuple with the FrameRate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LiveStreamVideoResponse) GetFrameRateOk() (*int32, bool) {
+	if o == nil || o.FrameRate == nil {
+		return nil, false
+	}
+	return o.FrameRate, true
+}
+
+// HasFrameRate returns a boolean if a field has been set.
+func (o *LiveStreamVideoResponse) HasFrameRate() bool {
+	if o != nil && o.FrameRate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFrameRate gets a reference to the given int32 and assigns it to the FrameRate field.
+func (o *LiveStreamVideoResponse) SetFrameRate(v int32) {
+	o.FrameRate = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -334,6 +434,38 @@ func (o *LiveStreamVideoResponse) HasTitle() bool {
 // SetTitle gets a reference to the given string and assigns it to the Title field.
 func (o *LiveStreamVideoResponse) SetTitle(v string) {
 	o.Title = &v
+}
+
+// GetTotalView returns the TotalView field value if set, zero value otherwise.
+func (o *LiveStreamVideoResponse) GetTotalView() int32 {
+	if o == nil || o.TotalView == nil {
+		var ret int32
+		return ret
+	}
+	return *o.TotalView
+}
+
+// GetTotalViewOk returns a tuple with the TotalView field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LiveStreamVideoResponse) GetTotalViewOk() (*int32, bool) {
+	if o == nil || o.TotalView == nil {
+		return nil, false
+	}
+	return o.TotalView, true
+}
+
+// HasTotalView returns a boolean if a field has been set.
+func (o *LiveStreamVideoResponse) HasTotalView() bool {
+	if o != nil && o.TotalView != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalView gets a reference to the given int32 and assigns it to the TotalView field.
+func (o *LiveStreamVideoResponse) SetTotalView(v int32) {
+	o.TotalView = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.

@@ -8472,6 +8472,517 @@ paths:
       - video
       x-client-action: create
       x-codegen-request-body-name: request
+  /watermarks:
+    get:
+      description: List all watermarks associated with your workspace.
+      operationId: LIST-watermarks
+      parameters:
+      - description: sort by
+        explode: true
+        in: query
+        name: sort_by
+        required: false
+        schema:
+          default: created_at
+          enum:
+          - created_at
+          - name
+          type: string
+        style: form
+      - description: 'allowed: asc, desc. Default: asc'
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          default: asc
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: offset, allowed values greater than or equal to 0. Default(0)
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      - description: results per page. Allowed values 1-100, default is 25
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllWatermarkResponse'
+          description: OK
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: List all watermarks
+      tags:
+      - watermark
+      x-client-action: list
+      x-client-paginated: true
+      x-group-parameters: true
+    post:
+      description: Create a new watermark by uploading a JPG or a PNG image.
+      operationId: POST_watermark
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_3'
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  description: Watermark image file
+                  format: binary
+                  type: string
+              required:
+              - file
+              type: object
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWatermarkResponse'
+          description: Created
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Create a new watermark
+      tags:
+      - watermark
+      x-client-action: upload
+  /watermarks/{id}:
+    delete:
+      description: Delete a watermark.
+      operationId: DELETE_watermark
+      parameters:
+      - description: Watermark ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWebhooksListResponse'
+          description: Get list webhooks
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Delete a watermark by ID
+      tags:
+      - watermark
+      x-client-action: delete
   /webhooks:
     get:
       description: Retrieve a list of all webhooks configured for the current workspace.
@@ -9499,6 +10010,12 @@ components:
           schema:
             $ref: '#/components/schemas/inline_object'
       required: true
+    inline_object_3:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/inline_object_3'
+      required: true
     inline_object_2:
       content:
         multipart/form-data:
@@ -9506,6 +10023,31 @@ components:
             $ref: '#/components/schemas/inline_object_2'
       required: true
   schemas:
+    Watermark:
+      example:
+        updated_at: updated_at
+        user_id: user_id
+        width: 1
+        created_at: created_at
+        watermark_name: watermark_name
+        id: id
+        height: 6
+      properties:
+        created_at:
+          type: string
+        height:
+          type: integer
+        id:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+        watermark_name:
+          type: string
+        width:
+          type: integer
+      type: object
     AddPlayerThemesToVideoRequest:
       example:
         player_theme_id: player_theme_id
@@ -9826,6 +10368,7 @@ components:
             next_id: next_id
             video_id: video_id
           name: name
+          playlist_url: playlist_url
           id: id
           iframe: iframe
       properties:
@@ -9908,6 +10451,7 @@ components:
               next_id: next_id
               video_id: video_id
             name: name
+            playlist_url: playlist_url
             id: id
             iframe: iframe
         status: status
@@ -9941,7 +10485,9 @@ components:
         data:
           duration: 0
           assets:
+            player_url: player_url
             hls_url: hls_url
+            iframe: iframe
             thumbnail_url: thumbnail_url
           updated_at: updated_at
           user_id: user_id
@@ -10002,9 +10548,9 @@ components:
             tags:
             - tags
             - tags
-            duration: 1.4658129805029452
+            duration: 7.061401241503109
             is_mp4: true
-            view: 5
+            view: 3
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -10012,7 +10558,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 5
+            size: 9
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -10188,9 +10734,9 @@ components:
           tags:
           - tags
           - tags
-          duration: 1.4658129805029452
+          duration: 7.061401241503109
           is_mp4: true
-          view: 5
+          view: 3
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -10198,7 +10744,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 5
+          size: 9
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -10216,6 +10762,28 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/Video'
+        status:
+          type: string
+      type: object
+    CreateWatermarkData:
+      example:
+        watermark_id: watermark_id
+        created_at: created_at
+      properties:
+        created_at:
+          type: string
+        watermark_id:
+          type: string
+      type: object
+    CreateWatermarkResponse:
+      example:
+        data:
+          watermark_id: watermark_id
+          created_at: created_at
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/CreateWatermarkData'
         status:
           type: string
       type: object
@@ -10273,6 +10841,58 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/CreateWebhookData'
+        status:
+          type: string
+      type: object
+    GetAllWatermarkData:
+      example:
+        total: 0
+        watermarks:
+        - updated_at: updated_at
+          user_id: user_id
+          width: 1
+          created_at: created_at
+          watermark_name: watermark_name
+          id: id
+          height: 6
+        - updated_at: updated_at
+          user_id: user_id
+          width: 1
+          created_at: created_at
+          watermark_name: watermark_name
+          id: id
+          height: 6
+      properties:
+        total:
+          type: integer
+        watermarks:
+          items:
+            $ref: '#/components/schemas/Watermark'
+          type: array
+      type: object
+    GetAllWatermarkResponse:
+      example:
+        data:
+          total: 0
+          watermarks:
+          - updated_at: updated_at
+            user_id: user_id
+            width: 1
+            created_at: created_at
+            watermark_name: watermark_name
+            id: id
+            height: 6
+          - updated_at: updated_at
+            user_id: user_id
+            width: 1
+            created_at: created_at
+            watermark_name: watermark_name
+            id: id
+            height: 6
+        status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/GetAllWatermarkData'
         status:
           type: string
       type: object
@@ -10449,18 +11069,10 @@ components:
     GetLiveStreamVideoPublicResponse:
       example:
         data:
-          duration: 6
-          assets:
-            hls_url: hls_url
-            thumbnail_url: thumbnail_url
-          updated_at: updated_at
-          user_id: user_id
+          current_view: 1
           save: true
           created_at: created_at
-          qualities:
-          - qualities
-          - qualities
-          id: id
+          audio_bitrate: 6
           video:
             metadata:
             - value: value
@@ -10512,9 +11124,9 @@ components:
             tags:
             - tags
             - tags
-            duration: 1.4658129805029452
+            duration: 7.061401241503109
             is_mp4: true
-            view: 5
+            view: 3
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -10522,7 +11134,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 5
+            size: 9
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -10537,6 +11149,20 @@ components:
             id: id
             status: status
           title: title
+          frame_rate: 5
+          duration: 5
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          total_view: 2
+          user_id: user_id
+          qualities:
+          - qualities
+          - qualities
+          id: id
           live_stream_key_id: live_stream_key_id
           status: status
         status: status
@@ -10549,18 +11175,10 @@ components:
     GetLiveStreamVideoResponse:
       example:
         data:
-          duration: 6
-          assets:
-            hls_url: hls_url
-            thumbnail_url: thumbnail_url
-          updated_at: updated_at
-          user_id: user_id
+          current_view: 1
           save: true
           created_at: created_at
-          qualities:
-          - qualities
-          - qualities
-          id: id
+          audio_bitrate: 6
           video:
             metadata:
             - value: value
@@ -10612,9 +11230,9 @@ components:
             tags:
             - tags
             - tags
-            duration: 1.4658129805029452
+            duration: 7.061401241503109
             is_mp4: true
-            view: 5
+            view: 3
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -10622,7 +11240,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 5
+            size: 9
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -10637,6 +11255,20 @@ components:
             id: id
             status: status
           title: title
+          frame_rate: 5
+          duration: 5
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          total_view: 2
+          user_id: user_id
+          qualities:
+          - qualities
+          - qualities
+          id: id
           live_stream_key_id: live_stream_key_id
           status: status
         status: status
@@ -10673,18 +11305,10 @@ components:
         data:
           total: 0
           videos:
-          - duration: 6
-            assets:
-              hls_url: hls_url
-              thumbnail_url: thumbnail_url
-            updated_at: updated_at
-            user_id: user_id
+          - current_view: 1
             save: true
             created_at: created_at
-            qualities:
-            - qualities
-            - qualities
-            id: id
+            audio_bitrate: 6
             video:
               metadata:
               - value: value
@@ -10736,9 +11360,9 @@ components:
               tags:
               - tags
               - tags
-              duration: 1.4658129805029452
+              duration: 7.061401241503109
               is_mp4: true
-              view: 5
+              view: 3
               assets:
                 player_url: player_url
                 hls_url: hls_url
@@ -10746,7 +11370,7 @@ components:
                 thumbnail_url: thumbnail_url
                 mp4_url: mp4_url
                 source_url: source_url
-              size: 5
+              size: 9
               updated_at: updated_at
               user_id: user_id
               player_theme_id: player_theme_id
@@ -10761,20 +11385,26 @@ components:
               id: id
               status: status
             title: title
+            frame_rate: 5
+            duration: 5
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+            updated_at: updated_at
+            total_view: 2
+            user_id: user_id
+            qualities:
+            - qualities
+            - qualities
+            id: id
             live_stream_key_id: live_stream_key_id
             status: status
-          - duration: 6
-            assets:
-              hls_url: hls_url
-              thumbnail_url: thumbnail_url
-            updated_at: updated_at
-            user_id: user_id
+          - current_view: 1
             save: true
             created_at: created_at
-            qualities:
-            - qualities
-            - qualities
-            id: id
+            audio_bitrate: 6
             video:
               metadata:
               - value: value
@@ -10826,9 +11456,9 @@ components:
               tags:
               - tags
               - tags
-              duration: 1.4658129805029452
+              duration: 7.061401241503109
               is_mp4: true
-              view: 5
+              view: 3
               assets:
                 player_url: player_url
                 hls_url: hls_url
@@ -10836,7 +11466,7 @@ components:
                 thumbnail_url: thumbnail_url
                 mp4_url: mp4_url
                 source_url: source_url
-              size: 5
+              size: 9
               updated_at: updated_at
               user_id: user_id
               player_theme_id: player_theme_id
@@ -10851,6 +11481,20 @@ components:
               id: id
               status: status
             title: title
+            frame_rate: 5
+            duration: 5
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+            updated_at: updated_at
+            total_view: 2
+            user_id: user_id
+            qualities:
+            - qualities
+            - qualities
+            id: id
             live_stream_key_id: live_stream_key_id
             status: status
         status: status
@@ -11110,6 +11754,7 @@ components:
             next_id: next_id
             video_id: video_id
           name: name
+          playlist_url: playlist_url
           id: id
           iframe: iframe
       properties:
@@ -11169,6 +11814,7 @@ components:
               next_id: next_id
               video_id: video_id
             name: name
+            playlist_url: playlist_url
             id: id
             iframe: iframe
         status: status
@@ -11231,6 +11877,7 @@ components:
             next_id: next_id
             video_id: video_id
           name: name
+          playlist_url: playlist_url
           id: id
           iframe: iframe
         - item_count: 6
@@ -11282,6 +11929,7 @@ components:
             next_id: next_id
             video_id: video_id
           name: name
+          playlist_url: playlist_url
           id: id
           iframe: iframe
       properties:
@@ -11381,6 +12029,7 @@ components:
               next_id: next_id
               video_id: video_id
             name: name
+            playlist_url: playlist_url
             id: id
             iframe: iframe
           - item_count: 6
@@ -11432,6 +12081,7 @@ components:
               next_id: next_id
               video_id: video_id
             name: name
+            playlist_url: playlist_url
             id: id
             iframe: iframe
         status: status
@@ -11444,18 +12094,10 @@ components:
     GetStreamingResponse:
       example:
         data:
-          duration: 6
-          assets:
-            hls_url: hls_url
-            thumbnail_url: thumbnail_url
-          updated_at: updated_at
-          user_id: user_id
+          current_view: 1
           save: true
           created_at: created_at
-          qualities:
-          - qualities
-          - qualities
-          id: id
+          audio_bitrate: 6
           video:
             metadata:
             - value: value
@@ -11507,9 +12149,9 @@ components:
             tags:
             - tags
             - tags
-            duration: 1.4658129805029452
+            duration: 7.061401241503109
             is_mp4: true
-            view: 5
+            view: 3
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -11517,7 +12159,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 5
+            size: 9
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -11532,6 +12174,20 @@ components:
             id: id
             status: status
           title: title
+          frame_rate: 5
+          duration: 5
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          total_view: 2
+          user_id: user_id
+          qualities:
+          - qualities
+          - qualities
+          id: id
           live_stream_key_id: live_stream_key_id
           status: status
         status: status
@@ -11546,18 +12202,10 @@ components:
         data:
           total: 0
           videos:
-          - duration: 6
-            assets:
-              hls_url: hls_url
-              thumbnail_url: thumbnail_url
-            updated_at: updated_at
-            user_id: user_id
+          - current_view: 1
             save: true
             created_at: created_at
-            qualities:
-            - qualities
-            - qualities
-            id: id
+            audio_bitrate: 6
             video:
               metadata:
               - value: value
@@ -11609,9 +12257,9 @@ components:
               tags:
               - tags
               - tags
-              duration: 1.4658129805029452
+              duration: 7.061401241503109
               is_mp4: true
-              view: 5
+              view: 3
               assets:
                 player_url: player_url
                 hls_url: hls_url
@@ -11619,7 +12267,7 @@ components:
                 thumbnail_url: thumbnail_url
                 mp4_url: mp4_url
                 source_url: source_url
-              size: 5
+              size: 9
               updated_at: updated_at
               user_id: user_id
               player_theme_id: player_theme_id
@@ -11634,20 +12282,26 @@ components:
               id: id
               status: status
             title: title
+            frame_rate: 5
+            duration: 5
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+            updated_at: updated_at
+            total_view: 2
+            user_id: user_id
+            qualities:
+            - qualities
+            - qualities
+            id: id
             live_stream_key_id: live_stream_key_id
             status: status
-          - duration: 6
-            assets:
-              hls_url: hls_url
-              thumbnail_url: thumbnail_url
-            updated_at: updated_at
-            user_id: user_id
+          - current_view: 1
             save: true
             created_at: created_at
-            qualities:
-            - qualities
-            - qualities
-            id: id
+            audio_bitrate: 6
             video:
               metadata:
               - value: value
@@ -11699,9 +12353,9 @@ components:
               tags:
               - tags
               - tags
-              duration: 1.4658129805029452
+              duration: 7.061401241503109
               is_mp4: true
-              view: 5
+              view: 3
               assets:
                 player_url: player_url
                 hls_url: hls_url
@@ -11709,7 +12363,7 @@ components:
                 thumbnail_url: thumbnail_url
                 mp4_url: mp4_url
                 source_url: source_url
-              size: 5
+              size: 9
               updated_at: updated_at
               user_id: user_id
               player_theme_id: player_theme_id
@@ -11724,6 +12378,20 @@ components:
               id: id
               status: status
             title: title
+            frame_rate: 5
+            duration: 5
+            assets:
+              player_url: player_url
+              hls_url: hls_url
+              iframe: iframe
+              thumbnail_url: thumbnail_url
+            updated_at: updated_at
+            total_view: 2
+            user_id: user_id
+            qualities:
+            - qualities
+            - qualities
+            id: id
             live_stream_key_id: live_stream_key_id
             status: status
         status: status
@@ -11914,9 +12582,9 @@ components:
           tags:
           - tags
           - tags
-          duration: 1.4658129805029452
+          duration: 7.061401241503109
           is_mp4: true
-          view: 5
+          view: 3
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -11924,7 +12592,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 5
+          size: 9
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -11999,9 +12667,9 @@ components:
           tags:
           - tags
           - tags
-          duration: 1.4658129805029452
+          duration: 7.061401241503109
           is_mp4: true
-          view: 5
+          view: 3
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -12009,7 +12677,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 5
+          size: 9
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -12073,9 +12741,9 @@ components:
           tags:
           - tags
           - tags
-          duration: 1.4658129805029452
+          duration: 7.061401241503109
           is_mp4: true
-          view: 5
+          view: 3
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -12083,7 +12751,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 5
+          size: 9
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -12198,9 +12866,9 @@ components:
             tags:
             - tags
             - tags
-            duration: 1.4658129805029452
+            duration: 7.061401241503109
             is_mp4: true
-            view: 5
+            view: 3
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -12208,7 +12876,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 5
+            size: 9
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -12272,9 +12940,9 @@ components:
             tags:
             - tags
             - tags
-            duration: 1.4658129805029452
+            duration: 7.061401241503109
             is_mp4: true
-            view: 5
+            view: 3
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -12282,7 +12950,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 5
+            size: 9
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -12494,10 +13162,16 @@ components:
       type: object
     LiveStreamAssets:
       example:
+        player_url: player_url
         hls_url: hls_url
+        iframe: iframe
         thumbnail_url: thumbnail_url
       properties:
         hls_url:
+          type: string
+        iframe:
+          type: string
+        player_url:
           type: string
         thumbnail_url:
           type: string
@@ -12534,7 +13208,9 @@ components:
       example:
         duration: 0
         assets:
+          player_url: player_url
           hls_url: hls_url
+          iframe: iframe
           thumbnail_url: thumbnail_url
         updated_at: updated_at
         user_id: user_id
@@ -12595,9 +13271,9 @@ components:
           tags:
           - tags
           - tags
-          duration: 1.4658129805029452
+          duration: 7.061401241503109
           is_mp4: true
-          view: 5
+          view: 3
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -12605,7 +13281,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 5
+          size: 9
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -12652,18 +13328,10 @@ components:
       type: object
     LiveStreamVideoResponse:
       example:
-        duration: 6
-        assets:
-          hls_url: hls_url
-          thumbnail_url: thumbnail_url
-        updated_at: updated_at
-        user_id: user_id
+        current_view: 1
         save: true
         created_at: created_at
-        qualities:
-        - qualities
-        - qualities
-        id: id
+        audio_bitrate: 6
         video:
           metadata:
           - value: value
@@ -12715,9 +13383,9 @@ components:
           tags:
           - tags
           - tags
-          duration: 1.4658129805029452
+          duration: 7.061401241503109
           is_mp4: true
-          view: 5
+          view: 3
           assets:
             player_url: player_url
             hls_url: hls_url
@@ -12725,7 +13393,7 @@ components:
             thumbnail_url: thumbnail_url
             mp4_url: mp4_url
             source_url: source_url
-          size: 5
+          size: 9
           updated_at: updated_at
           user_id: user_id
           player_theme_id: player_theme_id
@@ -12740,14 +13408,34 @@ components:
           id: id
           status: status
         title: title
+        frame_rate: 5
+        duration: 5
+        assets:
+          player_url: player_url
+          hls_url: hls_url
+          iframe: iframe
+          thumbnail_url: thumbnail_url
+        updated_at: updated_at
+        total_view: 2
+        user_id: user_id
+        qualities:
+        - qualities
+        - qualities
+        id: id
         live_stream_key_id: live_stream_key_id
         status: status
       properties:
         assets:
           $ref: '#/components/schemas/LiveStreamAssets'
+        audio_bitrate:
+          type: integer
         created_at:
           type: string
+        current_view:
+          type: integer
         duration:
+          type: integer
+        frame_rate:
           type: integer
         id:
           type: string
@@ -12763,6 +13451,8 @@ components:
           type: string
         title:
           type: string
+        total_view:
+          type: integer
         updated_at:
           type: string
         user_id:
@@ -12774,18 +13464,10 @@ components:
       example:
         total: 0
         videos:
-        - duration: 6
-          assets:
-            hls_url: hls_url
-            thumbnail_url: thumbnail_url
-          updated_at: updated_at
-          user_id: user_id
+        - current_view: 1
           save: true
           created_at: created_at
-          qualities:
-          - qualities
-          - qualities
-          id: id
+          audio_bitrate: 6
           video:
             metadata:
             - value: value
@@ -12837,9 +13519,9 @@ components:
             tags:
             - tags
             - tags
-            duration: 1.4658129805029452
+            duration: 7.061401241503109
             is_mp4: true
-            view: 5
+            view: 3
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -12847,7 +13529,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 5
+            size: 9
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -12862,20 +13544,26 @@ components:
             id: id
             status: status
           title: title
+          frame_rate: 5
+          duration: 5
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          total_view: 2
+          user_id: user_id
+          qualities:
+          - qualities
+          - qualities
+          id: id
           live_stream_key_id: live_stream_key_id
           status: status
-        - duration: 6
-          assets:
-            hls_url: hls_url
-            thumbnail_url: thumbnail_url
-          updated_at: updated_at
-          user_id: user_id
+        - current_view: 1
           save: true
           created_at: created_at
-          qualities:
-          - qualities
-          - qualities
-          id: id
+          audio_bitrate: 6
           video:
             metadata:
             - value: value
@@ -12927,9 +13615,9 @@ components:
             tags:
             - tags
             - tags
-            duration: 1.4658129805029452
+            duration: 7.061401241503109
             is_mp4: true
-            view: 5
+            view: 3
             assets:
               player_url: player_url
               hls_url: hls_url
@@ -12937,7 +13625,7 @@ components:
               thumbnail_url: thumbnail_url
               mp4_url: mp4_url
               source_url: source_url
-            size: 5
+            size: 9
             updated_at: updated_at
             user_id: user_id
             player_theme_id: player_theme_id
@@ -12952,6 +13640,20 @@ components:
             id: id
             status: status
           title: title
+          frame_rate: 5
+          duration: 5
+          assets:
+            player_url: player_url
+            hls_url: hls_url
+            iframe: iframe
+            thumbnail_url: thumbnail_url
+          updated_at: updated_at
+          total_view: 2
+          user_id: user_id
+          qualities:
+          - qualities
+          - qualities
+          id: id
           live_stream_key_id: live_stream_key_id
           status: status
       properties:
@@ -13082,6 +13784,7 @@ components:
           next_id: next_id
           video_id: video_id
         name: name
+        playlist_url: playlist_url
         id: id
         iframe: iframe
       properties:
@@ -13100,6 +13803,8 @@ components:
             type: string
           type: object
         name:
+          type: string
+        playlist_url:
           type: string
         size:
           type: integer
@@ -13143,14 +13848,10 @@ components:
           type: string
         id:
           type: string
-        next:
-          $ref: '#/components/schemas/PlaylistItem'
         next_id:
           type: string
         playlist_id:
           type: string
-        previous:
-          $ref: '#/components/schemas/PlaylistItem'
         previous_id:
           type: string
         updated_at:
@@ -13240,6 +13941,7 @@ components:
             next_id: next_id
             video_id: video_id
           name: name
+          playlist_url: playlist_url
           id: id
           iframe: iframe
         player_theme:
@@ -13664,9 +14366,9 @@ components:
         tags:
         - tags
         - tags
-        duration: 1.4658129805029452
+        duration: 7.061401241503109
         is_mp4: true
-        view: 5
+        view: 3
         assets:
           player_url: player_url
           hls_url: hls_url
@@ -13674,7 +14376,7 @@ components:
           thumbnail_url: thumbnail_url
           mp4_url: mp4_url
           source_url: source_url
-        size: 5
+        size: 9
         updated_at: updated_at
         user_id: user_id
         player_theme_id: player_theme_id
@@ -13860,6 +14562,15 @@ components:
       properties:
         file:
           description: file video to be uploaded
+          format: binary
+          type: string
+      required:
+      - file
+      type: object
+    inline_object_3:
+      properties:
+        file:
+          description: Watermark image file
           format: binary
           type: string
       required:

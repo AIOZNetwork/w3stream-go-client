@@ -1,5 +1,7 @@
 #!/bin/sh
 
+gofmt -s -w *.go
+
 git_user_id=$1
 git_repo_id=$2
 release_note=$3
@@ -24,18 +26,6 @@ if [ "$branch_suffix" = "" ]; then
     branch_suffix=$(date +%Y%m%d_%H%M%S)
     echo "[INFO] No branch name provided. Using timestamp: $branch_suffix"
 fi
-
-rm -rf .git
-
-git init
-
-git remote add origin git@github.com:${git_user_id}/${git_repo_id}.git
-
-git fetch origin main
-
-git branch main origin/main
-
-git checkout main
 
 git add .
 
