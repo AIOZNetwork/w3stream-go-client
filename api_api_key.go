@@ -69,7 +69,7 @@ type ApiKeyServiceI interface {
 	CreateWithContext(ctx context.Context, request CreateApiKeyRequest) (*CreateApiKeyResponse, error)
 
 	/*
-	 * Update Rename api key
+	 * Update Rename API key
 	 * @param id api key id
 	 * @return ApiKeyApiUpdateRequest
 	 */
@@ -77,7 +77,7 @@ type ApiKeyServiceI interface {
 	Update(id string, request RenameAPIKeyRequest) (*ResponseSuccess, error)
 
 	/*
-	 * Update Rename api key
+	 * Update Rename API key
 	 * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 * @param id api key id
 	 * @return ApiKeyApiUpdateRequest
@@ -172,7 +172,7 @@ func (s *ApiKeyService) CreateWithContext(ctx context.Context, request CreateApi
 }
 
 /*
- * Update Rename api key
+ * Update Rename API key
  * This endpoint enables you to rename an API key from a specific project.
 
  * @param id api key id
@@ -186,7 +186,7 @@ func (s *ApiKeyService) Update(id string, request RenameAPIKeyRequest) (*Respons
 }
 
 /*
- * Update Rename api key
+ * Update Rename API key
  * This endpoint enables you to rename an API key from a specific project.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id api key id

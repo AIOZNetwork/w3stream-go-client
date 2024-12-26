@@ -6,10 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**Next** | Pointer to [**PlaylistItem**](PlaylistItem.md) |  | [optional] 
 **NextId** | Pointer to **string** |  | [optional] 
 **PlaylistId** | Pointer to **string** |  | [optional] 
-**Previous** | Pointer to [**PlaylistItem**](PlaylistItem.md) |  | [optional] 
 **PreviousId** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **string** |  | [optional] 
 **Video** | Pointer to [**PlaylistItemVideo**](PlaylistItemVideo.md) |  | [optional] 
@@ -84,31 +82,6 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetNext
-
-`func (o *PlaylistItem) GetNext() PlaylistItem`
-
-GetNext returns the Next field if non-nil, zero value otherwise.
-
-### GetNextOk
-
-`func (o *PlaylistItem) GetNextOk() (*PlaylistItem, bool)`
-
-GetNextOk returns a tuple with the Next field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNext
-
-`func (o *PlaylistItem) SetNext(v PlaylistItem)`
-
-SetNext sets Next field to given value.
-
-### HasNext
-
-`func (o *PlaylistItem) HasNext() bool`
-
-HasNext returns a boolean if a field has been set.
-
 ### GetNextId
 
 `func (o *PlaylistItem) GetNextId() string`
@@ -158,31 +131,6 @@ SetPlaylistId sets PlaylistId field to given value.
 `func (o *PlaylistItem) HasPlaylistId() bool`
 
 HasPlaylistId returns a boolean if a field has been set.
-
-### GetPrevious
-
-`func (o *PlaylistItem) GetPrevious() PlaylistItem`
-
-GetPrevious returns the Previous field if non-nil, zero value otherwise.
-
-### GetPreviousOk
-
-`func (o *PlaylistItem) GetPreviousOk() (*PlaylistItem, bool)`
-
-GetPreviousOk returns a tuple with the Previous field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrevious
-
-`func (o *PlaylistItem) SetPrevious(v PlaylistItem)`
-
-SetPrevious sets Previous field to given value.
-
-### HasPrevious
-
-`func (o *PlaylistItem) HasPrevious() bool`
-
-HasPrevious returns a boolean if a field has been set.
 
 ### GetPreviousId
 

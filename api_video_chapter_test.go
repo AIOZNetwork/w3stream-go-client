@@ -5,12 +5,13 @@ import (
 	"os"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 var (
 	testLang              = "en"
-	testVideoIDForChapter = "c91e1c8b-e93c-423c-98dd-690fdfa19659"
+	testVideoIDForChapter = "fdcaf04d-db3d-41af-8d2a-42f272ed556b"
 	chapterContent        = `WEBVTT
 
 00:00:00.000 --> 00:01:00.000
@@ -36,6 +37,7 @@ func createTempVTTFile(t *testing.T) *os.File {
 }
 
 func TestVideoChapterService_Create(t *testing.T) {
+	notExistId := uuid.New().String()
 	tmpFile := createTempVTTFile(t)
 	defer os.Remove(tmpFile.Name())
 	defer tmpFile.Close()
@@ -68,6 +70,13 @@ func TestVideoChapterService_Create(t *testing.T) {
 			file:    tmpFile,
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			videoID: notExistId,
+			lang:    testLang,
+			file:    tmpFile,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -92,6 +101,7 @@ func TestVideoChapterService_Create(t *testing.T) {
 }
 
 func TestVideoChapterService_Get(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		videoID string
@@ -141,6 +151,12 @@ func TestVideoChapterService_Get(t *testing.T) {
 			request: VideoChapterApiGetRequest{},
 			wantErr: true,
 		},
+		{
+			name:    "Not Exist ID",
+			videoID: notExistId,
+			request: VideoChapterApiGetRequest{},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -161,6 +177,7 @@ func TestVideoChapterService_Get(t *testing.T) {
 }
 
 func TestVideoChapterService_Delete(t *testing.T) {
+	notExistId := uuid.New().String()
 	anonymousTest := []struct {
 		name    string
 		videoID string
@@ -222,6 +239,12 @@ func TestVideoChapterService_Delete(t *testing.T) {
 			name:    "Empty Language",
 			videoID: testVideoIDForChapter,
 			lang:    "",
+			wantErr: true,
+		},
+		{
+			name:    "Not Exist ID",
+			videoID: notExistId,
+			lang:    testLang,
 			wantErr: true,
 		},
 	}

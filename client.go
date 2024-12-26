@@ -40,6 +40,7 @@ type Client struct {
 	Playlist     PlaylistServiceI
 	Video        VideoServiceI
 	VideoChapter VideoChapterServiceI
+	Watermark    WatermarkServiceI
 	Webhook      WebhookServiceI
 }
 
@@ -206,6 +207,7 @@ func (cb *Builder) Build() *Client {
 	c.Playlist = &PlaylistService{client: c}
 	c.Video = &VideoService{client: c}
 	c.VideoChapter = &VideoChapterService{client: c}
+	c.Watermark = &WatermarkService{client: c}
 	c.Webhook = &WebhookService{client: c}
 
 	return c
