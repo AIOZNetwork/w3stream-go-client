@@ -22,7 +22,7 @@ For a more advanced usage you can checkout the rest of the documentation in the 
 ```golang
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"os"
  
@@ -127,7 +127,7 @@ apiKeyApi := client.ApiKey
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Create**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Create) | **Post** `/api_keys` | Create API key
-[**Update**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Update) | **Patch** `/api_keys/{id}` | Rename API key
+[**Update**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Update) | **Patch** `/api_keys/{id}` | Rename api key
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#Delete) | **Delete** `/api_keys/{id}` | Delete API key
 [**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/ApiKey.md#List) | **Get** `/api_keys` | Get list API keys
 
@@ -285,30 +285,6 @@ Method | HTTP request | Description
 [**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md#Delete) | **Delete** `/videos/{id}/chapters/{lan}` | Delete a video chapter
 
 
-#### Watermark
-
-
-##### Retrieve an instance of the Watermark API:
-```go
-secretKey := "YOUR_SECRET_KEY" // Replace with your actual secret key
-publicKey := "YOUR_PUBLIC_KEY" // Replace with your public key
-apiCreds := w3streamsdk.AuthCredentials{
-	PublicKey: publicKey,
-	SecretKey: secretKey,
-}
-client := w3streamsdk.ClientBuilder(apiCreds).Build()
-watermarkApi := client.Watermark
-```
-
-##### Endpoints
-
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**Upload**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#Upload) | **Post** `/watermarks` | Create a new watermark
-[**Delete**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#Delete) | **Delete** `/watermarks/{id}` | Delete a watermark by ID
-[**List**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md#List) | **Get** `/watermarks` | List all watermarks
-
-
 #### Webhook
 
 
@@ -364,13 +340,9 @@ Method | HTTP request | Description
  - [CreateVideoChapterResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoChapterResponse.md)
  - [CreateVideoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoRequest.md)
  - [CreateVideoResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateVideoResponse.md)
- - [CreateWatermarkData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWatermarkData.md)
- - [CreateWatermarkResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWatermarkResponse.md)
  - [CreateWebhookData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookData.md)
  - [CreateWebhookRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookRequest.md)
  - [CreateWebhookResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/CreateWebhookResponse.md)
- - [GetAllWatermarkData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetAllWatermarkData.md)
- - [GetAllWatermarkResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetAllWatermarkResponse.md)
  - [GetApiKeysData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetApiKeysData.md)
  - [GetApiKeysResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetApiKeysResponse.md)
  - [GetLiveStreamKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/GetLiveStreamKeyData.md)
@@ -438,7 +410,6 @@ Method | HTTP request | Description
  - [VideoCaption](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoCaption.md)
  - [VideoChapter](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoChapter.md)
  - [VideoWatermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/VideoWatermark.md)
- - [Watermark](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Watermark.md)
  - [Webhook](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/Webhook.md)
 
 
