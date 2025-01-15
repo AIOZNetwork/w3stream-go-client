@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**CreateLiveStreamKey**](LiveStream.md#CreateLiveStreamKey) | **Post** /live_streams | Create live stream key
 [**CreateStreaming**](LiveStream.md#CreateStreaming) | **Post** /live_streams/{id}/streamings | Create a new live stream video
 [**DeleteLiveStreamKey**](LiveStream.md#DeleteLiveStreamKey) | **Delete** /live_streams/{id} | Delete live stream key
-[**DeleteLiveStreamVideo**](LiveStream.md#DeleteLiveStreamVideo) | **Delete** /live_streams/{id}/videos | Delete live stream video
+[**DeleteStreaming**](LiveStream.md#DeleteStreaming) | **Delete** /live_streams/{id}/streamings/{stream_id} | Delete live stream video
 [**GetLiveStreamKey**](LiveStream.md#GetLiveStreamKey) | **Get** /live_streams/{id} | Get live stream key
 [**GetLiveStreamKeys**](LiveStream.md#GetLiveStreamKeys) | **Get** /live_streams | Get live stream key list
 [**GetLiveStreamPlayerInfo**](LiveStream.md#GetLiveStreamPlayerInfo) | **Get** /live_streams/player/{id}/videos | Get live stream video public
@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**GetStreaming**](LiveStream.md#GetStreaming) | **Get** /live_streams/{id}/streamings/{stream_id} | Get live stream video streaming
 [**GetStreamings**](LiveStream.md#GetStreamings) | **Get** /live_streams/{id}/streamings | Get live stream video streamings
 [**UpdateLiveStreamKey**](LiveStream.md#UpdateLiveStreamKey) | **Put** /live_streams/{id} | Update live stream key
+[**UpdateLiveStreamVideo**](LiveStream.md#UpdateLiveStreamVideo) | **Put** /live_streams/{id}/streamings | Update live stream video
 
 
 
@@ -235,11 +236,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteLiveStreamVideo
+## DeleteStreaming
 
-> DeleteLiveStreamVideo(id string) (*ResponseSuccess, error)
+> DeleteStreaming(id string, streamId string) (*ResponseSuccess, error)
 
-> DeleteLiveStreamVideoWithContext(ctx context.Context, id string) (*ResponseSuccess, error)
+> DeleteStreamingWithContext(ctx context.Context, id string, streamId string) (*ResponseSuccess, error)
 
 
 Delete live stream video
@@ -267,20 +268,21 @@ func main() {
     }
     client := w3streamsdk.ClientBuilder(apiCreds).Build()
         
-    id := "id_example" // string | Live stream video ID
+    id := "id_example" // string | Live stream key ID
+    streamId := "streamId_example" // string | Streaming ID
 
     
-    res, err := client.LiveStream.DeleteLiveStreamVideo(id)
+    res, err := client.LiveStream.DeleteStreaming(id, streamId)
 
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LiveStream.DeleteLiveStreamVideo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStream.DeleteStreaming``: %v\n", err)
     }
-    // response from `DeleteLiveStreamVideo`: ResponseSuccess
+    // response from `DeleteStreaming`: ResponseSuccess
     newJsonString, err := json.MarshalIndent(res, "", "  ")
     if err != nil {
     fmt.Println(err)
     }
-    fmt.Println("Response from `LiveStream.DeleteLiveStreamVideo`")
+    fmt.Println("Response from `LiveStream.DeleteStreaming`")
     fmt.Println(string(newJsonString))
 }
 ```
@@ -289,7 +291,8 @@ func main() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**id** | **string** | Live stream video ID | 
+**id** | **string** | Live stream key ID | 
+**streamId** | **string** | Streaming ID | 
 
 ### Other Parameters
 
@@ -892,6 +895,80 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateLiveStreamKeyResponse**](UpdateLiveStreamKeyResponse.md)
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateLiveStreamVideo
+
+> UpdateLiveStreamVideo(id string, data UpdateLiveStreamVideoRequest) (*ResponseSuccess, error)
+
+> UpdateLiveStreamVideoWithContext(ctx context.Context, id string, data UpdateLiveStreamVideoRequest) (*ResponseSuccess, error)
+
+
+Update live stream video
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "encoding/json"
+    "os"
+    w3streamsdk "github.com/AIOZNetwork/w3stream-go-client"
+)
+
+func main() {
+    // create a new client
+    apiCreds := w3streamsdk.AuthCredentials{
+		SecretKey: "YOUR_SECRET_KEY",
+		PublicKey: "YOUR_PUBLIC_KEY",
+    }
+    client := w3streamsdk.ClientBuilder(apiCreds).Build()
+        
+    id := "id_example" // string | Live stream key ID
+    data := *w3streamsdk.NewUpdateLiveStreamVideoRequest() // UpdateLiveStreamVideoRequest | data
+
+    
+    res, err := client.LiveStream.UpdateLiveStreamVideo(id, data)
+
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStream.UpdateLiveStreamVideo``: %v\n", err)
+    }
+    // response from `UpdateLiveStreamVideo`: ResponseSuccess
+    newJsonString, err := json.MarshalIndent(res, "", "  ")
+    if err != nil {
+    fmt.Println(err)
+    }
+    fmt.Println("Response from `LiveStream.UpdateLiveStreamVideo`")
+    fmt.Println(string(newJsonString))
+}
+```
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**id** | **string** | Live stream key ID | 
+
+### Other Parameters
+
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**data** | [**UpdateLiveStreamVideoRequest**](UpdateLiveStreamVideoRequest.md) | data | 
+
+### Return type
+
+[**ResponseSuccess**](ResponseSuccess.md)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

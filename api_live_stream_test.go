@@ -12,11 +12,13 @@ var (
 	liveStreamKeyID   string
 	streamId          string
 	streamingTitle    = "title"
+	invalidQuality    = []string{"123213213902132p"}
 	qualities         = []string{
 		"1080p",
 		"720p",
 		"360p",
 	}
+	deleteLiveStreamKeysLater []string
 )
 
 func TestLiveStreamService_CreateLiveStreamKey(t *testing.T) {
@@ -61,6 +63,7 @@ func TestLiveStreamService_CreateLiveStreamKey(t *testing.T) {
 				assert.NotNil(t, resp)
 				if resp != nil {
 					liveStreamKeyID = *resp.Data.Id
+					deleteLiveStreamKeysLater = append(deleteLiveStreamKeysLater, *resp.Data.Id)
 				}
 			}
 		})
@@ -369,7 +372,7 @@ func TestLiveStreamService_CreateStreaming(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Invalid Create Streaming with Title is nil",
+			name: "Invalid Create Streaming with invalid title",
 			id:   liveStreamKeyID,
 			input: CreateStreamingRequest{
 				Title:     nil,
@@ -379,11 +382,11 @@ func TestLiveStreamService_CreateStreaming(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Invalid Create Streaming with Qualities is nil",
+			name: "Invalid Create Streaming with invalid qualities",
 			id:   liveStreamKeyID,
 			input: CreateStreamingRequest{
 				Title:     &streamingTitle,
-				Qualities: nil,
+				Qualities: &invalidQuality,
 				Save:      boolPtr(true),
 			},
 			wantErr: true,
@@ -497,7 +500,7 @@ func TestLiveStreamService_DeleteLiveStreamVideo(t *testing.T) {
 
 	for _, tt := range anonymousTest {
 		t.Run(tt.name, func(t *testing.T) {
-			resp, err := testAnonymousClient.LiveStream.DeleteLiveStreamVideo(tt.id)
+			resp, err := testAnonymousClient.LiveStream.DeleteStreaming(liveStreamKeyID, tt.id)
 			if tt.wantErr {
 				assert.Error(t, err)
 				assert.Nil(t, resp)
@@ -532,7 +535,7 @@ func TestLiveStreamService_DeleteLiveStreamVideo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			resp, err := testClient.LiveStream.DeleteLiveStreamVideo(tt.id)
+			resp, err := testClient.LiveStream.DeleteStreaming(liveStreamKeyID, tt.id)
 			if tt.wantErr {
 				assert.Error(t, err)
 				assert.Nil(t, resp)
@@ -604,5 +607,9 @@ func TestLiveStreamService_DeleteLiveStreamKey(t *testing.T) {
 				assert.NotNil(t, resp)
 			}
 		})
+	}
+
+	for _, id := range deleteLiveStreamKeysLater {
+		testClient.LiveStream.DeleteLiveStreamKey(id)
 	}
 }

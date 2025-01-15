@@ -11,6 +11,7 @@ var (
 	testWebhookForUpdateAndDelete string
 	webhookURL                    = "https://webhook.site/335e64d4-96f7-4bef-906a-b8cd3862a071"
 	webhookName                   = "Test Webhook"
+	deleteWebhooksLater           []string
 )
 
 func boolPtr(b bool) *bool {
@@ -84,6 +85,7 @@ func TestWebhookService_Create(t *testing.T) {
 				assert.NoError(t, err)
 				assert.NotNil(t, resp)
 				assert.NotEmpty(t, resp.Data.Webhook.Id)
+				deleteWebhooksLater = append(deleteWebhooksLater, *resp.Data.Webhook.Id)
 				testWebhookForUpdateAndDelete = *resp.Data.Webhook.Id
 			}
 		})
@@ -380,5 +382,9 @@ func TestWebhookService_Delete(t *testing.T) {
 				assert.NotNil(t, resp)
 			}
 		})
+	}
+
+	for _, id := range deleteWebhooksLater {
+		testClient.Webhook.Delete(id)
 	}
 }
