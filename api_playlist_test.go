@@ -10,14 +10,15 @@ import (
 )
 
 var (
-	testPlaylistID   string
-	testVideoIDOne   = "fdcaf04d-db3d-41af-8d2a-42f272ed556b"
-	testVideoIDTwo   = "598b9aaa-f2dc-4622-9dfb-d1993a9c6165"
-	testVideoIDThree = "ee8f0f53-a847-48b8-b6cf-811dc1a31c9d"
-	testName         = "Test Playlist"
-	testCurrentId    string
-	testNextId       string
-	testPreviousId   string
+	testPlaylistID       string
+	testVideoIDOne       = "98cdf5b1-991a-4b39-803f-509f580e90d5"
+	testVideoIDTwo       = "0cacff1a-df3b-4867-b4f4-c4c4b45b7c25"
+	testVideoIDThree     = "48250f3f-ba51-441b-8629-d6d3cc0ca192"
+	testName             = "Test Playlist"
+	testCurrentId        string
+	testNextId           string
+	testPreviousId       string
+	deletePlaylistsLater []string
 )
 
 func TestPlaylistService_CreatePlaylist(t *testing.T) {
@@ -45,6 +46,7 @@ func TestPlaylistService_CreatePlaylist(t *testing.T) {
 			} else {
 				assert.NoError(t, err)
 				assert.NotNil(t, resp)
+				deletePlaylistsLater = append(deletePlaylistsLater, *resp.Data.Playlist.Id)
 			}
 		})
 	}
@@ -755,6 +757,10 @@ func TestPlaylistService_DeletePlaylistById(t *testing.T) {
 				assert.NotNil(t, resp)
 			}
 		})
+	}
+
+	for _, id := range deletePlaylistsLater {
+		testClient.Playlist.DeletePlaylistById(id)
 	}
 
 }

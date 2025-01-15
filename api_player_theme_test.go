@@ -13,7 +13,8 @@ var (
 	testPlayerIDForUpdateAndDeleteAndGet string
 	playerName                           = "Test Player Theme"
 	logoURL                              = "https://example.com/logo.png"
-	testVideoForPlayer                   = "fdcaf04d-db3d-41af-8d2a-42f272ed556b"
+	testVideoForPlayer                   = "1f625e54-308d-401e-aa67-12f86eff6d1a"
+	deletePlayerThemesLater              []string
 )
 
 func openTestImageFile(t *testing.T) (*os.File, error) {
@@ -119,6 +120,7 @@ func TestPlayersService_Create(t *testing.T) {
 				assert.NotNil(t, resp)
 				assert.NotEmpty(t, resp.Data.PlayerTheme.Id)
 				testPlayerIDForUpdateAndDeleteAndGet = *resp.Data.PlayerTheme.Id
+				deletePlayerThemesLater = append(deletePlayerThemesLater, *resp.Data.PlayerTheme.Id)
 			}
 		})
 	}
@@ -660,5 +662,9 @@ func TestPlayersService_Delete(t *testing.T) {
 				assert.NotNil(t, resp)
 			}
 		})
+	}
+
+	for _, id := range deletePlayerThemesLater {
+		testClient.Players.Delete(id)
 	}
 }

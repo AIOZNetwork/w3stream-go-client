@@ -154,7 +154,7 @@ Method | HTTP request | Description
 [**CreateLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#CreateLiveStreamKey) | **Post** `/live_streams` | Create live stream key
 [**CreateStreaming**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#CreateStreaming) | **Post** `/live_streams/{id}/streamings` | Create a new live stream video
 [**DeleteLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#DeleteLiveStreamKey) | **Delete** `/live_streams/{id}` | Delete live stream key
-[**DeleteLiveStreamVideo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#DeleteLiveStreamVideo) | **Delete** `/live_streams/{id}/videos` | Delete live stream video
+[**DeleteStreaming**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#DeleteStreaming) | **Delete** `/live_streams/{id}/streamings/{stream_id}` | Delete live stream video
 [**GetLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetLiveStreamKey) | **Get** `/live_streams/{id}` | Get live stream key
 [**GetLiveStreamKeys**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetLiveStreamKeys) | **Get** `/live_streams` | Get live stream key list
 [**GetLiveStreamPlayerInfo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetLiveStreamPlayerInfo) | **Get** `/live_streams/player/{id}/videos` | Get live stream video public
@@ -163,6 +163,7 @@ Method | HTTP request | Description
 [**GetStreaming**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetStreaming) | **Get** `/live_streams/{id}/streamings/{stream_id}` | Get live stream video streaming
 [**GetStreamings**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#GetStreamings) | **Get** `/live_streams/{id}/streamings` | Get live stream video streamings
 [**UpdateLiveStreamKey**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#UpdateLiveStreamKey) | **Put** `/live_streams/{id}` | Update live stream key
+[**UpdateLiveStreamVideo**](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/LiveStream.md#UpdateLiveStreamVideo) | **Put** `/live_streams/{id}/streamings` | Update live stream video
 
 
 #### Players
@@ -400,6 +401,7 @@ Method | HTTP request | Description
  - [UpdateLiveStreamKeyData](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyData.md)
  - [UpdateLiveStreamKeyRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyRequest.md)
  - [UpdateLiveStreamKeyResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamKeyResponse.md)
+ - [UpdateLiveStreamVideoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateLiveStreamVideoRequest.md)
  - [UpdatePlayerThemeRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdatePlayerThemeRequest.md)
  - [UpdatePlayerThemeResponse](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdatePlayerThemeResponse.md)
  - [UpdateVideoInfoRequest](https://github.com/AIOZNetwork/w3stream-go-client/blob/main/docs/UpdateVideoInfoRequest.md)

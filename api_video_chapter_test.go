@@ -11,7 +11,7 @@ import (
 
 var (
 	testLang              = "en"
-	testVideoIDForChapter = "fdcaf04d-db3d-41af-8d2a-42f272ed556b"
+	testVideoIDForChapter = "4746d73e-42f5-4853-b912-a28b97db6b31"
 	chapterContent        = `WEBVTT
 
 00:00:00.000 --> 00:01:00.000

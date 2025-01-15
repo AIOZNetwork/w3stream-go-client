@@ -1842,7 +1842,331 @@ paths:
       - live_stream
       x-client-action: createStreaming
       x-codegen-request-body-name: input
+    put:
+      description: Update live stream video for a specific live stream key
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLiveStreamVideoRequest'
+        description: data
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: ok
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Update live stream video
+      tags:
+      - live_stream
+      x-client-action: updateLiveStreamVideo
+      x-codegen-request-body-name: data
   /live_streams/{id}/streamings/{stream_id}:
+    delete:
+      description: Delete live stream are created by a specific live stream key
+      parameters:
+      - description: Live stream key ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Streaming ID
+        explode: false
+        in: path
+        name: stream_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSuccess'
+          description: ok
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Bad Request
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Forbidden
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Not Found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+          description: Internal Server Error
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of available requests left for the current time
+                window
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Retry-After:
+              description: The number of seconds left until the current rate limit
+                window resets
+              explode: false
+              schema:
+                type: integer
+              style: simple
+            X-RateLimit-Limit:
+              description: The request limit per minute
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      security:
+      - Bearer: []
+      - BasicAuth: []
+      summary: Delete live stream video
+      tags:
+      - live_stream
+      x-client-action: deleteStreaming
     get:
       description: Get live stream video streaming for a specific live stream key
       parameters:
@@ -2006,160 +2330,6 @@ paths:
       - live_stream
       x-client-action: getStreaming
   /live_streams/{id}/videos:
-    delete:
-      description: Delete a live stream video by ID
-      parameters:
-      - description: Live stream video ID
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseSuccess'
-          description: OK
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-          description: Bad Request
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-          description: Forbidden
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-          description: Not Found
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-          description: Internal Server Error
-          headers:
-            X-RateLimit-Remaining:
-              description: The number of available requests left for the current time
-                window
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Retry-After:
-              description: The number of seconds left until the current rate limit
-                window resets
-              explode: false
-              schema:
-                type: integer
-              style: simple
-            X-RateLimit-Limit:
-              description: The request limit per minute
-              explode: false
-              schema:
-                type: integer
-              style: simple
-      security:
-      - Bearer: []
-      - BasicAuth: []
-      summary: Delete live stream video
-      tags:
-      - live_stream
-      x-client-action: deleteLiveStreamVideo
     get:
       description: Get a specific live stream video by ID
       parameters:
@@ -13502,6 +13672,16 @@ components:
         data:
           $ref: '#/components/schemas/UpdateLiveStreamKeyData'
         status:
+          type: string
+      type: object
+    UpdateLiveStreamVideoRequest:
+      example:
+        save: true
+        title: title
+      properties:
+        save:
+          type: boolean
+        title:
           type: string
       type: object
     UpdatePlayerThemeRequest:

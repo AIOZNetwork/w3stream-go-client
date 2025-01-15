@@ -26,7 +26,8 @@ var (
 	testVideoID        string
 	title              = "Test Video"
 	description        = "Test Description"
-	testVideoCaptionID = "598b9aaa-f2dc-4622-9dfb-d1993a9c6165"
+	testVideoCaptionID = "4746d73e-42f5-4853-b912-a28b97db6b31"
+	deleteVideosLater  []string
 )
 
 func init() {
@@ -211,6 +212,7 @@ func TestVideoService_Create(t *testing.T) {
 				assert.NotNil(t, resp)
 				assert.NotEmpty(t, resp.Data.Id)
 				testVideoID = *resp.Data.Id
+				deleteVideosLater = append(deleteVideosLater, *resp.Data.Id)
 			}
 		})
 	}
@@ -1157,6 +1159,9 @@ func TestVideoService_Delete(t *testing.T) {
 				assert.NotNil(t, resp)
 			}
 		})
+	}
+	for _, id := range deleteVideosLater {
+		testClient.Video.Delete(id)
 	}
 }
 
